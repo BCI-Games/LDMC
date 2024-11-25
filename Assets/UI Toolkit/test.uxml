@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/DialogueScene.uss?fileID=7433441132597879392&amp;guid=9f46caab0b4d3b74084edad28a9628ff&amp;type=3#DialogueScene" />
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:GroupBox style="bottom: 0;">
+            <ui:Label text="Does this work?" />
+        </ui:GroupBox>
+        <ui:Button text="Button" />
+    </ui:VisualElement>
+</ui:UXML>
