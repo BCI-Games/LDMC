@@ -52,19 +52,6 @@ public class MonsterPresenter : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        GameObject collisionObject = collision.gameObject;
-        CaptureSpherePresenter sphere;
-        if (collisionObject.TryGetComponent<CaptureSpherePresenter>(out sphere))
-        {
-            if (sphere.HasHitMonster)
-                return;
-            BattleEventBus.NotifyMonsterHit();
-            TakeDamage();
-        }
-    }
-
     private void TakeDamage()
     {
         int damage = 1;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5565738816274864146}
   - component: {fileID: 4530136788256239983}
   - component: {fileID: 282550907658988861}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CaptureSphere
   m_TagString: Sphere
   m_Icon: {fileID: 0}
@@ -165,4 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b4ea637c131b24abc97116ca0ddc4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasHitMonster: 0
+  _inactiveLayer: 7
