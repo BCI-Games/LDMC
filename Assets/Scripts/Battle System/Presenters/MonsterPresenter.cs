@@ -30,6 +30,7 @@ public class MonsterPresenter : MonoBehaviour
 
     public void ShowNewMonster(MonsterData monsterData)
     {
+        transform.localPosition = Vector2.zero;
         _health = monsterData.BaseHP;
         _renderer.sprite = monsterData.FrontSprite;
         _currentMonsterData = monsterData;
@@ -57,6 +58,8 @@ public class MonsterPresenter : MonoBehaviour
         CaptureSpherePresenter sphere;
         if (collisionObject.TryGetComponent<CaptureSpherePresenter>(out sphere))
         {
+            if (sphere.HasHitMonster)
+                return;
             BattleEventBus.NotifyMonsterHit();
             TakeDamage();
         }
