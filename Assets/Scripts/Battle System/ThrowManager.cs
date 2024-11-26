@@ -18,8 +18,12 @@ public class ThrowManager : MonoBehaviour
 
     private void Start()
     {
+        BattleEventBus.MonsterAppeared += ResetInventory;
+
+        _numberOfSpheresRemaining = _sphereCount;
         _inventoryDisplay.BuildSphereIcons(_sphereCount);
     }
+    private void OnDestroy() => BattleEventBus.MonsterAppeared -= ResetInventory;
 
     public void Update()
     {
@@ -27,7 +31,7 @@ public class ThrowManager : MonoBehaviour
             ThrowSphere();
 
         if(Input.GetKeyDown(KeyCode.R))
-            Reset();
+            ResetInventory();
 
         if(Input.GetKeyDown(KeyCode.A))
             AutoThrow();
@@ -41,6 +45,7 @@ public class ThrowManager : MonoBehaviour
             _numberOfSpheresRemaining--;
             GameObject sphere = Instantiate(_spherePrefab, _spawnLocation);
             sphere.GetComponent<Rigidbody2D>().AddForce(_throwForce, ForceMode2D.Impulse);
+            BattleEventBus.NotifySphereThrown();
         }
         else
         {
@@ -49,7 +54,8 @@ public class ThrowManager : MonoBehaviour
     }
 
 
-    public void Reset()
+    public void ResetInventory(MonsterData monsterData) => ResetInventory();
+    public void ResetInventory()
     {
         _inventoryDisplay.ResetIcons();
         _numberOfSpheresRemaining = _sphereCount;
