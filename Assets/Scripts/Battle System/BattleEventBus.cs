@@ -1,6 +1,6 @@
 using System;
 
-public static class BattleEventBus: Object
+public static class BattleEventBus
 {
     public static event Action<MonsterData> MonsterAppeared;
     public static void NotifyMonsterAppeared(MonsterData monsterData)
