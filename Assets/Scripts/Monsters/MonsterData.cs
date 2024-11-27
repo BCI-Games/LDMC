@@ -18,6 +18,10 @@ public class MonsterData : ScriptableObject
     public int BaseHP;
     public int Rarity;
 
+    [Header("Feedback Attributes")]
+    [Range(0, 2)]
+    public float Bounciness = 1;
+
     
     public bool HasType(MonsterType type)
     {

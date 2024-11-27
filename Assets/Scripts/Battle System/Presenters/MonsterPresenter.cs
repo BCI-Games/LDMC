@@ -30,10 +30,11 @@ public class MonsterPresenter : MonoBehaviour
 
     public void ShowNewMonster(MonsterData monsterData)
     {
+        _currentMonsterData = monsterData;
         transform.localPosition = Vector2.zero;
         _health = monsterData.BaseHP;
         _renderer.sprite = monsterData.FrontSprite;
-        _currentMonsterData = monsterData;
+        _collider.sharedMaterial.bounciness = monsterData.Bounciness;
         UpdateCollisionShape(_renderer.sprite);
     }
 
