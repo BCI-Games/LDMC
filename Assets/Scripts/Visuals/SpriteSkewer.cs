@@ -20,7 +20,15 @@ public class SpriteSkewer: MonoBehaviour
         "LowerRight",
         "LowerLeft"
     };
-    
+
+    [SerializeField] private bool updateEveryFrame = true;
+
+    [Header("Corner Positions")]
+    [SerializeField] private Vector2 upperLeftCornerPosition;
+    [SerializeField] private Vector2 upperRightCornerPosition;
+    [SerializeField] private Vector2 lowerRightCornerPosition;
+    [SerializeField] private Vector2 lowerLeftCornerPosition;
+
     public SpriteRenderer Renderer{ get {
         if (!_renderer)
             _renderer = GetComponent<SpriteRenderer>();
@@ -28,9 +36,6 @@ public class SpriteSkewer: MonoBehaviour
     }}
     private SpriteRenderer _renderer;
     private Material _skewMaterial;
-
-    [SerializeField]
-    private Vector2[] _cornerPositions = new Vector2[4];
 
     private Vector2 _rendererSize;
     private Vector2 _normalizedPivot;
@@ -51,14 +56,16 @@ public class SpriteSkewer: MonoBehaviour
     {
         if (Renderer.size != _rendererSize)
             ResetCorners();
+        else if (updateEveryFrame)
+            ApplyAllCornerPositions();
     }
 
-    private void OnUndoRedo(in UndoRedoInfo info)
+    private void OnUndoRedo(in UndoRedoInfo info) => ApplyAllCornerPositions();
+    public void ApplyAllCornerPositions()
     {
         for (int i = 0; i < 4; i++)
             ApplyCornerPosition(i);
     }
-
 
     public void ResetCorners()
     {
@@ -68,17 +75,33 @@ public class SpriteSkewer: MonoBehaviour
             SetCornerPosition(i, GetUnscaledCornerPosition(i));
     }
 
-    public Vector2 GetCornerPosition(int index) => _cornerPositions[index];
+    public Vector2 GetCornerPosition(int index)
+    {
+        return new Vector2[]
+        {
+            upperLeftCornerPosition,
+            upperRightCornerPosition,
+            lowerRightCornerPosition,
+            lowerLeftCornerPosition
+        }
+        [index];
+    }
 
     public void SetCornerPosition(int index, Vector2 position)
     {
-        _cornerPositions[index] = position;
+        switch(index)
+        {
+            case 0: upperLeftCornerPosition = position; break;
+            case 1: upperRightCornerPosition = position; break;
+            case 2: lowerRightCornerPosition = position; break;
+            case 3: lowerLeftCornerPosition = position; break;
+        }
         ApplyCornerPosition(index);
     }
 
     private void ApplyCornerPosition(int index)
     {
-        Vector2 axisScale = _cornerPositions[index] / GetUnscaledCornerPosition(index);
+        Vector2 axisScale = GetCornerPosition(index) / GetUnscaledCornerPosition(index);
         _skewMaterial.SetVector("_" + CornerNames[index] + "AxisScale", axisScale);
     }
 
