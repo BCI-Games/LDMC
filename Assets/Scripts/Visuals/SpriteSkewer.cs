@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -37,6 +38,8 @@ public class SpriteSkewer: MonoBehaviour
 
     private void Start()
     {
+        Undo.undoRedoEvent += OnUndoRedo;
+        
         Renderer.drawMode = SpriteDrawMode.Sliced;
         _skewMaterial = new(Shader.Find("Shader Graphs/Sprite Skew"));
         Renderer.sharedMaterial = _skewMaterial;
@@ -50,12 +53,18 @@ public class SpriteSkewer: MonoBehaviour
             ResetCorners();
     }
 
+    private void OnUndoRedo(in UndoRedoInfo info)
+    {
+        for (int i = 0; i < 4; i++)
+            ApplyCornerPosition(i);
+    }
+
 
     public void ResetCorners()
     {
         _rendererSize = Renderer.size;
         _normalizedPivot = GetNormalizedPivot();
-        for (int i = 0; i < CornerPoints.Length; i++)
+        for (int i = 0; i < 4; i++)
             SetCornerPosition(i, GetUnscaledCornerPosition(i));
     }
 
@@ -64,7 +73,12 @@ public class SpriteSkewer: MonoBehaviour
     public void SetCornerPosition(int index, Vector2 position)
     {
         _cornerPositions[index] = position;
-        Vector2 axisScale = position / GetUnscaledCornerPosition(index);
+        ApplyCornerPosition(index);
+    }
+
+    private void ApplyCornerPosition(int index)
+    {
+        Vector2 axisScale = _cornerPositions[index] / GetUnscaledCornerPosition(index);
         _skewMaterial.SetVector("_" + CornerNames[index] + "AxisScale", axisScale);
     }
 
