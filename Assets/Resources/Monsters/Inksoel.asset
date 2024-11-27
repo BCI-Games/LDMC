@@ -19,3 +19,4 @@ MonoBehaviour:
   SecondaryType: 17
   BaseHP: 5
   Rarity: 3
+  Bounciness: 1.2
