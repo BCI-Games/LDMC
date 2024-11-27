@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,15 +16,23 @@ public class ThrowManager : MonoBehaviour
 
     private int _numberOfSpheresRemaining;
 
+    private bool _isAutoThrowing;
+    private Coroutine _autoThrowCoroutine;
+
 
     private void Start()
     {
         BattleEventBus.MonsterAppeared += ResetInventory;
+        BattleEventBus.MonsterCaptured += OnMonsterCaptured;
 
         _numberOfSpheresRemaining = _sphereCount;
         _inventoryDisplay.BuildSphereIcons(_sphereCount);
     }
-    private void OnDestroy() => BattleEventBus.MonsterAppeared -= ResetInventory;
+    private void OnDestroy()
+    {
+        BattleEventBus.MonsterAppeared -= ResetInventory;
+        BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
+    }
 
     public void Update()
     {
@@ -34,7 +43,7 @@ public class ThrowManager : MonoBehaviour
             ResetInventory();
 
         if(Input.GetKeyDown(KeyCode.A))
-            AutoThrow();
+            StartAutoThrow();
     }
     
 
@@ -61,17 +70,26 @@ public class ThrowManager : MonoBehaviour
         _numberOfSpheresRemaining = _sphereCount;
     }
 
-    public void AutoThrow()
+    public void StartAutoThrow()
     {
-        StartCoroutine(AutoThrowCoroutine());
+        StopAutoThrow();
+        _autoThrowCoroutine = StartCoroutine(RunAutoThrow());
     }
 
-    private IEnumerator AutoThrowCoroutine()
+    private void OnMonsterCaptured(MonsterData monsterData) => StopAutoThrow();
+    public void StopAutoThrow()
     {
+        if (_isAutoThrowing) StopCoroutine(_autoThrowCoroutine);
+    }
+
+    private IEnumerator RunAutoThrow()
+    {
+        _isAutoThrowing = true;
         while(_numberOfSpheresRemaining > 0)
         {
             ThrowSphere();
             yield return new WaitForSeconds(_autoThrowDelay);
         }
+        _isAutoThrowing = false;
     }
 }
