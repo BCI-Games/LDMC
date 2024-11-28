@@ -10,16 +10,8 @@ public class SphereInventoryDisplay : MonoBehaviour
     private int _currentSphereIndex = 0;
 
 
-    private void Start()
-    {
-        BattleEventBus.SphereThrown += DecreaseIconCount;
-        BattleEventBus.MonsterAppeared += OnMonsterAppeared;
-    }
-    private void OnDestroy()
-    {
-        BattleEventBus.SphereThrown -= DecreaseIconCount;
-        BattleEventBus.MonsterAppeared -= OnMonsterAppeared;
-    }
+    private void Start() => BattleEventBus.SphereThrown += DecreaseIconCount;
+    private void OnDestroy() => BattleEventBus.SphereThrown -= DecreaseIconCount;
 
 
     public void BuildSphereIcons(int sphereCount)
@@ -47,7 +39,6 @@ public class SphereInventoryDisplay : MonoBehaviour
         _currentSphereIndex = 0;
     }
 
-    public void OnMonsterAppeared(MonsterData monsterData) => ResetIcons();
     public void ResetIcons()
     {
         foreach (GameObject item in _sphereIcons)
@@ -56,7 +47,6 @@ public class SphereInventoryDisplay : MonoBehaviour
         }
         _currentSphereIndex = 0;
     }
-
 
     private void DecreaseIconCount()
     {

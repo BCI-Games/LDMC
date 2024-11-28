@@ -22,16 +22,16 @@ public class ThrowManager : MonoBehaviour
 
     private void Start()
     {
-        BattleEventBus.MonsterAppeared += ResetInventory;
-        BattleEventBus.MonsterCaptured += OnMonsterCaptured;
+        BattleEventBus.PlayerTurnStarted += ResetInventory;
+        BattleEventBus.OpponentTurnStarted += ResetInventory;
 
         _numberOfSpheresRemaining = _sphereCount;
         _inventoryDisplay.BuildSphereIcons(_sphereCount);
     }
     private void OnDestroy()
     {
-        BattleEventBus.MonsterAppeared -= ResetInventory;
-        BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
+        BattleEventBus.PlayerTurnStarted -= ResetInventory;
+        BattleEventBus.OpponentTurnStarted -= ResetInventory;
     }
 
     public void Update()
@@ -54,7 +54,10 @@ public class ThrowManager : MonoBehaviour
             _numberOfSpheresRemaining--;
             GameObject sphere = Instantiate(_spherePrefab, _spawnLocation);
             sphere.GetComponent<Rigidbody2D>().AddForce(_throwForce, ForceMode2D.Impulse);
+
             BattleEventBus.NotifySphereThrown();
+            if (_numberOfSpheresRemaining == 0)
+                BattleEventBus.NotifyLastSphereThrown();
         }
         else
         {
@@ -76,7 +79,7 @@ public class ThrowManager : MonoBehaviour
         _autoThrowCoroutine = StartCoroutine(RunAutoThrow());
     }
 
-    private void OnMonsterCaptured(MonsterData monsterData) => StopAutoThrow();
+    private void OnMonsterHealthDepleted(MonsterData monsterData) => StopAutoThrow();
     public void StopAutoThrow()
     {
         if (_isAutoThrowing) StopCoroutine(_autoThrowCoroutine);
