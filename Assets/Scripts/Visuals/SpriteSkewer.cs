@@ -100,15 +100,16 @@ public class SpriteSkewer: MonoBehaviour
     public Vector2 GetHandlePosition(int index)
     {
         Vector2 normalizedCornerPosition = GetCornerPosition(index);
-        Vector2 worldPosition = transform.TransformPoint(normalizedCornerPosition);
-        return worldPosition * Renderer.size / 2;
+        Vector2 scaledPosition = normalizedCornerPosition * Renderer.size / 2;
+        Vector2 worldPosition = transform.TransformPoint(scaledPosition);
+        return worldPosition;
     }
 
     public void SetCornerPositionFromHandle(int index, Vector2 handlePosition)
     {
-        Vector2 unscaledPosition = 2 * handlePosition / Renderer.size;
-        Vector2 localPosition = transform.InverseTransformPoint(unscaledPosition);
-        SetCornerPosition(index, localPosition);
+        Vector2 localPosition = transform.InverseTransformPoint(handlePosition);
+        Vector2 normalizedPosition = 2 * localPosition / Renderer.size;
+        SetCornerPosition(index, normalizedPosition);
     }
 
 
