@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class SpriteSkewer: MonoBehaviour
 {
-    static readonly Vector2[] CornerPoints =
+    static readonly Vector2[] DefaultCornerPoints =
     {
         new(-1, 1),
         new(1, 1),
@@ -23,7 +23,7 @@ public class SpriteSkewer: MonoBehaviour
 
     [SerializeField] private bool updateEveryFrame = true;
 
-    [Header("Corner Positions")]
+    [Header("Normalized Corner Positions")]
     [SerializeField] private Vector2 upperLeftCornerPosition;
     [SerializeField] private Vector2 upperRightCornerPosition;
     [SerializeField] private Vector2 lowerRightCornerPosition;
@@ -36,9 +36,7 @@ public class SpriteSkewer: MonoBehaviour
     }}
     private SpriteRenderer _renderer;
     private Material _skewMaterial;
-
     private Vector2 _rendererSize;
-    private Vector2 _normalizedPivot;
 
 
     private void Start()
@@ -70,9 +68,8 @@ public class SpriteSkewer: MonoBehaviour
     public void ResetCorners()
     {
         _rendererSize = Renderer.size;
-        _normalizedPivot = GetNormalizedPivot();
         for (int i = 0; i < 4; i++)
-            SetCornerPosition(i, GetUnscaledCornerPosition(i));
+            SetCornerPosition(i, DefaultCornerPoints[i]);
     }
 
     public Vector2 GetCornerPosition(int index)
@@ -99,26 +96,25 @@ public class SpriteSkewer: MonoBehaviour
         ApplyCornerPosition(index);
     }
 
+
+    public Vector2 GetHandlePosition(int index)
+    {
+        Vector2 normalizedCornerPosition = GetCornerPosition(index);
+        Vector2 worldPosition = transform.TransformPoint(normalizedCornerPosition);
+        return worldPosition * Renderer.size / 2;
+    }
+
+    public void SetCornerPositionFromHandle(int index, Vector2 handlePosition)
+    {
+        Vector2 unscaledPosition = 2 * handlePosition / Renderer.size;
+        Vector2 localPosition = transform.InverseTransformPoint(unscaledPosition);
+        SetCornerPosition(index, localPosition);
+    }
+
+
     private void ApplyCornerPosition(int index)
     {
-        Vector2 axisScale = GetCornerPosition(index) / GetUnscaledCornerPosition(index);
+        Vector2 axisScale = GetCornerPosition(index) / DefaultCornerPoints[index];
         _skewMaterial.SetVector("_" + CornerNames[index] + "AxisScale", axisScale);
-    }
-
-    private Vector2 GetUnscaledCornerPosition(int cornerIndex)
-    {
-        Vector2 cornerOffset = CornerPoints[cornerIndex] - _normalizedPivot;
-        return cornerOffset * _rendererSize / 2;
-    }
-
-    private Vector2 GetNormalizedPivot()
-    {
-        if (Renderer.sprite)
-        {
-            Vector2 pivot = Renderer.sprite.pivot;
-            Vector2 spriteSize = Renderer.sprite.rect.size;
-            return 2 * (pivot / spriteSize) - Vector2.one;
-        }
-        return Vector2.one / 2;
     }
 }

@@ -173,10 +173,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateEveryFrame: 1
-  upperLeftCornerPosition: {x: -2, y: 2}
-  upperRightCornerPosition: {x: 2, y: 2}
-  lowerRightCornerPosition: {x: 2, y: -2}
-  lowerLeftCornerPosition: {x: -2, y: -2}
+  upperLeftCornerPosition: {x: -1, y: 1}
+  upperRightCornerPosition: {x: 1, y: 1}
+  lowerRightCornerPosition: {x: 1, y: -1}
+  lowerLeftCornerPosition: {x: -1, y: -1}
 --- !u!212 &445113913
 SpriteRenderer:
   m_ObjectHideFlags: 0

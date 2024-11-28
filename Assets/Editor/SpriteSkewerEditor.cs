@@ -11,14 +11,12 @@ public class SpriteSkewerEditor: Editor
         for (int i = 0; i < 4; i++)
         {
             EditorGUI.BeginChangeCheck();
-            Vector2 cornerPosition = skewer.GetCornerPosition(i);
-            cornerPosition += (Vector2)skewer.transform.position;
-            cornerPosition = Handles.PositionHandle(cornerPosition, Quaternion.identity);
+            Vector2 handlePosition = skewer.GetHandlePosition(i);
+            handlePosition = Handles.PositionHandle(handlePosition, Quaternion.identity);
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(skewer, "Change Position Of Corner " + i);
-                cornerPosition -= (Vector2)skewer.transform.position;
-                skewer.SetCornerPosition(i, cornerPosition);
+                skewer.SetCornerPositionFromHandle(i, handlePosition);
             }
         }
     }
