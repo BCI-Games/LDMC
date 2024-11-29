@@ -64,7 +64,7 @@ public abstract class ITweener: MonoBehaviour
         Func<float, float> interpolationMethod = GetInterpolationMethod(transition, easing);
         return (float t) => {
             float interpolatedWeight = interpolationMethod(t);
-            TValue interpolatedValue = Lerp(startValue, finalValue, interpolatedWeight);
+            TValue interpolatedValue = Lerp((dynamic)startValue, (dynamic)finalValue, interpolatedWeight);
             callbackMethod(interpolatedValue);
         };
     }
