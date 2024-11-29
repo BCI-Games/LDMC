@@ -7,8 +7,8 @@ public abstract class Tweener: Easer
     protected Coroutine StartPositionTween(Transform target, Vector2 finalPosition, float period,
         TransitionType transition = TransitionType.Linear, EaseType easing = EaseType.EaseInOut)
     {
-        Vector2 initialPosition = target.position;
-        Action<Vector2> callbackMethod = (Vector2 tweenedPosition) => target.position = tweenedPosition;
+        Vector2 initialPosition = target.localPosition;
+        Action<Vector2> callbackMethod = (Vector2 tweenedPosition) => target.localPosition = tweenedPosition;
 
         return StartTween(initialPosition, finalPosition, callbackMethod, period, transition, easing);
     }
