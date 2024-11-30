@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 9104926599312765304}
   _opponentTransform: {fileID: 5564581188457260640}
-  _inactiveOffset: {x: -10, y: -1}
+  _inactiveOffset: {x: -8, y: -1}
   _tweenPeriod: 0.5
   _swapTransition: 4
   _swapEasing: 0
