@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7475384258639769357}
-  - component: {fileID: 8032051651444395448}
+  - component: {fileID: 5662676922644908081}
   m_Layer: 0
   m_Name: ThrowManager
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 596351289269812487}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8032051651444395448
+--- !u!114 &5662676922644908081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,15 +43,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 473676243247923154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5f3fe53577f1964c98cd792e70e3518, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bece7eddbe1f44468452e3eeecee125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sphereCount: 5
   _throwForce: {x: 15, y: 20}
-  _autoThrowDelay: 1
   _inventoryDisplay: {fileID: 0}
   _spawnLocation: {fileID: 596351289269812487}
   _spherePrefab: {fileID: 8854408415455498323, guid: 400d525a207dd88438e48d26699c48bc, type: 3}
+  _autoThrowDelay: 1
 --- !u!1 &6154378362858200676
 GameObject:
   m_ObjectHideFlags: 0
