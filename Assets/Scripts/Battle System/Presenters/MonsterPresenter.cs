@@ -9,6 +9,7 @@ public class MonsterPresenter : MonoBehaviour
 
     private SpriteRenderer _renderer;
     private PolygonCollider2D _collider;
+    private Animator _animator;
     private MonsterData _currentMonsterData;
 
 
@@ -19,6 +20,7 @@ public class MonsterPresenter : MonoBehaviour
 
         _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<PolygonCollider2D>();
+        _animator = GetComponent<Animator>();
     }
 
     private void OnDestroy()
@@ -58,6 +60,14 @@ public class MonsterPresenter : MonoBehaviour
         int damage = 1;
         _health -= damage;
         if(Catchable)
+            _animator.SetTrigger("Capture");
+        else
+            _animator.SetTrigger("Recoil");
+    }
+
+    private void _OnCaptureAnimationFinished()
+    {
+        if (Catchable)
             BattleEventBus.NotifyMonsterCaptured(_currentMonsterData);
     }
 }
