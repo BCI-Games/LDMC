@@ -13,6 +13,9 @@ public abstract class Tweener: Easer
         return StartTween(initialPosition, finalPosition, callbackMethod, period, transition, easing);
     }
 
+    protected Coroutine StartScaleTween(Transform target, float finalScale, float period,
+        TransitionType transition = TransitionType.Linear, EaseType easing = EaseType.EaseInOut)
+        => StartScaleTween(target, Vector2.one * finalScale, period, transition, easing);
     protected Coroutine StartScaleTween(Transform target, Vector2 finalScale, float period,
         TransitionType transition = TransitionType.Linear, EaseType easing = EaseType.EaseInOut)
     {
@@ -22,6 +25,9 @@ public abstract class Tweener: Easer
         return StartTween(initialScale, finalScale, callbackMethod, period, transition, easing);
     }
 
+    protected Coroutine StartRotationTween(Transform target, float finalRotation, float period,
+        TransitionType transition = TransitionType.Linear, EaseType easing = EaseType.EaseInOut)
+        => StartRotationTween(target, Quaternion.Euler(new(0, 0, finalRotation)), period, transition, easing);
     protected Coroutine StartRotationTween(Transform target, Quaternion finalRotation, float period,
         TransitionType transition = TransitionType.Linear, EaseType easing = EaseType.EaseInOut)
     {

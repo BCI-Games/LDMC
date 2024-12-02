@@ -12,8 +12,7 @@ public class ThrowManager : MonoBehaviour
     [SerializeField] private SphereInventoryDisplay _inventoryDisplay;
     [SerializeField] private Transform _spawnLocation;
     [SerializeField] private GameObject _spherePrefab;
-    [SerializeField] private SpriteRenderer _chargeIndicator;
-    [SerializeField] private AnimationCurve _chargeIndicatorFillCurve;
+    [SerializeField] private ChargeRingDisplay _chargeDisplay;
 
     protected int _numberOfSpheresRemaining;
 
@@ -22,11 +21,7 @@ public class ThrowManager : MonoBehaviour
         get => _chargeLevel;
         set {
             _chargeLevel = value;
-            if (_chargeIndicator && _chargeIndicatorFillCurve != null)
-            {
-                float fillAmount = _chargeIndicatorFillCurve.Evaluate(value);
-                _chargeIndicator.material.SetFloat("_FillAmount", fillAmount);
-            }
+            if (_chargeDisplay) _chargeDisplay.ChargeLevel = _chargeLevel;
         }
     }
     private float _chargeLevel;
