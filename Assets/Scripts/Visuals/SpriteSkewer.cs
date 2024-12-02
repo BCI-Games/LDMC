@@ -29,12 +29,17 @@ public class SpriteSkewer: MonoBehaviour
     [SerializeField] private Vector2 lowerRightCornerPosition;
     [SerializeField] private Vector2 lowerLeftCornerPosition;
 
-    public SpriteRenderer Renderer{ get {
+    private SpriteRenderer Renderer{ get {
         if (!_renderer)
             _renderer = GetComponent<SpriteRenderer>();
         return _renderer;
     }}
     private SpriteRenderer _renderer;
+    private Material SkewMaterial { get {
+        if (!_skewMaterial)
+            CreateAndAssignSkewMaterial();
+        return _skewMaterial;
+    }}
     private Material _skewMaterial;
     private Vector2 _rendererSize;
 
@@ -44,8 +49,7 @@ public class SpriteSkewer: MonoBehaviour
         Undo.undoRedoEvent += OnUndoRedo;
         
         Renderer.drawMode = SpriteDrawMode.Sliced;
-        _skewMaterial = new(Shader.Find("Shader Graphs/Sprite Skew"));
-        Renderer.sharedMaterial = _skewMaterial;
+        CreateAndAssignSkewMaterial();
 
         ResetCorners();
     }
@@ -116,6 +120,12 @@ public class SpriteSkewer: MonoBehaviour
     private void ApplyCornerPosition(int index)
     {
         Vector2 axisScale = GetCornerPosition(index) / DefaultCornerPoints[index];
-        _skewMaterial.SetVector("_" + CornerNames[index] + "AxisScale", axisScale);
+        SkewMaterial.SetVector("_" + CornerNames[index] + "AxisScale", axisScale);
+    }
+
+    private void CreateAndAssignSkewMaterial()
+    {
+        _skewMaterial = new(Shader.Find("Shader Graphs/Sprite Skew"));
+        Renderer.sharedMaterial = _skewMaterial;
     }
 }
