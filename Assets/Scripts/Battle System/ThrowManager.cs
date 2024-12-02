@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class ThrowManager : MonoBehaviour
@@ -7,13 +6,30 @@ public class ThrowManager : MonoBehaviour
     [Range(1, 5)]
     [SerializeField] private int _sphereCount = 5;
     [SerializeField] private Vector2 _throwForce = new(15, 20);
+    [SerializeField] protected float _chargePeriod = 0.5f;
 
     [Header("References")]
     [SerializeField] private SphereInventoryDisplay _inventoryDisplay;
     [SerializeField] private Transform _spawnLocation;
     [SerializeField] private GameObject _spherePrefab;
+    [SerializeField] private SpriteRenderer _chargeIndicator;
+    [SerializeField] private AnimationCurve _chargeIndicatorFillCurve;
 
     protected int _numberOfSpheresRemaining;
+
+    protected bool IsCharging => _chargeLevel > 0;
+    protected float ChargeLevel {
+        get => _chargeLevel;
+        set {
+            _chargeLevel = value;
+            if (_chargeIndicator && _chargeIndicatorFillCurve != null)
+            {
+                float fillAmount = _chargeIndicatorFillCurve.Evaluate(value);
+                _chargeIndicator.material.SetFloat("_FillAmount", fillAmount);
+            }
+        }
+    }
+    private float _chargeLevel;
 
 
     protected virtual void Start()
@@ -23,6 +39,7 @@ public class ThrowManager : MonoBehaviour
 
         _numberOfSpheresRemaining = _sphereCount;
         _inventoryDisplay.BuildSphereIcons(_sphereCount);
+        ChargeLevel = 0;
     }
     protected virtual void OnDestroy()
     {
@@ -32,9 +49,22 @@ public class ThrowManager : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-            ThrowSphere();
+        if (IsCharging)
+        {
+            if(Input.GetKeyUp(KeyCode.Space))
+            {
+                if(ChargeLevel >= 1)
+                    ThrowSphere();
+                ChargeLevel = 0;
+            }
+            else
+                AddFrameTimeToChargeLevel();
+        }
+        else if(Input.GetKeyDown(KeyCode.Space))
+            AddFrameTimeToChargeLevel();
     }
+
+    protected void AddFrameTimeToChargeLevel() => ChargeLevel += Time.deltaTime / _chargePeriod;
     
 
     public void ThrowSphere()
