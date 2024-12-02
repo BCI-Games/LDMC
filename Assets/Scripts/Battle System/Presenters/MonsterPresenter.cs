@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer),typeof(Rigidbody2D),typeof(PolygonCollider2D))]
 public class MonsterPresenter : MonoBehaviour
 {
+    [SerializeField] private PhysicsMaterial2D _basePhysicsMaterial;
+
     public bool Catchable => _health <= 0;
     private int _health;
 
@@ -21,6 +23,8 @@ public class MonsterPresenter : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<PolygonCollider2D>();
         _animator = GetComponent<Animator>();
+
+        _collider.sharedMaterial = Instantiate(_basePhysicsMaterial);
     }
 
     private void OnDestroy()
