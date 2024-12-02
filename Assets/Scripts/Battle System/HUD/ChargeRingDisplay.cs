@@ -4,11 +4,17 @@ public class ChargeRingDisplay: Tweener
 {
     [SerializeField] private AnimationCurve _fillCurve;
     [SerializeField] private float _chargingScale = 0.75f;
+    [SerializeField] private float _fullyChargedScale = 0.5f;
 
     [Header("Start Charging Tween")]
-    [SerializeField] private float _chargeTweenPeriod = 0.2f;
-    [SerializeField] private TransitionType _chargeTweenTransition = TransitionType.Back;
-    [SerializeField] private EaseType _chargeTweenEasing = EaseType.EaseOut;
+    [SerializeField] private float _startedChargingPeriod = 0.2f;
+    [SerializeField] private TransitionType _startedChargingTransition = TransitionType.Back;
+    [SerializeField] private EaseType _startedChargingEasing = EaseType.EaseOut;
+
+    [Header("Finish Charging Tween")]
+    [SerializeField] private float _fullyChargedTweenPeriod = 0.2f;
+    [SerializeField] private TransitionType _fullyChargedTweenTransition = TransitionType.Back;
+    [SerializeField] private EaseType _fullyChargedTweenEasing = EaseType.EaseOut;
 
     [Header("Throw Tween")]
     [SerializeField] private float _throwTweenPeriod = 0.6f;
@@ -40,9 +46,13 @@ public class ChargeRingDisplay: Tweener
 
     private void SetChargeLevel(float value)
     {
-        if (value > 0 && _chargeLevel <= 0)
+        if (value >= 1 && _chargeLevel < 1)
         {
-            StartScaleTween(_chargingScale, _chargeTweenPeriod, _chargeTweenTransition, _chargeTweenEasing);
+            StartScaleTween(_fullyChargedScale, _fullyChargedTweenPeriod, _fullyChargedTweenTransition, _fullyChargedTweenEasing);
+        }
+        else if (value > 0 && _chargeLevel <= 0)
+        {
+            StartScaleTween(_chargingScale, _startedChargingPeriod, _startedChargingTransition, _startedChargingEasing);
         }
         else if (value == 0)
         {
