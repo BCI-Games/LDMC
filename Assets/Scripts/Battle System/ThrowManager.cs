@@ -22,6 +22,7 @@ public class ThrowManager : MonoBehaviour
         set {
             _chargeLevel = value;
             if (_chargeDisplay) _chargeDisplay.ChargeLevel = _chargeLevel;
+            CharacterPresenter.ThrowChargeLevel = _chargeLevel;
         }
     }
     private float _chargeLevel;

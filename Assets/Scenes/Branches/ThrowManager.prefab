@@ -169,7 +169,7 @@ Transform:
   m_GameObject: {fileID: 4001810730068272811}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: -2.5, z: 0}
+  m_LocalPosition: {x: -7, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -268,9 +268,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _chargingScale: 0.75
-  _chargeTweenPeriod: 0.2
-  _chargeTweenTransition: 4
-  _chargeTweenEasing: 0
+  _fullyChargedScale: 0.5
+  _startedChargingPeriod: 0.2
+  _startedChargingTransition: 4
+  _startedChargingEasing: 0
+  _fullyChargedTweenPeriod: 0.2
+  _fullyChargedTweenTransition: 4
+  _fullyChargedTweenEasing: 0
   _throwTweenPeriod: 0.6
   _throwTweenTransition: 5
   _throwTweenEasing: 0

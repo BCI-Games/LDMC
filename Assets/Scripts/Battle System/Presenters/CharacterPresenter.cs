@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class CharacterPresenter: Tweener
 {
+    public static float ThrowChargeLevel {
+        set {
+            if (CurrentCharacterAnimator)
+                CurrentCharacterAnimator.SetFloat("Charge Level", value);
+        }
+    }
+    protected static Animator CurrentCharacterAnimator;
+
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private Transform _opponentTransform;
 
@@ -21,12 +29,14 @@ public class CharacterPresenter: Tweener
 
         BattleEventBus.PlayerTurnStarted += SwapPlayerIn;
         BattleEventBus.OpponentTurnStarted += SwapOpponentIn;
+        BattleEventBus.SphereThrown += PlayThrowAnimation;
     }
 
     private void OnDestroy()
     {
         BattleEventBus.PlayerTurnStarted -= SwapPlayerIn;
         BattleEventBus.OpponentTurnStarted -= SwapOpponentIn;
+        BattleEventBus.SphereThrown -= PlayThrowAnimation;
     }
 
 
@@ -35,7 +45,14 @@ public class CharacterPresenter: Tweener
 
     private void StartSwapTween(Transform activeCharacter, Transform inactiveCharacter)
     {
+        CurrentCharacterAnimator = activeCharacter.GetComponent<Animator>();
         StartPositionTween(activeCharacter, Vector2.zero, _tweenPeriod, _swapTransition, _swapEasing);
         StartPositionTween(inactiveCharacter, _inactiveOffset, _tweenPeriod, _swapTransition, _swapEasing);
+    }
+
+
+    private void PlayThrowAnimation()
+    {
+        CurrentCharacterAnimator.SetTrigger("Throw");
     }
 }
