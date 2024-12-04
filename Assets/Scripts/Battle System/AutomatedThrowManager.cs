@@ -3,34 +3,23 @@ using System.Collections;
 
 public class AutomatedThrowManager: ThrowManager
 {
-    [SerializeField] private float _autoThrowDelay = 1;
+    [SerializeField] private bool _autoPlay = true;
+    [SerializeField] private float _throwDelay = 0.5f;
 
-    private bool _isAutoThrowing;
+    private bool _isThrowing;
     private Coroutine _autoThrowCoroutine;
 
 
     protected override void Start()
     {
         base.Start();
-        BattleEventBus.PlayerTurnStarted += StopAutoThrow;
-        BattleEventBus.OpponentTurnStarted += StopAutoThrow;
-    }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-        BattleEventBus.PlayerTurnStarted -= StopAutoThrow;
-        BattleEventBus.OpponentTurnStarted -= StopAutoThrow;
+        if (_autoPlay) StartAutoThrow();
     }
 
     protected override void Update()
     {
-        base.Update();
-        if(Input.GetKeyDown(KeyCode.R))
-            ResetInventory();
-
         if(Input.GetKeyDown(KeyCode.A))
-            StartAutoThrow();
+            if(_isThrowing) StopAutoThrow(); else StartAutoThrow();
     }
 
 
@@ -42,17 +31,24 @@ public class AutomatedThrowManager: ThrowManager
 
     public void StopAutoThrow()
     {
-        if (_isAutoThrowing) StopCoroutine(_autoThrowCoroutine);
+        if (_isThrowing)
+        {
+            StopCoroutine(_autoThrowCoroutine);
+            _isThrowing = false;
+            ChargeLevel = 0;
+        }
     }
 
     private IEnumerator RunAutoThrow()
     {
-        _isAutoThrowing = true;
+        _isThrowing = true;
         while(_numberOfSpheresRemaining > 0)
         {
             ThrowSphere();
-            yield return new WaitForSeconds(_autoThrowDelay);
+            yield return new WaitForSeconds(_throwDelay);
+            ChargeLevel = 1;
+            yield return new WaitForSeconds(_chargePeriod);
         }
-        _isAutoThrowing = false;
+        _isThrowing = false;
     }
 }
