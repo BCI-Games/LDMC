@@ -9,10 +9,8 @@ public class ThrowManager : MonoBehaviour
     [SerializeField] protected float _chargePeriod = 0.5f;
 
     [Header("References")]
-    [SerializeField] private SphereInventoryDisplay _inventoryDisplay;
     [SerializeField] private Transform _spawnLocation;
     [SerializeField] private GameObject _spherePrefab;
-    [SerializeField] private ChargeRingDisplay _chargeDisplay;
 
     protected int _numberOfSpheresRemaining;
 
@@ -21,7 +19,6 @@ public class ThrowManager : MonoBehaviour
         get => _chargeLevel;
         set {
             _chargeLevel = value;
-            if (_chargeDisplay) _chargeDisplay.ChargeLevel = _chargeLevel;
             CharacterPresenter.ThrowChargeLevel = _chargeLevel;
         }
     }
@@ -34,7 +31,6 @@ public class ThrowManager : MonoBehaviour
         BattleEventBus.OpponentTurnStarted += ResetInventory;
 
         _numberOfSpheresRemaining = _sphereCount;
-        _inventoryDisplay.BuildSphereIcons(_sphereCount);
         ChargeLevel = 0;
     }
     protected virtual void OnDestroy()
@@ -83,7 +79,6 @@ public class ThrowManager : MonoBehaviour
 
     public void ResetInventory()
     {
-        _inventoryDisplay.ResetIcons();
         _numberOfSpheresRemaining = _sphereCount;
     }
 }
