@@ -64,14 +64,16 @@ public class MonsterPresenter : MonoBehaviour
         int damage = 1;
         _health -= damage;
         if(Catchable)
+        {
             _animator.SetTrigger("Capture");
+            _health = 1000;
+        }
         else
             _animator.SetTrigger("Recoil");
     }
 
     private void _OnCaptureAnimationFinished()
     {
-        if (Catchable)
-            BattleEventBus.NotifyMonsterCaptured(_currentMonsterData);
+        BattleEventBus.NotifyMonsterCaptured(_currentMonsterData);
     }
 }
