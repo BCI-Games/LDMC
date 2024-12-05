@@ -47,7 +47,8 @@ public class SpriteSkewer: MonoBehaviour
     private void Start()
     {
         Undo.undoRedoEvent += OnUndoRedo;
-        Settings.AddAndInvokeModificationCallback(OnSettingsModified);
+        if (Application.IsPlaying(this))
+            Settings.AddAndInvokeModificationCallback(OnSettingsModified);
         
         Renderer.drawMode = SpriteDrawMode.Sliced;
         CreateAndAssignSkewMaterial();
