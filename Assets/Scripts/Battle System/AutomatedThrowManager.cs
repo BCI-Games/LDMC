@@ -3,7 +3,6 @@ using System.Collections;
 
 public class AutomatedThrowManager: ThrowManager
 {
-    [SerializeField] private bool _autoPlay = true;
     [SerializeField] private float _throwDelay = 0.5f;
 
     private bool _isThrowing;
@@ -13,7 +12,12 @@ public class AutomatedThrowManager: ThrowManager
     protected override void Start()
     {
         base.Start();
-        if (_autoPlay) StartAutoThrow();
+        BattleEventBus.ActiveBlockStarted += StartAutoThrow;
+    }
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        BattleEventBus.ActiveBlockStarted -= StartAutoThrow;
     }
 
     protected override void Update()
@@ -35,7 +39,8 @@ public class AutomatedThrowManager: ThrowManager
         {
             StopCoroutine(_autoThrowCoroutine);
             _isThrowing = false;
-            ChargeLevel = 0;
+            if (IsCharging) BattleEventBus.NotifyWindupCancelled();
+            _chargeLevel = 0;
         }
     }
 
@@ -45,9 +50,14 @@ public class AutomatedThrowManager: ThrowManager
         while(_numberOfSpheresRemaining > 0)
         {
             ThrowSphere();
+            _chargeLevel = 0;
             yield return new WaitForSeconds(_throwDelay);
-            ChargeLevel = 1;
-            yield return new WaitForSeconds(_chargePeriod);
+            BattleEventBus.NotifyWindupStarted();
+            while (_chargeLevel < 1)
+            {
+                AddFrameTimeToChargeLevel();
+                yield return new WaitForEndOfFrame();
+            }
         }
         _isThrowing = false;
     }

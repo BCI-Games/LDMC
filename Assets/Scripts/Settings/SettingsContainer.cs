@@ -5,6 +5,9 @@ public enum SphereAnimationType {Physics, Interpolated, Discrete}
 [Serializable]
 public class SettingsContainer
 {
+    public float IdleBlockDuration = 20;
+    public float ActiveBlockDuration = 12;
+
     public float MasterVolume = 1.0f;
     public float MusicVolume = 1.0f;
     public float SfxVolume = 1.0f;

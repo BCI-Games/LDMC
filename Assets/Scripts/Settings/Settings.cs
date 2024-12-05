@@ -19,70 +19,80 @@ public static class Settings
     }
 
 
+    public static float IdleBlockDuration {
+        get => Container.IdleBlockDuration;
+        set { Container.IdleBlockDuration = value; ApplyModifiedValue(); }
+    }
+
+    public static float ActiveBlockDuration {
+        get => Container.ActiveBlockDuration;
+        set { Container.ActiveBlockDuration = value; ApplyModifiedValue(); }
+    }
+
     public static float MasterVolume {
         get => Container.MasterVolume;
-        set { Container.MasterVolume = value; OnValueModified(); }
+        set { Container.MasterVolume = value; ApplyModifiedValue(); }
     }
     public static float MusicVolume {
         get => Container.MusicVolume;
-        set { Container.MusicVolume = value; OnValueModified(); }
+        set { Container.MusicVolume = value; ApplyModifiedValue(); }
     }
     public static float SfxVolume {
         get => Container.SfxVolume;
-        set { Container.SfxVolume = value; OnValueModified(); }
+        set { Container.SfxVolume = value; ApplyModifiedValue(); }
     }
     public static int MusicTrackIndex {
         get => Container.MusicTrackIndex;
-        set { Container.MusicTrackIndex = value; OnValueModified(); }
+        set { Container.MusicTrackIndex = value; ApplyModifiedValue(); }
     }
     
     public static float CharacterReadyDuration {
         get => Container.CharacterAnimationTiming.Ready;
-        set { Container.CharacterAnimationTiming.Ready = value; OnValueModified(); }
+        set { Container.CharacterAnimationTiming.Ready = value; ApplyModifiedValue(); }
     }
     public static float CharacterActiveDuration {
         get => Container.CharacterAnimationTiming.Active;
-        set { Container.CharacterAnimationTiming.Active = value; OnValueModified(); }
+        set { Container.CharacterAnimationTiming.Active = value; ApplyModifiedValue(); }
     }
     public static float CharacterReleaseDuration {
         get => Container.CharacterAnimationTiming.Release;
-        set { Container.CharacterAnimationTiming.Release = value; OnValueModified(); }
+        set { Container.CharacterAnimationTiming.Release = value; ApplyModifiedValue(); }
     }
     public static float CharacterIdleDuration {
         get => Container.CharacterAnimationTiming.Idle;
-        set { Container.CharacterAnimationTiming.Idle = value; OnValueModified(); }
+        set { Container.CharacterAnimationTiming.Idle = value; ApplyModifiedValue(); }
     }
 
     public static bool SpriteAnimationEnabled {
         get => Container.SpriteAnimationEnabled;
-        set { Container.SpriteAnimationEnabled = value; OnValueModified(); }
+        set { Container.SpriteAnimationEnabled = value; ApplyModifiedValue(); }
     }
     public static bool MeshAnimationEnabled {
         get => SpriteAnimationEnabled && Container.MeshAnimationEnabled;
-        set { Container.MeshAnimationEnabled = value; OnValueModified(); }
+        set { Container.MeshAnimationEnabled = value; ApplyModifiedValue(); }
     }
 
     public static SphereAnimationType SphereAnimation {
         get => Container.SphereAnimation;
-        set { Container.SphereAnimation = value; OnValueModified(); }
+        set { Container.SphereAnimation = value; ApplyModifiedValue(); }
     }
 
     public static bool ReadySequenceEnabled {
         get => Container.ReadySequenceEnabled && ReadySequenceDuration > 0;
-        set { Container.ReadySequenceEnabled = value; OnValueModified(); }
+        set { Container.ReadySequenceEnabled = value; ApplyModifiedValue(); }
     }
     public static float ReadySequenceDuration {
         get => Container.ReadySequenceDuration;
-        set { Container.ReadySequenceDuration = value; OnValueModified(); }
+        set { Container.ReadySequenceDuration = value; ApplyModifiedValue(); }
     }
 
     public static bool CaptureSequenceEnabled {
         get => Container.CaptureSequenceEnabled && CaptureSequenceDuration > 0;
-        set { Container.CaptureSequenceEnabled = value; OnValueModified(); }
+        set { Container.CaptureSequenceEnabled = value; ApplyModifiedValue(); }
     }
     public static float CaptureSequenceDuration {
         get => Container.CaptureSequenceDuration;
-        set { Container.CaptureSequenceDuration = value; OnValueModified(); }
+        set { Container.CaptureSequenceDuration = value; ApplyModifiedValue(); }
     }
 
 
@@ -101,7 +111,7 @@ public static class Settings
         return loadedSettings;
     }
 
-    private static void OnValueModified()
+    private static void ApplyModifiedValue()
     {
         SaveContainer(Container);
         Modified?.Invoke();

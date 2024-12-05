@@ -15,29 +15,17 @@ public class ThrowManager : MonoBehaviour
     protected int _numberOfSpheresRemaining;
 
     protected bool IsCharging => _chargeLevel > 0;
-    protected float ChargeLevel {
-        get => _chargeLevel;
-        set {
-            _chargeLevel = value;
-            CharacterPresenter.ThrowChargeLevel = _chargeLevel;
-        }
-    }
-    private float _chargeLevel;
+    protected float _chargeLevel;
 
 
     protected virtual void Start()
     {
-        BattleEventBus.PlayerTurnStarted += ResetInventory;
-        BattleEventBus.OpponentTurnStarted += ResetInventory;
+        BattleEventBus.ActiveBlockStarted += ResetInventory;
 
         _numberOfSpheresRemaining = _sphereCount;
-        ChargeLevel = 0;
+        _chargeLevel = 0;
     }
-    protected virtual void OnDestroy()
-    {
-        BattleEventBus.PlayerTurnStarted -= ResetInventory;
-        BattleEventBus.OpponentTurnStarted -= ResetInventory;
-    }
+    protected virtual void OnDestroy() => BattleEventBus.ActiveBlockStarted -= ResetInventory;
 
     protected virtual void Update()
     {
@@ -45,18 +33,21 @@ public class ThrowManager : MonoBehaviour
         {
             if(Input.GetKeyUp(KeyCode.Space))
             {
-                if(ChargeLevel >= 1)
-                    ThrowSphere();
-                ChargeLevel = 0;
+                if(_chargeLevel >= 1) ThrowSphere();
+                else BattleEventBus.NotifyWindupCancelled();
+                _chargeLevel = 0;
             }
             else
                 AddFrameTimeToChargeLevel();
         }
         else if(Input.GetKeyDown(KeyCode.Space))
+        {
             AddFrameTimeToChargeLevel();
+            BattleEventBus.NotifyWindupStarted();
+        }
     }
 
-    protected void AddFrameTimeToChargeLevel() => ChargeLevel += Time.deltaTime / _chargePeriod;
+    protected void AddFrameTimeToChargeLevel() => _chargeLevel += Time.deltaTime / _chargePeriod;
     
 
     public void ThrowSphere()

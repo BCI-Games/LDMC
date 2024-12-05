@@ -6,6 +6,14 @@ public static class BattleEventBus
     public static void NotifyMonsterAppeared(MonsterData monsterData)
         => MonsterAppeared?.Invoke(monsterData);
 
+    public static event Action WindupStarted;
+    public static void NotifyWindupStarted()
+        => WindupStarted?.Invoke();
+
+    public static event Action WindupCancelled;
+    public static void NotifyWindupCancelled()
+        => WindupCancelled?.Invoke();
+
     public static event Action SphereThrown;
     public static void NotifySphereThrown()
         => SphereThrown?.Invoke();
@@ -22,11 +30,11 @@ public static class BattleEventBus
     public static void NotifyMonsterCaptured(MonsterData monsterData)
         => MonsterCaptured?.Invoke(monsterData);
 
-    public static event Action PlayerTurnStarted;
-    public static void NotifyPlayerTurnStarted()
-        => PlayerTurnStarted?.Invoke();
+    public static event Action ActiveBlockStarted;
+    public static void NotifyActiveBlockStarted()
+        => ActiveBlockStarted?.Invoke();
 
-    public static event Action OpponentTurnStarted;
-    public static void NotifyOpponentTurnStarted()
-        => OpponentTurnStarted?.Invoke();
+    public static event Action IdleBlockStarted;
+    public static void NotifyIdleBlockStarted()
+        => IdleBlockStarted?.Invoke();
 }
