@@ -8,6 +8,7 @@ public class SettingsContainer
     public float MasterVolume = 1.0f;
     public float MusicVolume = 1.0f;
     public float SfxVolume = 1.0f;
+    public int MusicTrackIndex = 0;
 
     public CharacterAnimationTimings CharacterAnimationTiming = new();
 

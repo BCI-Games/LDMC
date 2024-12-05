@@ -31,6 +31,10 @@ public static class Settings
         get => Container.SfxVolume;
         set { Container.SfxVolume = value; OnValueModified(); }
     }
+    public static int MusicTrackIndex {
+        get => Container.MusicTrackIndex;
+        set { Container.MusicTrackIndex = value; OnValueModified(); }
+    }
     
     public static float CharacterReadyDuration {
         get => Container.CharacterAnimationTiming.Ready;
@@ -92,7 +96,6 @@ public static class Settings
             reader.Close();
 
             JsonUtility.FromJsonOverwrite(fileContent, loadedSettings);
-            return loadedSettings;
         }
         SaveContainer(loadedSettings);
         return loadedSettings;
@@ -103,7 +106,7 @@ public static class Settings
         SaveContainer(Container);
         Modified?.Invoke();
     }
-    
+
     private static void SaveContainer(SettingsContainer container)
     {
         string fileContent = JsonUtility.ToJson(container, true);
