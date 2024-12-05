@@ -6,10 +6,8 @@ public class VolumeManager: MonoBehaviour
     [SerializeField] private AudioMixer _masterMixer;
     
 
-    private void Start()
-    {
-        ApplyVolumes();
-    }
+    private void Start() => Settings.AddAndInvokeModificationCallback(ApplyVolumes);
+    private void OnDestroy() => Settings.Modified -= ApplyVolumes;
 
 
     private void ApplyVolumes()
