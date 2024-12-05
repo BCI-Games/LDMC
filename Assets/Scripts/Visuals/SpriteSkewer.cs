@@ -47,11 +47,18 @@ public class SpriteSkewer: MonoBehaviour
     private void Start()
     {
         Undo.undoRedoEvent += OnUndoRedo;
+        Settings.AddAndInvokeModificationCallback(OnSettingsModified);
         
         Renderer.drawMode = SpriteDrawMode.Sliced;
         CreateAndAssignSkewMaterial();
 
         ResetCorners();
+    }
+
+    private void OnDestroy()
+    {
+        Undo.undoRedoEvent -= OnUndoRedo;
+        Settings.Modified -= OnSettingsModified;
     }
 
     private void Update()
@@ -61,6 +68,11 @@ public class SpriteSkewer: MonoBehaviour
         else if (updateEveryFrame)
             ApplyAllCornerPositions();
     }
+
+    private void OnEnable() => ApplyAllCornerPositions();
+    private void OnDisable() => ApplyDefaultCornerPositions();
+
+    private void OnSettingsModified() => enabled = Settings.MeshAnimationEnabled;
 
     private void OnUndoRedo(in UndoRedoInfo info) => ApplyAllCornerPositions();
     public void ApplyAllCornerPositions()
@@ -74,6 +86,12 @@ public class SpriteSkewer: MonoBehaviour
         _rendererSize = Renderer.size;
         for (int i = 0; i < 4; i++)
             SetCornerPosition(i, DefaultCornerPoints[i]);
+    }
+
+    private void ApplyDefaultCornerPositions()
+    {
+        for (int i = 0; i < 4; i++)
+            SkewMaterial.SetVector("_" + CornerNames[i] + "AxisScale", Vector2.one);
     }
 
     public Vector2 GetCornerPosition(int index)
