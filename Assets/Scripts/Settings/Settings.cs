@@ -19,15 +19,16 @@ public static class Settings
     }
 
 
-    public static float IdleBlockDuration {
-        get => Container.IdleBlockDuration;
-        set { Container.IdleBlockDuration = value; ApplyModifiedValue(); }
+    public static float OffBlockDuration {
+        get => Container.OffBlockDuration;
+        set { Container.OffBlockDuration = value; ApplyModifiedValue(); }
     }
-
-    public static float ActiveBlockDuration {
-        get => Container.ActiveBlockDuration;
-        set { Container.ActiveBlockDuration = value; ApplyModifiedValue(); }
+    public static int OnBlockCycleCount {
+        get => Container.OnBlockCycleCount;
+        set { Container.OnBlockCycleCount = value; ApplyModifiedValue(); }
     }
+    public static float AnimationCycleDuration => Container.CharacterAnimationTiming.TotalCycleTime;
+    public static float OnBlockDuration => OnBlockCycleCount * AnimationCycleDuration;
 
     public static float MasterVolume {
         get => Container.MasterVolume;

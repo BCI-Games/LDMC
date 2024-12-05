@@ -3,29 +3,29 @@ using UnityEngine;
 
 public class BlockManager: MonoBehaviour
 {
-    public static bool IsActiveBlock = false;
+    public static bool IsOnBlock = false;
 
 
     private void Start()
     {
-        BattleEventBus.LastSphereThrown += StartIdleBlock;
-        StartIdleBlock();
+        BattleEventBus.LastSphereThrown += StartOffBlock;
+        StartOffBlock();
     }
     
-    private void OnDestroy() => BattleEventBus.LastSphereThrown -= StartIdleBlock;
+    private void OnDestroy() => BattleEventBus.LastSphereThrown -= StartOffBlock;
 
 
-    private void StartIdleBlock()
+    private void StartOffBlock()
     {
-        IsActiveBlock = false;
-        BattleEventBus.NotifyIdleBlockStarted();
-        StartCoroutine(StartActiveBlockAfterDelay(Settings.IdleBlockDuration));
+        IsOnBlock = false;
+        BattleEventBus.NotifyOffBlockStarted();
+        StartCoroutine(StartOnBlockAfterDelay(Settings.OffBlockDuration));
     }
 
-    private IEnumerator StartActiveBlockAfterDelay(float delay)
+    private IEnumerator StartOnBlockAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        IsActiveBlock = true;
-        BattleEventBus.NotifyActiveBlockStarted();
+        IsOnBlock = true;
+        BattleEventBus.NotifyOnBlockStarted();
     }
 }

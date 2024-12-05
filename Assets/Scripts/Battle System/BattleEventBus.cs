@@ -30,11 +30,11 @@ public static class BattleEventBus
     public static void NotifyMonsterCaptured(MonsterData monsterData)
         => MonsterCaptured?.Invoke(monsterData);
 
-    public static event Action ActiveBlockStarted;
-    public static void NotifyActiveBlockStarted()
-        => ActiveBlockStarted?.Invoke();
+    public static event Action OnBlockStarted;
+    public static void NotifyOnBlockStarted()
+        => OnBlockStarted?.Invoke();
 
-    public static event Action IdleBlockStarted;
-    public static void NotifyIdleBlockStarted()
-        => IdleBlockStarted?.Invoke();
+    public static event Action OffBlockStarted;
+    public static void NotifyOffBlockStarted()
+        => OffBlockStarted?.Invoke();
 }

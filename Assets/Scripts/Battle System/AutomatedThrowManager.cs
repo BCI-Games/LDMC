@@ -12,12 +12,12 @@ public class AutomatedThrowManager: ThrowManager
     protected override void Start()
     {
         base.Start();
-        BattleEventBus.ActiveBlockStarted += StartAutoThrow;
+        BattleEventBus.OnBlockStarted += StartAutoThrow;
     }
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        BattleEventBus.ActiveBlockStarted -= StartAutoThrow;
+        BattleEventBus.OnBlockStarted -= StartAutoThrow;
     }
 
     protected override void Update()

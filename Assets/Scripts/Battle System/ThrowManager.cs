@@ -20,12 +20,12 @@ public class ThrowManager : MonoBehaviour
 
     protected virtual void Start()
     {
-        BattleEventBus.ActiveBlockStarted += ResetInventory;
+        BattleEventBus.OnBlockStarted += ResetInventory;
 
         _numberOfSpheresRemaining = _sphereCount;
         _chargeLevel = 0;
     }
-    protected virtual void OnDestroy() => BattleEventBus.ActiveBlockStarted -= ResetInventory;
+    protected virtual void OnDestroy() => BattleEventBus.OnBlockStarted -= ResetInventory;
 
     protected virtual void Update()
     {
