@@ -1,8 +1,13 @@
+using System;
+
 public enum SphereAnimationType {Physics, Interpolated, Discrete}
 
+[Serializable]
 public class SettingsContainer
 {
-    public float Volume = 1.0f;
+    public float MasterVolume = 1.0f;
+    public float MusicVolume = 1.0f;
+    public float SfxVolume = 1.0f;
 
     public CharacterAnimationTimings CharacterAnimationTiming = new();
 
@@ -20,6 +25,7 @@ public class SettingsContainer
 
     public static implicit operator bool(SettingsContainer container) => container != null;
 
+    [Serializable]
     public class CharacterAnimationTimings
     {
         public float Ready = 0.25f;

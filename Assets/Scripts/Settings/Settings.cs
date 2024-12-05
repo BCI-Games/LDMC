@@ -4,15 +4,23 @@ using System.IO;
 public static class Settings
 {
     const string FileName = "settings.json";
-    private static string FilePath => Application.persistentDataPath + FileName;
+    private static string FilePath => Application.persistentDataPath + "/" + FileName;
 
     private static SettingsContainer Container => _container??= LoadContainer();
     private static SettingsContainer _container;
 
 
-    public static float Volume {
-        get => Container.Volume;
-        set { Container.Volume = value; SaveContainer(); }
+    public static float MasterVolume {
+        get => Container.MasterVolume;
+        set { Container.MasterVolume = value; SaveContainer(); }
+    }
+    public static float MusicVolume {
+        get => Container.MusicVolume;
+        set { Container.MusicVolume = value; SaveContainer(); }
+    }
+    public static float SfxVolume {
+        get => Container.SfxVolume;
+        set { Container.SfxVolume = value; SaveContainer(); }
     }
     
     public static float CharacterReadyDuration {
@@ -67,19 +75,26 @@ public static class Settings
 
     private static SettingsContainer LoadContainer()
     {
+        SettingsContainer loadedSettings = new();
         if (File.Exists(FilePath))
         {
-            StreamReader reader = new StreamReader(FilePath);
+            StreamReader reader = new(FilePath);
             string fileContent = reader.ReadToEnd();
-            return JsonUtility.FromJson<SettingsContainer>(fileContent);
+            reader.Close();
+
+            JsonUtility.FromJsonOverwrite(fileContent, loadedSettings);
+            return loadedSettings;
         }
-        return new();
+        SaveContainer(loadedSettings);
+        return loadedSettings;
     }
 
-    private static void SaveContainer()
+    private static void SaveContainer() => SaveContainer(Container);
+    private static void SaveContainer(SettingsContainer container)
     {
-        string fileContent = JsonUtility.ToJson(Container, true);
-        StreamWriter writer = new StreamWriter(FilePath);
+        string fileContent = JsonUtility.ToJson(container, true);
+        StreamWriter writer = new(FilePath);
         writer.Write(fileContent);
+        writer.Close();
     }
 }
