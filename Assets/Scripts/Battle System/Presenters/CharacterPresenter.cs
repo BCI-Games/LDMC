@@ -12,6 +12,7 @@ public class CharacterPresenter: MonoBehaviour
         BattleEventBus.OnBlockStarted += SetBlockState;
         BattleEventBus.OffBlockStarted += SetBlockState;
         BattleEventBus.WindupStarted += PlayWindupAnimation;
+        BattleEventBus.WindupCancelled += CancelWindupAnimation;
         BattleEventBus.SphereThrown += PlayThrowAnimation;
     }
 
@@ -20,11 +21,17 @@ public class CharacterPresenter: MonoBehaviour
         BattleEventBus.OnBlockStarted -= SetBlockState;
         BattleEventBus.OffBlockStarted -= SetBlockState;
         BattleEventBus.WindupStarted -= PlayWindupAnimation;
+        BattleEventBus.WindupCancelled -= CancelWindupAnimation;
         BattleEventBus.SphereThrown -= PlayThrowAnimation;
     }
 
 
     private void SetBlockState() => _animator.SetBool("Active", BlockManager.IsOnBlock);
-    private void PlayWindupAnimation() => _animator.SetTrigger("Charge");
-    private void PlayThrowAnimation() =>_animator.SetTrigger("Throw");
+    private void PlayWindupAnimation() => _animator.SetBool("Charge", true);
+    private void CancelWindupAnimation() => _animator.SetBool("Charge", false);
+    private void PlayThrowAnimation()
+    {
+        _animator.SetTrigger("Throw");
+        _animator.SetBool("Charge", false);
+    }
 }

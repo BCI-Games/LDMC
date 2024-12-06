@@ -49,15 +49,15 @@ public class AutomatedThrowManager: ThrowManager
         _isThrowing = true;
         while(_numberOfSpheresRemaining > 0)
         {
-            ThrowSphere();
-            _chargeLevel = 0;
-            yield return new WaitForSeconds(_throwDelay);
             BattleEventBus.NotifyWindupStarted();
             while (_chargeLevel < 1)
             {
                 AddFrameTimeToChargeLevel();
                 yield return new WaitForEndOfFrame();
             }
+            ThrowSphere();
+            _chargeLevel = 0;
+            yield return new WaitForSeconds(_throwDelay);
         }
         _isThrowing = false;
     }
