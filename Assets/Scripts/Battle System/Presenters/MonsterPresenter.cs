@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterPresenter : MonoBehaviour
 {
     [SerializeField] private PhysicsMaterial2D _basePhysicsMaterial;
+    [SerializeField] private bool _useMonsterHealth = false;
 
     public bool Catchable => _health <= 0;
     private int _health;
@@ -38,7 +39,7 @@ public class MonsterPresenter : MonoBehaviour
     {
         _currentMonsterData = monsterData;
         transform.localPosition = Vector2.zero;
-        _health = monsterData.BaseHP;
+        _health = _useMonsterHealth? monsterData.BaseHP: Settings.OnBlockCycleCount;
         _renderer.sprite = monsterData.FrontSprite;
         _collider.sharedMaterial.bounciness = monsterData.Bounciness;
         UpdateCollisionShape(_renderer.sprite);
