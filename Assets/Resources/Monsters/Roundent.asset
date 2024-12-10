@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92955b79bc688d346922a98fcf40e08f, type: 3}
-  m_Name: Crystanda
+  m_Name: Roundent
   m_EditorClassIdentifier: 
-  Description: This reclusive bear is made from light and crystals
-  FrontSprite: {fileID: -7107855079914382254, guid: 0c098c52664b97d43944e3403fe52370, type: 3}
-  IconSprite: {fileID: -1832911661894727625, guid: 5ed16c13dd0b2344d9760e71e007b07e, type: 3}
-  PrimaryType: 11
-  SecondaryType: 12
+  Description: A rat of notable width
+  FrontSprite: {fileID: -1124052742, guid: 0c098c52664b97d43944e3403fe52370, type: 3}
+  IconSprite: {fileID: 0}
+  PrimaryType: 10
+  SecondaryType: 17
   BaseHP: 5
-  Rarity: 5
-  Bounciness: 0.1
+  Rarity: 1
+  Bounciness: 1

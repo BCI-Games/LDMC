@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Inksoel
   m_EditorClassIdentifier: 
   Description: A dark seal of unknown might
-  FrontSprite: {fileID: 21300000, guid: a40efe485f7339743b3065b5d8b530e4, type: 3}
+  FrontSprite: {fileID: 4578840963039966018, guid: 0c098c52664b97d43944e3403fe52370, type: 3}
   IconSprite: {fileID: -6215208980910539753, guid: 29a29217b4e9d4e41b09f5246c213087, type: 3}
   PrimaryType: 7
   SecondaryType: 17

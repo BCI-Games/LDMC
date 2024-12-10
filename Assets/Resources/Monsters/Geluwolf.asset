@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Geluwolf
   m_EditorClassIdentifier: 
   Description: A wolf of ice and thunder
-  FrontSprite: {fileID: 21300000, guid: 0e5ca5470527b80428438a19e89279e7, type: 3}
+  FrontSprite: {fileID: 6209677326260776795, guid: 0c098c52664b97d43944e3403fe52370, type: 3}
   IconSprite: {fileID: -6972266080495587314, guid: 15c500d81562a174b96af1a004bbce32, type: 3}
   PrimaryType: 5
   SecondaryType: 4
   BaseHP: 5
-  Rarity: 1
+  Rarity: 3
   Bounciness: 0.5
