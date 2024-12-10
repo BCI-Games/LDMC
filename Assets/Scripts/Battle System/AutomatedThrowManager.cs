@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AutomatedThrowManager: ThrowManager
 {
-    [SerializeField] private float _throwDelay = 0.5f;
+    private float _throwDelay = 0.5f;
 
     private bool _isThrowing;
     private Coroutine _autoThrowCoroutine;
@@ -12,12 +12,21 @@ public class AutomatedThrowManager: ThrowManager
     protected override void Start()
     {
         base.Start();
+        Settings.AddAndInvokeModificationCallback(UpdateParametersFromSettings);
         BattleEventBus.OnBlockStarted += StartAutoThrow;
     }
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        Settings.Modified -= UpdateParametersFromSettings;
         BattleEventBus.OnBlockStarted -= StartAutoThrow;
+    }
+
+    private void UpdateParametersFromSettings()
+    {
+        _chargePeriod = Settings.CharacterActiveDuration + Settings.CharacterReadyDuration;
+        _throwDelay = Settings.CharacterReleaseDuration + Settings.CharacterIdleDuration;
+        _sphereCount = Settings.OnBlockCycleCount;
     }
 
     protected override void Update()

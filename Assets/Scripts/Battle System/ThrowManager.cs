@@ -4,7 +4,7 @@ using UnityEngine;
 public class ThrowManager : MonoBehaviour
 {
     [Range(1, 5)]
-    [SerializeField] private int _sphereCount = 5;
+    [SerializeField] protected int _sphereCount = 5;
     [SerializeField] private Vector2 _throwForce = new(15, 20);
     [SerializeField] protected float _chargePeriod = 0.5f;
 
