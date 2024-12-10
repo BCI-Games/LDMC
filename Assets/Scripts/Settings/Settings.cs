@@ -47,18 +47,18 @@ public static class Settings
         set { Container.MusicTrackIndex = value; ApplyModifiedValue(); }
     }
     
-    public static float CharacterReadyDuration {
-        get => Container.CharacterAnimationTiming.Ready;
-        set { Container.CharacterAnimationTiming.Ready = value; ApplyModifiedValue(); }
-    }
+    // public static float CharacterReadyDuration {
+    //     get => Container.CharacterAnimationTiming.Ready;
+    //     set { Container.CharacterAnimationTiming.Ready = value; ApplyModifiedValue(); }
+    // }
     public static float CharacterActiveDuration {
         get => Container.CharacterAnimationTiming.Active;
         set { Container.CharacterAnimationTiming.Active = value; ApplyModifiedValue(); }
     }
-    public static float CharacterReleaseDuration {
-        get => Container.CharacterAnimationTiming.Release;
-        set { Container.CharacterAnimationTiming.Release = value; ApplyModifiedValue(); }
-    }
+    // public static float CharacterReleaseDuration {
+    //     get => Container.CharacterAnimationTiming.Release;
+    //     set { Container.CharacterAnimationTiming.Release = value; ApplyModifiedValue(); }
+    // }
     public static float CharacterIdleDuration {
         get => Container.CharacterAnimationTiming.Idle;
         set { Container.CharacterAnimationTiming.Idle = value; ApplyModifiedValue(); }
@@ -79,12 +79,12 @@ public static class Settings
     }
 
     public static bool ReadySequenceEnabled {
-        get => Container.ReadySequenceEnabled && ReadySequenceDuration > 0;
-        set { Container.ReadySequenceEnabled = value; ApplyModifiedValue(); }
+        get => Container.WakeupSequenceEnabled && ReadySequenceDuration > 0;
+        set { Container.WakeupSequenceEnabled = value; ApplyModifiedValue(); }
     }
     public static float ReadySequenceDuration {
-        get => Container.ReadySequenceDuration;
-        set { Container.ReadySequenceDuration = value; ApplyModifiedValue(); }
+        get => Container.WakeupSequenceDuration;
+        set { Container.WakeupSequenceDuration = value; ApplyModifiedValue(); }
     }
 
     public static bool CaptureSequenceEnabled {

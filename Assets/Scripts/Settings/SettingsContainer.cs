@@ -20,8 +20,8 @@ public class SettingsContainer
 
     public SphereAnimationType SphereAnimation = SphereAnimationType.Physics;
 
-    public bool ReadySequenceEnabled = true;
-    public float ReadySequenceDuration = 1.0f;
+    public bool WakeupSequenceEnabled = true;
+    public float WakeupSequenceDuration = 1.0f;
 
     public bool CaptureSequenceEnabled = true;
     public float CaptureSequenceDuration = 2.0f;
@@ -32,11 +32,11 @@ public class SettingsContainer
     [Serializable]
     public class CharacterAnimationTimings
     {
-        public float Ready = 0.25f;
+        // public float Ready = 0.25f;
         public float Active = 2.0f;
-        public float Release = 0.25f;
+        // public float Release = 0.25f;
         public float Idle = 1.5f;
 
-        public float TotalCycleTime => Ready + Active + Release + Idle;
+        public float TotalCycleTime => Active + Idle; // + Ready + Release;
     }
 }

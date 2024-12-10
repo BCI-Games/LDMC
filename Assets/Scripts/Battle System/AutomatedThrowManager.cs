@@ -24,8 +24,8 @@ public class AutomatedThrowManager: ThrowManager
 
     private void UpdateParametersFromSettings()
     {
-        _chargePeriod = Settings.CharacterActiveDuration + Settings.CharacterReadyDuration;
-        _throwDelay = Settings.CharacterReleaseDuration + Settings.CharacterIdleDuration;
+        _chargePeriod = Settings.CharacterActiveDuration;
+        _throwDelay = Settings.CharacterIdleDuration;
         _sphereCount = Settings.OnBlockCycleCount;
     }
 
