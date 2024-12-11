@@ -3,6 +3,9 @@ using System.Collections;
 
 public class AutomatedCharacterPresenter: CharacterPresenter
 {
+    [SerializeField] float _sleepyZedInitialDelay = 0.5f;
+    [SerializeField] float _sleepyZedCycleDelay = 0;
+
     private float _idleDuration;
     private float _activeDuration;
 
@@ -42,6 +45,7 @@ public class AutomatedCharacterPresenter: CharacterPresenter
     private void StartRestCycle()
     {
         StopRestCycle();
+        Invoke("EmitSleepyZed", _sleepyZedInitialDelay);
         _restCycleCoroutine = StartCoroutine(RunRestCycle());
     }
 
@@ -64,6 +68,7 @@ public class AutomatedCharacterPresenter: CharacterPresenter
             PlayWindupAnimation();
             yield return new WaitForSeconds(_activeDuration);
             PlayReleaseAnimation();
+            Invoke("EmitSleepyZed", _sleepyZedCycleDelay);
         }
         _isRunningRestCycle = false;
     }

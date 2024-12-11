@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sleepyZedAnimator: {fileID: 1404001589208502717}
+  _sleepyZedInitialDelay: 0.75
+  _sleepyZedCycleDelay: 0.2
 --- !u!114 &2969895004901392497
 MonoBehaviour:
   m_ObjectHideFlags: 0
