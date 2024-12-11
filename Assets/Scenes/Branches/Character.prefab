@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d962c714cfbeed43887acafba81d3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sleepyZedAnimator: {fileID: 1404001589208502717}
 --- !u!114 &2969895004901392497
 MonoBehaviour:
   m_ObjectHideFlags: 0

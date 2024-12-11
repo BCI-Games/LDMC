@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CharacterPresenter: MonoBehaviour
 {
+    [SerializeField] private Animator _sleepyZedAnimator;
+
     protected Animator _animator;
 
 
@@ -34,4 +36,6 @@ public class CharacterPresenter: MonoBehaviour
         _animator.SetTrigger("Release");
         _animator.SetBool("Charge", false);
     }
+
+    protected void EmitSleepyZed() => _sleepyZedAnimator.SetTrigger("Emit");
 }
