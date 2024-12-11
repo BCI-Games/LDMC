@@ -49,11 +49,8 @@ MonoBehaviour:
   _sphereCount: 5
   _throwForce: {x: 15, y: 20}
   _chargePeriod: 0.8
-  _inventoryDisplay: {fileID: 0}
   _spawnLocation: {fileID: 596351289269812487}
   _spherePrefab: {fileID: 8854408415455498323, guid: 400d525a207dd88438e48d26699c48bc, type: 3}
-  _chargeDisplay: {fileID: 0}
-  _autoThrowDelay: 1
 --- !u!1 &6154378362858200676
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 8951205292381957573}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.5, y: -2.5, z: 0}
+  m_LocalPosition: {x: -3, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
