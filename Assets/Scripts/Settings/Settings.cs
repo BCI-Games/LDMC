@@ -78,11 +78,11 @@ public static class Settings
         set { Container.SphereAnimation = value; ApplyModifiedValue(); }
     }
 
-    public static bool ReadySequenceEnabled {
-        get => Container.WakeupSequenceEnabled && ReadySequenceDuration > 0;
+    public static bool WakeupSequenceEnabled {
+        get => Container.WakeupSequenceEnabled && WakeupSequenceDuration > 0;
         set { Container.WakeupSequenceEnabled = value; ApplyModifiedValue(); }
     }
-    public static float ReadySequenceDuration {
+    public static float WakeupSequenceDuration {
         get => Container.WakeupSequenceDuration;
         set { Container.WakeupSequenceDuration = value; ApplyModifiedValue(); }
     }
