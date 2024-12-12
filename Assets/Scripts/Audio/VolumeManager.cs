@@ -3,7 +3,10 @@ using UnityEngine.Audio;
 
 public class VolumeManager: MonoBehaviour
 {
-    [SerializeField] private AudioMixer _masterMixer;
+    const string MixerPath = "Audio/Global Audio";
+    public static AudioMixer GlobalAudioMixer
+        => _globalAudioMixer ??= GetGlobalAudioMixer();
+    private static  AudioMixer _globalAudioMixer;
     
 
     private void Start() => Settings.AddAndInvokeModificationCallback(ApplyVolumes);
@@ -21,6 +24,9 @@ public class VolumeManager: MonoBehaviour
     {
         float clampedVolume = Mathf.Clamp(linearVolume, 0.0001f, 1);
         float decibelVolume = Mathf.Log10(clampedVolume) * 20;
-        _masterMixer.SetFloat(groupName + " Volume", decibelVolume);
+        GlobalAudioMixer.SetFloat(groupName + " Volume", decibelVolume);
     }
+
+    public static AudioMixer GetGlobalAudioMixer()
+        => Resources.Load<AudioMixer>(MixerPath);
 }

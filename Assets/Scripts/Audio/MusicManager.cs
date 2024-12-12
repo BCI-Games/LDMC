@@ -3,30 +3,20 @@ using System.Linq;
 
 public class MusicManager: MonoBehaviour
 {
-    private static MusicManager instance = null;
-
-    public static string[] TrackNames => GetTrackNames();
-
-    [SerializeField] AudioClip[] _musicTracks;
+    const string TrackListPath = "Audio/Track List";
+    public static TrackList Tracks => _tracks ??= LoadTrackList();
+    private static TrackList _tracks;
 
     private AudioSource _source;
-    private int _activeTrackIndex;
+    private int _activeTrackIndex = -1;
     
 
     private void Start()
     {
-        if (instance && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        
-        _source = GetComponent<AudioSource>();
+        _source = gameObject.AddComponent<AudioSource>();
+        _source.outputAudioMixerGroup = VolumeManager.GlobalAudioMixer.FindMatchingGroups("Music")[0];
+        _source.loop = true;
+
         Settings.AddAndInvokeModificationCallback(SelectTrackFromSettings);
     }
     private void OnDestroy() => Settings.Modified -= SelectTrackFromSettings;
@@ -36,15 +26,13 @@ public class MusicManager: MonoBehaviour
         int trackIndex = Settings.MusicTrackIndex;
         if (trackIndex == _activeTrackIndex) return;
 
-        trackIndex = Mathf.Clamp(trackIndex, 0, _musicTracks.Length);
-        _source.clip = _musicTracks[trackIndex];
+        AudioClip[] audioClips = Tracks.AudioFiles;
+
+        trackIndex = Mathf.Clamp(trackIndex, 0, audioClips.Length);
+        _source.clip = audioClips[trackIndex];
         _source.Play();
         _activeTrackIndex = trackIndex;
     }
 
-    private static string[] GetTrackNames()
-    {
-        if (!instance) return new string[0];
-        return instance._musicTracks.Select((AudioClip clip) => clip.name).ToArray();
-    }
+    private static TrackList LoadTrackList() => Resources.Load<TrackList>(TrackListPath);
 }

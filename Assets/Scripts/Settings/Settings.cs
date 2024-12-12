@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.Rendering;
 
 public static class Settings
 {
@@ -9,6 +10,7 @@ public static class Settings
 
     private static SettingsContainer Container => _container??= LoadContainer();
     private static SettingsContainer _container;
+    private static GameObject _audioManager;
 
 
     public static event Action Modified;
@@ -109,7 +111,16 @@ public static class Settings
             JsonUtility.FromJsonOverwrite(fileContent, loadedSettings);
         }
         SaveContainer(loadedSettings);
+        if (!_audioManager) InitializeAudioManager();
         return loadedSettings;
+    }
+
+    private static void InitializeAudioManager()
+    {
+        _audioManager = new("Audio Manager");
+        _audioManager.AddComponent<VolumeManager>();
+        _audioManager.AddComponent<MusicManager>();
+        GameObject.DontDestroyOnLoad(_audioManager);
     }
 
     private static void ApplyModifiedValue()

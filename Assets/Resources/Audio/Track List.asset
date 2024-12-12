@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5bc521430eeb24f8b1b66f70b3e6dc, type: 3}
+  m_Name: Track List
+  m_EditorClassIdentifier: 
+  Tracks:
+  - ShortName: Sunny
+    AudioFile: {fileID: 8300000, guid: c8127a0b7ff031d47b19c1cd2444a532, type: 3}
+  - ShortName: Guitar
+    AudioFile: {fileID: 8300000, guid: 6e3d76375295e5a449acf9e94a5f9201, type: 3}
+  - ShortName: Lofi
+    AudioFile: {fileID: 8300000, guid: 94a638ac99d06b84fa6f9c00f22c9400, type: 3}
+  - ShortName: Forest
+    AudioFile: {fileID: 8300000, guid: 029bc77177de79447845db278e276558, type: 3}
