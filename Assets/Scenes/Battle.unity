@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 531431146}
   - component: {fileID: 531431145}
   m_Layer: 0
-  m_Name: TurnManager
+  m_Name: Block Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
