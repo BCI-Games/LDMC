@@ -43,28 +43,55 @@ public class TimingInputFields: MonoBehaviour
     }
 
     private void SetOffBlockDuration(string text)
-        => Settings.OffBlockDuration = float.Parse(text);
+    {
+        float value;
+        if (float.TryParse(text, out value))
+            Settings.OffBlockDuration = value;
+    }
 
     private void UpdateOnBlockDurationDisplay()
         => _onBlockDurationLabel.text = Settings.OnBlockDuration.ToString();
     private void SetOnBlockCycleCount(string text)
     {
-        Settings.OnBlockCycleCount = int.Parse(text);
-        UpdateOnBlockDurationDisplay();
+        
+        int value;
+        if (int.TryParse(text, out value))
+        {
+            Settings.OnBlockCycleCount = value;
+            UpdateOnBlockDurationDisplay();
+        }
     }
     private void SetActiveDuration(string text)
     {
-        Settings.CharacterActiveDuration = float.Parse(text);
-        UpdateOnBlockDurationDisplay();
+        
+        float value;
+        if (float.TryParse(text, out value))
+        {
+            Settings.CharacterActiveDuration = value;
+            UpdateOnBlockDurationDisplay();
+        }
     }
     private void SetIdleDuration(string text)
     {
-        Settings.CharacterIdleDuration = float.Parse(text);
-        UpdateOnBlockDurationDisplay();
+        
+        float value;
+        if (float.TryParse(text, out value))
+        {
+            Settings.CharacterIdleDuration = value;
+            UpdateOnBlockDurationDisplay();
+        }
     }
 
     private void SetCaptureSequenceDuration(string text)
-        => Settings.CaptureSequenceDuration = float.Parse(text);
+    {
+        float value;
+        if (float.TryParse(text, out value))
+            Settings.CaptureSequenceDuration = value;
+    }
     private void SetWakeupSequenceDuration(string text)
-        => Settings.WakeupSequenceDuration = float.Parse(text);
+    {
+        float value;
+        if (float.TryParse(text, out value))
+            Settings.WakeupSequenceDuration = value;
+    }
 }
