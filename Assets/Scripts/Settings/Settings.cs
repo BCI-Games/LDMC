@@ -99,6 +99,14 @@ public static class Settings
     }
 
 
+    public static void LoadAndApplySettings()
+    {
+        if (_container) return;
+        _container = LoadContainer();
+        ApplyModifiedValue();
+    }
+
+
     private static SettingsContainer LoadContainer()
     {
         SettingsContainer loadedSettings = new();
