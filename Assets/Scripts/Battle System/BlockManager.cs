@@ -1,30 +1,41 @@
-using System.Collections;
+using System;
 using UnityEngine;
 
 public class BlockManager: MonoBehaviour
 {
     public static bool IsOnBlock = false;
 
+    private float _timer = 0;
 
-    private void Start()
+
+    private void Start() => StartOffBlock();
+    private void Update()
     {
-        BattleEventBus.LastSphereThrown += StartOffBlock;
-        StartOffBlock();
+        _timer += Time.deltaTime;
+        if (IsOnBlock)
+            CheckTimer(Settings.OnBlockDuration, StartOffBlock);
+        else    
+            CheckTimer(Settings.OffBlockDuration, StartOnBlock);
     }
-    
-    private void OnDestroy() => BattleEventBus.LastSphereThrown -= StartOffBlock;
+
+    private void CheckTimer(float blockDuration, Action startNextBlockMethod)
+    {
+        if (_timer > blockDuration)
+        {
+            _timer -= blockDuration;
+            startNextBlockMethod();
+        }
+    }
 
 
     private void StartOffBlock()
     {
         IsOnBlock = false;
         BattleEventBus.NotifyOffBlockStarted();
-        StartCoroutine(StartOnBlockAfterDelay(Settings.OffBlockDuration));
     }
 
-    private IEnumerator StartOnBlockAfterDelay(float delay)
+    private void StartOnBlock()
     {
-        yield return new WaitForSeconds(delay);
         IsOnBlock = true;
         BattleEventBus.NotifyOnBlockStarted();
     }
