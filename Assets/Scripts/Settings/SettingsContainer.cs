@@ -7,6 +7,7 @@ public class SettingsContainer
 {
     public float OffBlockDuration = 20;
     public int OnBlockCycleCount = 3;
+    public bool EndOnBlockWithIdle = true;
 
     public float MasterVolume = 1.0f;
     public float MusicVolume = 1.0f;

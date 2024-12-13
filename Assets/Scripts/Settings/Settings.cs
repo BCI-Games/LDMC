@@ -29,8 +29,13 @@ public static class Settings
         get => Container.OnBlockCycleCount;
         set { Container.OnBlockCycleCount = value; ApplyModifiedValue(); }
     }
+    public static bool OnBlockEndedWithIdle {
+        get => Container.EndOnBlockWithIdle;
+        set { Container.EndOnBlockWithIdle = value; ApplyModifiedValue(); }
+    }
     public static float AnimationCycleDuration => Container.CharacterAnimationTiming.TotalCycleTime;
-    public static float OnBlockDuration => OnBlockCycleCount * AnimationCycleDuration;
+    public static float OnBlockDuration => OnBlockCycleCount * AnimationCycleDuration
+        - (OnBlockEndedWithIdle? 0: Container.CharacterAnimationTiming.Idle);
 
     public static float MasterVolume {
         get => Container.MasterVolume;

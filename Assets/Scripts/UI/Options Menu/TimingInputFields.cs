@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TimingInputFields: MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class TimingInputFields: MonoBehaviour
     [Header("On Block")]
     [SerializeField] private TMP_Text _onBlockDurationLabel;
     [SerializeField] private TMP_InputField _onBlockCycleCountField;
+    [SerializeField] private Toggle _onBlockEndedWithIdleToggle;
 
     [Header("Cycle Timings")]
     [SerializeField] private TMP_InputField _activeDurationField;
@@ -22,6 +24,7 @@ public class TimingInputFields: MonoBehaviour
     {
         _offBlockDurationField.text = Settings.OffBlockDuration.ToString();
         _onBlockCycleCountField.text = Settings.OnBlockCycleCount.ToString();
+        _onBlockEndedWithIdleToggle.isOn = Settings.OnBlockEndedWithIdle;
 
         _activeDurationField.text = Settings.CharacterActiveDuration.ToString();
         _idleDurationField.text = Settings.CharacterIdleDuration.ToString();
@@ -32,6 +35,7 @@ public class TimingInputFields: MonoBehaviour
 
         _offBlockDurationField.onValueChanged.AddListener(SetOffBlockDuration);
         _onBlockCycleCountField.onValueChanged.AddListener(SetOnBlockCycleCount);
+        _onBlockEndedWithIdleToggle.onValueChanged.AddListener(SetOnBlockEndedWithIdle);
 
         _activeDurationField.onValueChanged.AddListener(SetActiveDuration);
         _idleDurationField.onValueChanged.AddListener(SetIdleDuration);
@@ -61,6 +65,12 @@ public class TimingInputFields: MonoBehaviour
             UpdateOnBlockDurationDisplay();
         }
     }
+    private void SetOnBlockEndedWithIdle(bool value)
+    {
+        Settings.OnBlockEndedWithIdle = value;
+        UpdateOnBlockDurationDisplay();
+    }
+
     private void SetActiveDuration(string text)
     {
         
