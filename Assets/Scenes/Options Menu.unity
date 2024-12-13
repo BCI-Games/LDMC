@@ -5991,6 +5991,7 @@ GameObject:
   - component: {fileID: 1123542925}
   - component: {fileID: 1123542927}
   - component: {fileID: 1123542926}
+  - component: {fileID: 1123542928}
   m_Layer: 5
   m_Name: Transition Timings
   m_TagString: Untagged
@@ -6074,6 +6075,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1123542928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123542923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc0b11ecaac24d4da5906c5fc9e25f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1123887703
 GameObject:
   m_ObjectHideFlags: 0
@@ -11717,6 +11730,7 @@ GameObject:
   - component: {fileID: 1916479277}
   - component: {fileID: 1916479276}
   - component: {fileID: 1916479275}
+  - component: {fileID: 1916479278}
   m_Layer: 5
   m_Name: Feedback Sequences
   m_TagString: Untagged
@@ -11800,6 +11814,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1916479278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916479273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc0b11ecaac24d4da5906c5fc9e25f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1929605681
 GameObject:
   m_ObjectHideFlags: 0
