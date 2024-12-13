@@ -15,15 +15,16 @@ public class SettingsContainer
 
     public CharacterAnimationTimings CharacterAnimationTiming = new();
 
-    public bool SpriteAnimationEnabled = true;
-    public bool MeshAnimationEnabled = false;
+    public bool SimplifyAnimation = false;
+    public bool EnableMonsterAnimation = true;
+    public bool EnableMeshAnimation = true;
 
     public SphereAnimationType SphereAnimation = SphereAnimationType.Physics;
 
-    public bool WakeupSequenceEnabled = true;
+    public bool EnableWakeupSequence = true;
     public float WakeupSequenceDuration = 1.0f;
 
-    public bool CaptureSequenceEnabled = true;
+    public bool EnableCaptureSequence = true;
     public float CaptureSequenceDuration = 2.0f;
 
 
@@ -32,11 +33,9 @@ public class SettingsContainer
     [Serializable]
     public class CharacterAnimationTimings
     {
-        // public float Ready = 0.25f;
         public float Active = 2.0f;
-        // public float Release = 0.25f;
         public float Idle = 1.5f;
 
-        public float TotalCycleTime => Active + Idle; // + Ready + Release;
+        public float TotalCycleTime => Active + Idle;
     }
 }

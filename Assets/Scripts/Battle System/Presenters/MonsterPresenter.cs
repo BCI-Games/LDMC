@@ -25,6 +25,8 @@ public class MonsterPresenter : MonoBehaviour
         _collider = GetComponent<PolygonCollider2D>();
         _animator = GetComponent<Animator>();
 
+        Settings.AddAndInvokeModificationCallback(ApplyAnimationSettings);
+
         _collider.sharedMaterial = Instantiate(_basePhysicsMaterial);
     }
 
@@ -32,6 +34,14 @@ public class MonsterPresenter : MonoBehaviour
     {
         BattleEventBus.MonsterAppeared -= ShowNewMonster;
         BattleEventBus.MonsterHit -= TakeDamage;
+
+        Settings.Modified -= ApplyAnimationSettings;
+    }
+
+
+    private void ApplyAnimationSettings()
+    {
+        _animator.enabled = Settings.MonsterAnimationEnabled;
     }
 
 
@@ -66,8 +76,13 @@ public class MonsterPresenter : MonoBehaviour
         _health -= damage;
         if(Catchable)
         {
-            _animator.SetTrigger("Capture");
-            _health = 1000;
+            if (Settings.MonsterAnimationEnabled)
+            {
+                _animator.SetTrigger("Capture");
+                _health = 1000;
+            }
+            else
+                BattleEventBus.NotifyMonsterCaptured(_currentMonsterData);
         }
         else
             _animator.SetTrigger("Recoil");

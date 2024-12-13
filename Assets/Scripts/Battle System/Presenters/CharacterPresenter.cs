@@ -9,6 +9,12 @@ public class CharacterPresenter: MonoBehaviour
 
     protected virtual void Start()
     {
+        if (Settings.AnimationSimplified)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         _animator = GetComponent<Animator>();
 
         BattleEventBus.OnBlockStarted += SetBlockState;

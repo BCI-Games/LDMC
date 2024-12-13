@@ -49,30 +49,26 @@ public static class Settings
         set { Container.MusicTrackIndex = value; ApplyModifiedValue(); }
     }
     
-    // public static float CharacterReadyDuration {
-    //     get => Container.CharacterAnimationTiming.Ready;
-    //     set { Container.CharacterAnimationTiming.Ready = value; ApplyModifiedValue(); }
-    // }
     public static float CharacterActiveDuration {
         get => Container.CharacterAnimationTiming.Active;
         set { Container.CharacterAnimationTiming.Active = value; ApplyModifiedValue(); }
     }
-    // public static float CharacterReleaseDuration {
-    //     get => Container.CharacterAnimationTiming.Release;
-    //     set { Container.CharacterAnimationTiming.Release = value; ApplyModifiedValue(); }
-    // }
     public static float CharacterIdleDuration {
         get => Container.CharacterAnimationTiming.Idle;
         set { Container.CharacterAnimationTiming.Idle = value; ApplyModifiedValue(); }
     }
 
-    public static bool SpriteAnimationEnabled {
-        get => Container.SpriteAnimationEnabled;
-        set { Container.SpriteAnimationEnabled = value; ApplyModifiedValue(); }
+    public static bool AnimationSimplified {
+        get => Container.SimplifyAnimation;
+        set { Container.SimplifyAnimation = value; ApplyModifiedValue(); }
+    }
+    public static bool MonsterAnimationEnabled {
+        get => Container.EnableMonsterAnimation;
+        set { Container.EnableMonsterAnimation = value; ApplyModifiedValue(); }
     }
     public static bool MeshAnimationEnabled {
-        get => SpriteAnimationEnabled && Container.MeshAnimationEnabled;
-        set { Container.MeshAnimationEnabled = value; ApplyModifiedValue(); }
+        get => Container.EnableMeshAnimation && !AnimationSimplified;
+        set { Container.EnableMeshAnimation = value; ApplyModifiedValue(); }
     }
 
     public static SphereAnimationType SphereAnimation {
@@ -81,8 +77,8 @@ public static class Settings
     }
 
     public static bool WakeupSequenceEnabled {
-        get => Container.WakeupSequenceEnabled && WakeupSequenceDuration > 0;
-        set { Container.WakeupSequenceEnabled = value; ApplyModifiedValue(); }
+        get => Container.EnableWakeupSequence && WakeupSequenceDuration > 0;
+        set { Container.EnableWakeupSequence = value; ApplyModifiedValue(); }
     }
     public static float WakeupSequenceDuration {
         get => Container.WakeupSequenceDuration;
@@ -90,8 +86,8 @@ public static class Settings
     }
 
     public static bool CaptureSequenceEnabled {
-        get => Container.CaptureSequenceEnabled && CaptureSequenceDuration > 0;
-        set { Container.CaptureSequenceEnabled = value; ApplyModifiedValue(); }
+        get => Container.EnableCaptureSequence && CaptureSequenceDuration > 0;
+        set { Container.EnableCaptureSequence = value; ApplyModifiedValue(); }
     }
     public static float CaptureSequenceDuration {
         get => Container.CaptureSequenceDuration;
