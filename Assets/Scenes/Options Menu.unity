@@ -3175,7 +3175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Deform Sprites
+  m_text: Squish Sprites
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac9e95d73f1923e4a922f8058a6b4f1f, type: 2}
   m_sharedMaterial: {fileID: -7747380614011651226, guid: ac9e95d73f1923e4a922f8058a6b4f1f, type: 2}
