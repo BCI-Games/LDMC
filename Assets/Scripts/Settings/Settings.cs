@@ -68,7 +68,7 @@ public static class Settings
         set { Container.SimplifyAnimation = value; ApplyModifiedValue(); }
     }
     public static bool MonsterAnimationEnabled {
-        get => Container.EnableMonsterAnimation;
+        get => Container.EnableMonsterAnimation && !AnimationSimplified;
         set { Container.EnableMonsterAnimation = value; ApplyModifiedValue(); }
     }
     public static bool SpriteDeformationEnabled {
