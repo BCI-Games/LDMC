@@ -17,8 +17,8 @@ public class AnimationFlagToggles: MonoBehaviour
         _spriteDeformationToggle = _spriteDeformationInputElement.GetComponentInChildren<Toggle>();
         SetAdvancedOptionsVisibility(!Settings.AnimationSimplified);
 
-        _simplifiedAnimationToggle.isOn = Settings.CaptureSequenceEnabled;
-        _monsterAnimationToggle.isOn = Settings.WakeupSequenceEnabled;
+        _simplifiedAnimationToggle.isOn = Settings.AnimationSimplified;
+        _monsterAnimationToggle.isOn = Settings.MonsterAnimationEnabled;
         _spriteDeformationToggle.isOn = Settings.SpriteDeformationEnabled;
 
         _simplifiedAnimationToggle.onValueChanged.AddListener(SetAnimationSimplified);
@@ -35,11 +35,11 @@ public class AnimationFlagToggles: MonoBehaviour
 
     private void SetAnimationSimplified(bool value)
     {
-        Settings.CaptureSequenceEnabled = value;
+        Settings.AnimationSimplified = value;
         SetAdvancedOptionsVisibility(!value);
     }
     private void SetMonsterAnimationEnabled(bool value)
-        => Settings.WakeupSequenceEnabled = value;
+        => Settings.MonsterAnimationEnabled = value;
     private void SetSpriteDeformationEnabled(bool value)
         => Settings.SpriteDeformationEnabled = value;
 }
