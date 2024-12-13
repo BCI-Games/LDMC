@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterPresenter: MonoBehaviour
 {
-    [SerializeField] private Animator _sleepyZedAnimator;
+    [SerializeField] protected Animator _sleepyZedAnimator;
 
     protected Animator _animator;
 
