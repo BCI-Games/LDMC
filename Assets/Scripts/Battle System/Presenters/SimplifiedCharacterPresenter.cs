@@ -24,7 +24,6 @@ public class SimplifiedCharacterPresenter: MonoBehaviour
 
         _renderer = GetComponent<SpriteRenderer>();
 
-        BattleEventBus.OnBlockStarted += ShowIdleState;
         BattleEventBus.WindupStarted += ShowActiveState;
         BattleEventBus.WindupCancelled += ShowIdleState;
         BattleEventBus.SphereThrown += ShowIdleState;
@@ -32,7 +31,6 @@ public class SimplifiedCharacterPresenter: MonoBehaviour
     }
     protected virtual void OnDestroy()
     {
-        BattleEventBus.OnBlockStarted -= ShowIdleState;
         BattleEventBus.WindupStarted -= ShowActiveState;
         BattleEventBus.WindupCancelled -= ShowIdleState;
         BattleEventBus.SphereThrown -= ShowIdleState;
@@ -42,11 +40,13 @@ public class SimplifiedCharacterPresenter: MonoBehaviour
 
     protected void ShowIdleState()
     {
+        if (!BlockManager.IsOnBlock) return;
         Sprite = _idleSprite;
         _sleepyZObject.SetActive(false);
     }
     protected void ShowActiveState()
     {
+        if (!BlockManager.IsOnBlock) return;
         Sprite = _activeSprite;
         _sleepyZObject.SetActive(false);
     }

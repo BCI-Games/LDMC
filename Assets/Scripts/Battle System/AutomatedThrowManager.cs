@@ -60,8 +60,8 @@ public class AutomatedThrowManager: ThrowManager
                 AddFrameTimeToChargeLevel();
                 yield return new WaitForEndOfFrame();
             }
-            ThrowSphere();
             _chargeLevel = 0;
+            ThrowSphere();
             yield return new WaitForSeconds(_throwDelay);
         }
         _isThrowing = false;
