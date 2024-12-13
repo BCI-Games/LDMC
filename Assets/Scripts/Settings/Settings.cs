@@ -66,9 +66,9 @@ public static class Settings
         get => Container.EnableMonsterAnimation;
         set { Container.EnableMonsterAnimation = value; ApplyModifiedValue(); }
     }
-    public static bool MeshAnimationEnabled {
-        get => Container.EnableMeshAnimation && !AnimationSimplified;
-        set { Container.EnableMeshAnimation = value; ApplyModifiedValue(); }
+    public static bool SpriteDeformationEnabled {
+        get => Container.EnableSpriteDeformation && !AnimationSimplified;
+        set { Container.EnableSpriteDeformation = value; ApplyModifiedValue(); }
     }
 
     public static SphereAnimationType SphereAnimation {

@@ -17,7 +17,7 @@ public class SettingsContainer
 
     public bool SimplifyAnimation = false;
     public bool EnableMonsterAnimation = true;
-    public bool EnableMeshAnimation = true;
+    public bool EnableSpriteDeformation = true;
 
     public SphereAnimationType SphereAnimation = SphereAnimationType.Physics;
 

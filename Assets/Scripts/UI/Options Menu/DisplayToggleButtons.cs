@@ -10,7 +10,7 @@ public class DisplayToggleButtons: MonoBehaviour
     
     private void Start()
     {
-        _meshAnimationToggle.isOn = Settings.MeshAnimationEnabled;
+        _meshAnimationToggle.isOn = Settings.SpriteDeformationEnabled;
         _captureSequenceToggle.isOn = Settings.CaptureSequenceEnabled;
         _wakeupSequenceToggle.isOn = Settings.WakeupSequenceEnabled;
 
@@ -20,7 +20,7 @@ public class DisplayToggleButtons: MonoBehaviour
     }
 
     private void SetMeshAnimationEnabled(bool value)
-        => Settings.MeshAnimationEnabled = value;
+        => Settings.SpriteDeformationEnabled = value;
     private void SetCaptureSequenceEnabled(bool value)
         => Settings.CaptureSequenceEnabled = value;
     private void SetWakeupSequenceEnabled(bool value)

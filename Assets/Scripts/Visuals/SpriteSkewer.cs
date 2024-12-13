@@ -78,7 +78,7 @@ public class SpriteSkewer: MonoBehaviour
     private void OnEnable() => ApplyAllCornerPositions();
     private void OnDisable() => ApplyDefaultCornerPositions();
 
-    private void OnSettingsModified() => enabled = Settings.MeshAnimationEnabled;
+    private void OnSettingsModified() => enabled = Settings.SpriteDeformationEnabled;
 
 #if UNITY_EDITOR
     private void OnUndoRedo(in UndoRedoInfo info) => ApplyAllCornerPositions();
