@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class SimplifiedCharacterPresenter: MonoBehaviour
@@ -27,14 +28,14 @@ public class SimplifiedCharacterPresenter: MonoBehaviour
         BattleEventBus.WindupStarted += ShowActiveState;
         BattleEventBus.WindupCancelled += ShowIdleState;
         BattleEventBus.SphereThrown += ShowIdleState;
-        BattleEventBus.OffBlockStarted += ShowRestState;
+        BattleEventBus.OffBlockStarted += StartRestCycle;
     }
     protected virtual void OnDestroy()
     {
         BattleEventBus.WindupStarted -= ShowActiveState;
         BattleEventBus.WindupCancelled -= ShowIdleState;
         BattleEventBus.SphereThrown -= ShowIdleState;
-        BattleEventBus.OffBlockStarted -= ShowRestState;
+        BattleEventBus.OffBlockStarted -= StartRestCycle;
     }
 
 
@@ -42,17 +43,29 @@ public class SimplifiedCharacterPresenter: MonoBehaviour
     {
         if (!BlockManager.IsOnBlock) return;
         Sprite = _idleSprite;
-        _sleepyZObject.SetActive(false);
     }
     protected void ShowActiveState()
     {
         if (!BlockManager.IsOnBlock) return;
         Sprite = _activeSprite;
-        _sleepyZObject.SetActive(false);
     }
-    protected void ShowRestState()
+
+
+    private void StartRestCycle()
     {
         Sprite = _restSprite;
-        _sleepyZObject.SetActive(true);
+        StartCoroutine(RunRestCycle());
+    }
+
+    private IEnumerator RunRestCycle()
+    {
+        while(!BlockManager.IsOnBlock)
+        {
+            _sleepyZObject.SetActive(true);
+            yield return new WaitForSeconds(Settings.CharacterIdleDuration);
+            _sleepyZObject.SetActive(false);
+            yield return new WaitForSeconds(Settings.CharacterIdleDuration);
+        }
+        _sleepyZObject.SetActive(false);
     }
 }
