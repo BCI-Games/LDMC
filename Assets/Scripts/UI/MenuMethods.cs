@@ -3,8 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class MenuMethods: MonoBehaviour
 {
-    public void LoadScene(string sceneName)
+    private void Update()
     {
-        SceneManager.LoadScene(sceneName);
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "Main Menu")
+            LoadScene("Main Menu");
     }
+
+    public void LoadScene(string sceneName) => SceneManager.LoadScene(sceneName);
 }
