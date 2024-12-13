@@ -1,5 +1,6 @@
-using System;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 [ExecuteAlways]
@@ -13,7 +14,7 @@ public class SpriteSkewer: MonoBehaviour
         new(1, -1),
         new(-1, -1)
     };
-    static readonly String[] CornerNames =
+    static readonly string[] CornerNames =
     {
         "UpperLeft",
         "UpperRight",
@@ -46,7 +47,9 @@ public class SpriteSkewer: MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
         Undo.undoRedoEvent += OnUndoRedo;
+#endif
         if (Application.IsPlaying(this))
             Settings.AddAndInvokeModificationCallback(OnSettingsModified);
         
@@ -58,7 +61,9 @@ public class SpriteSkewer: MonoBehaviour
 
     private void OnDestroy()
     {
+#if UNITY_EDITOR
         Undo.undoRedoEvent -= OnUndoRedo;
+#endif
         Settings.Modified -= OnSettingsModified;
     }
 
@@ -75,7 +80,9 @@ public class SpriteSkewer: MonoBehaviour
 
     private void OnSettingsModified() => enabled = Settings.MeshAnimationEnabled;
 
+#if UNITY_EDITOR
     private void OnUndoRedo(in UndoRedoInfo info) => ApplyAllCornerPositions();
+#endif
     public void ApplyAllCornerPositions()
     {
         for (int i = 0; i < 4; i++)
