@@ -29,11 +29,7 @@ public class AutomatedThrowManager: ThrowManager
         _sphereCount = Settings.OnBlockCycleCount;
     }
 
-    protected override void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-            if(_isThrowing) StopAutoThrow(); else StartAutoThrow();
-    }
+    protected override void Update() {}
 
 
     public void StartAutoThrow()
