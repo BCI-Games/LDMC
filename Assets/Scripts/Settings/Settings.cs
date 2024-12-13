@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 public static class Settings
 {
     const string FileName = "settings.json";
-    private static string FilePath => Application.persistentDataPath + "/" + FileName;
+    private static string FilePath => Application.dataPath + "/../" + FileName;
 
     private static SettingsContainer Container => _container??= LoadContainer();
     private static SettingsContainer _container;
