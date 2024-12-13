@@ -1,14 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TransitionOptionsHider: MonoBehaviour
+public class TransitionOptionsHider: DynamicLayoutBlock
 {
     [SerializeField] private GameObject _captureOptionObject;
     [SerializeField] private GameObject _wakeupOptionObject;
-
-    private Behaviour _layoutBehavior
-        => _verticalLayoutGroup ??= GetComponent<VerticalLayoutGroup>();
-    private VerticalLayoutGroup _verticalLayoutGroup;
 
 
     private void Start() => Settings.Modified += ShowRelevantTransitionOptions;
@@ -25,8 +21,6 @@ public class TransitionOptionsHider: MonoBehaviour
         _captureOptionObject.SetActive(Settings.CaptureSequenceEnabled);
         _wakeupOptionObject.SetActive(Settings.WakeupSequenceEnabled);
 
-        Canvas.ForceUpdateCanvases();
-        _layoutBehavior.enabled = false;
-        _layoutBehavior.enabled = true;
+        RefreshLayout();
     }
 }

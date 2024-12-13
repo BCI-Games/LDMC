@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AnimationFlagToggles: MonoBehaviour
+public class AnimationFlagToggles: DynamicLayoutBlock
 {
     [SerializeField] private Toggle _simplifiedAnimationToggle;
     [SerializeField] private GameObject _monsterAnimationInputElement;
@@ -31,12 +31,18 @@ public class AnimationFlagToggles: MonoBehaviour
     {
         _monsterAnimationInputElement.SetActive(visible);
         _spriteDeformationInputElement.SetActive(visible);
+        RefreshLayout();
     }
 
     private void SetAnimationSimplified(bool value)
     {
         Settings.AnimationSimplified = value;
         SetAdvancedOptionsVisibility(!value);
+        if (!value)
+        {
+            _monsterAnimationToggle.isOn = Settings.MonsterAnimationEnabled;
+            _spriteDeformationToggle.isOn = Settings.SpriteDeformationEnabled;
+        }
     }
     private void SetMonsterAnimationEnabled(bool value)
         => Settings.MonsterAnimationEnabled = value;
