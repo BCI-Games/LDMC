@@ -7,9 +7,9 @@ public class SettingsContainer
     public int OnBlockCycleCount = 3;
     public bool EndOnBlockWithIdle = true;
 
-    public float MasterVolume = 1.0f;
-    public float MusicVolume = 1.0f;
-    public float SfxVolume = 1.0f;
+    public float MasterVolume = 0.5f;
+    public float MusicVolume = 0.5f;
+    public float SfxVolume = 0.5f;
     public int MusicTrackIndex = 0;
 
     public CharacterAnimationTimings CharacterAnimationTiming = new();
@@ -33,7 +33,7 @@ public class SettingsContainer
     public class CharacterAnimationTimings
     {
         public float Active = 2.0f;
-        public float Idle = 1.5f;
+        public float Idle = 2.0f;
 
         public float TotalCycleTime => Active + Idle;
     }
