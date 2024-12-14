@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.IO;
 using System;
-using UnityEngine.Rendering;
 
 public static class Settings
 {
@@ -76,9 +75,9 @@ public static class Settings
         set { Container.EnableSpriteDeformation = value; ApplyModifiedValue(); }
     }
 
-    public static SphereAnimationType SphereAnimation {
-        get => Container.SphereAnimation;
-        set { Container.SphereAnimation = value; ApplyModifiedValue(); }
+    public static bool PixelPerfectCameraEnabled {
+        get => Container.EnablePixelPerfectCamera;
+        set { Container.EnablePixelPerfectCamera = value; ApplyModifiedValue(); }
     }
 
     public static bool WakeupSequenceEnabled {

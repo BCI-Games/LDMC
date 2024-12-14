@@ -1,7 +1,5 @@
 using System;
 
-public enum SphereAnimationType {Physics, Interpolated, Discrete}
-
 [Serializable]
 public class SettingsContainer
 {
@@ -20,7 +18,7 @@ public class SettingsContainer
     public bool EnableMonsterAnimation = true;
     public bool EnableSpriteDeformation = true;
 
-    public SphereAnimationType SphereAnimation = SphereAnimationType.Physics;
+    public bool EnablePixelPerfectCamera = true;
 
     public bool EnableWakeupSequence = true;
     public float WakeupSequenceDuration = 1.0f;
