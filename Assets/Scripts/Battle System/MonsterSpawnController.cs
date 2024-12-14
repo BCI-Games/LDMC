@@ -5,11 +5,14 @@ using System.Linq;
 public class MonsterSpawnController : MonoBehaviour
 {
     [SerializeField] private MonsterData[] _monsters;
+    
+    private MonsterPresenter _monsterPresenter;
 
 
     void Start()
     {
         BattleEventBus.MonsterCaptured += SpawnNewMonster;
+        _monsterPresenter = GetComponentInChildren<MonsterPresenter>();
         SpawnMonster();
     }
 
@@ -19,6 +22,7 @@ public class MonsterSpawnController : MonoBehaviour
     public void SpawnMonster()
     {
         MonsterData newMonster = SelectRandom(_monsters);
+        _monsterPresenter.ShowNewMonster(newMonster);
         BattleEventBus.NotifyMonsterAppeared(newMonster);
     }
 
@@ -28,6 +32,7 @@ public class MonsterSpawnController : MonoBehaviour
         monstersCopy.Remove(capturedMonsterData);
 
         MonsterData newMonster = SelectRandom(monstersCopy);
+        _monsterPresenter.ShowNewMonster(newMonster);
         BattleEventBus.NotifyMonsterAppeared(newMonster);
     }
 

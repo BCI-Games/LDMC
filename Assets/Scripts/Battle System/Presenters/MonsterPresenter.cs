@@ -18,7 +18,6 @@ public class MonsterPresenter : MonoBehaviour
 
     void Start()
     {
-        BattleEventBus.MonsterAppeared += ShowNewMonster;
         BattleEventBus.MonsterHit += TakeDamage;
 
         _renderer = GetComponent<SpriteRenderer>();
@@ -32,7 +31,6 @@ public class MonsterPresenter : MonoBehaviour
 
     private void OnDestroy()
     {
-        BattleEventBus.MonsterAppeared -= ShowNewMonster;
         BattleEventBus.MonsterHit -= TakeDamage;
 
         Settings.Modified -= ApplyAnimationSettings;
