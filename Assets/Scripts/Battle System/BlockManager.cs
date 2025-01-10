@@ -8,7 +8,8 @@ public class BlockManager: MonoBehaviour
     private float _timer = 0;
 
 
-    private void Start() => StartOffBlock();
+    private void Start() => BattleEventBus.PauseToggled += OnPauseToggled;
+
     private void Update()
     {
         _timer += Time.deltaTime;
@@ -27,6 +28,12 @@ public class BlockManager: MonoBehaviour
         }
     }
 
+
+    private void OnPauseToggled(bool isPaused)
+    {
+        if (!isPaused) StartOffBlock();
+        BattleEventBus.PauseToggled -= OnPauseToggled;
+    }
 
     private void StartOffBlock()
     {

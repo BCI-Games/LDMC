@@ -37,4 +37,8 @@ public static class BattleEventBus
     public static event Action OffBlockStarted;
     public static void NotifyOffBlockStarted()
         => OffBlockStarted?.Invoke();
+
+    public static event Action<bool> PauseToggled;
+    public static void NotifyPauseToggled(bool isPaused)
+        => PauseToggled?.Invoke(isPaused);
 }

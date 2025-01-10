@@ -10,6 +10,7 @@ public class PauseManager: MonoBehaviour
             _isPaused = value;
             Time.timeScale = value? 0: 1;
             _pauseOverlay.SetActive(value);
+            BattleEventBus.NotifyPauseToggled(value);
         }
     }
     private bool _isPaused;
