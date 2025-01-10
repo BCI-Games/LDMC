@@ -51,12 +51,12 @@ public class BlockTimingFileLogger: MonoBehaviour
             Directory.CreateDirectory(directoryPath);
 
         filePath = $"{directoryPath}/{BaseFileName} ";
-        filePath += DateTime.Now.ToString(FileNameTimestampTemplate);
+        filePath += DateTime.UtcNow.ToString(FileNameTimestampTemplate);
         filePath += ".csv";
 
         File.WriteAllText(filePath, "Timestamp, Event");
     }
 
     private string GetTimestamp()
-        => DateTime.Now.ToString(TimestampTemplate);
+        => DateTime.UtcNow.ToString(TimestampTemplate);
 }
