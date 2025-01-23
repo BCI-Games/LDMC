@@ -19,6 +19,7 @@ public class SettingsContainer
     public bool EnableSpriteDeformation = true;
 
     public bool EnablePixelPerfectCamera = true;
+    public bool EnableOffBlockMonsterDisplay = true;
 
     public bool EnableWakeupSequence = true;
     public float WakeupSequenceDuration = 1.0f;

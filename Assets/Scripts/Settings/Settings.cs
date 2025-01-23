@@ -79,6 +79,10 @@ public static class Settings
         get => Container.EnablePixelPerfectCamera;
         set { Container.EnablePixelPerfectCamera = value; ApplyModifiedValue(); }
     }
+    public static bool OffBockMonsterDisplayEnabled {
+        get => Container.EnableOffBlockMonsterDisplay;
+        set { Container.EnableOffBlockMonsterDisplay = value; ApplyModifiedValue(); }
+    }
 
     public static bool WakeupSequenceEnabled {
         get => Container.EnableWakeupSequence && WakeupSequenceDuration > 0;
