@@ -43,12 +43,18 @@ public class MonsterPresenter : MonoBehaviour
     }
 
 
+    public void HideMonster()
+    {
+        _renderer.enabled = false;
+    }
+
     public void ShowNewMonster(MonsterData monsterData)
     {
         _currentMonsterData = monsterData;
         transform.localPosition = Vector2.zero;
         _health = _useMonsterHealth? monsterData.BaseHP: Settings.OnBlockCycleCount;
         _renderer.sprite = monsterData.FrontSprite;
+        _renderer.enabled = true;
         _collider.sharedMaterial.bounciness = monsterData.Bounciness;
         UpdateCollisionShape(_renderer.sprite);
     }

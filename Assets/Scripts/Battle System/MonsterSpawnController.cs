@@ -7,17 +7,53 @@ public class MonsterSpawnController : MonoBehaviour
     [SerializeField] private MonsterData[] _monsters;
     
     private MonsterPresenter _monsterPresenter;
+    private MonsterData _monsterExcludedFromNextSpawn;
+    private bool _monsterSpawnQueued = false;
 
 
     void Start()
     {
-        BattleEventBus.MonsterCaptured += SpawnNewMonster;
+        BattleEventBus.MonsterCaptured += OnMonsterCaptured;
+        BattleEventBus.OnBlockStarted += SpawnNewMonsterIfPending;
         _monsterPresenter = GetComponentInChildren<MonsterPresenter>();
-        SpawnMonster();
+
+        if (Settings.OffBockMonsterDisplayEnabled)
+            SpawnMonster();
+        else
+            QueueMonsterSpawn();
     }
 
-    private void OnDestroy() => BattleEventBus.MonsterCaptured -= SpawnNewMonster;
+    private void OnDestroy()
+    {
+        BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
+        BattleEventBus.OnBlockStarted -= SpawnNewMonsterIfPending;
+    }
 
+
+    private void OnMonsterCaptured(MonsterData capturedMonsterData)
+    {
+        if (Settings.OffBockMonsterDisplayEnabled)
+            SpawnNewMonster(capturedMonsterData);
+        else
+            QueueMonsterSpawn(capturedMonsterData);
+    }
+
+    private void SpawnNewMonsterIfPending()
+    {
+        if (_monsterSpawnQueued)
+        {
+            SpawnNewMonster(_monsterExcludedFromNextSpawn);
+            _monsterSpawnQueued = false;
+        }
+    }
+
+    private void QueueMonsterSpawn(MonsterData excludedMonster = null)
+    {
+        _monsterPresenter.HideMonster();
+        _monsterExcludedFromNextSpawn = excludedMonster;
+        _monsterSpawnQueued = true;
+    }
+    
 
     public void SpawnMonster()
     {
@@ -26,10 +62,15 @@ public class MonsterSpawnController : MonoBehaviour
         BattleEventBus.NotifyMonsterAppeared(newMonster);
     }
 
-    private void SpawnNewMonster(MonsterData capturedMonsterData)
+    private void SpawnNewMonster(MonsterData excludedMonster)
     {
+        if (!excludedMonster)
+        {
+            SpawnMonster();
+            return;
+        }
         List<MonsterData> monstersCopy = _monsters.ToList();
-        monstersCopy.Remove(capturedMonsterData);
+        monstersCopy.Remove(excludedMonster);
 
         MonsterData newMonster = SelectRandom(monstersCopy);
         _monsterPresenter.ShowNewMonster(newMonster);
