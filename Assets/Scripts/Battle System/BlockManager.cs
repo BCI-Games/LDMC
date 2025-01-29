@@ -4,6 +4,8 @@ using UnityEngine;
 public class BlockManager: MonoBehaviour
 {
     public static bool IsOnBlock = false;
+    public static event Action OnBlockStarted;
+    public static event Action OffBlockStarted;
 
     private float _timer = 0;
 
@@ -38,12 +40,12 @@ public class BlockManager: MonoBehaviour
     private void StartOffBlock()
     {
         IsOnBlock = false;
-        BattleEventBus.NotifyOffBlockStarted();
+        OffBlockStarted?.Invoke();
     }
 
     private void StartOnBlock()
     {
         IsOnBlock = true;
-        BattleEventBus.NotifyOnBlockStarted();
+        OnBlockStarted?.Invoke();
     }
 }

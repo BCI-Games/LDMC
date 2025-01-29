@@ -30,14 +30,6 @@ public static class BattleEventBus
     public static void NotifyMonsterCaptured(MonsterData monsterData)
         => MonsterCaptured?.Invoke(monsterData);
 
-    public static event Action OnBlockStarted;
-    public static void NotifyOnBlockStarted()
-        => OnBlockStarted?.Invoke();
-
-    public static event Action OffBlockStarted;
-    public static void NotifyOffBlockStarted()
-        => OffBlockStarted?.Invoke();
-
     public static event Action<bool> PauseToggled;
     public static void NotifyPauseToggled(bool isPaused)
         => PauseToggled?.Invoke(isPaused);
