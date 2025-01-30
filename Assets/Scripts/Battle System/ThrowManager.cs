@@ -6,17 +6,25 @@ public class ThrowManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject _spherePrefab;
+    [SerializeField] private ChargeDisplay _chargeDisplay;
 
     protected bool SpheresRemain => _numberOfSpheresRemaining > 0;
     private int _sphereCount;
     private int _numberOfSpheresRemaining;
 
+    protected float ChargePeriod;
 
     protected bool ShouldCharge {get => GetShouldCharge();}
     protected bool IsCharging => ChargeLevel > 0;
     protected bool ChargeThresholdIsMet => ChargeLevel >= 1;
-    protected float ChargeLevel = 0;
-    protected float ChargePeriod;
+    protected float ChargeLevel {
+        get => _chargeLevel;
+        set {
+            _chargeLevel = value;
+            if (_chargeDisplay) _chargeDisplay.ChargeLevel = value;
+        }
+    }
+    private float _chargeLevel = 0;
 
 
     private void OnDrawGizmos()
@@ -31,6 +39,7 @@ public class ThrowManager : MonoBehaviour
     {
         Settings.AddAndInvokeModificationCallback(UpdateParametersFromSettings);
         BattleEventBus.RestPeriodEnded += ResetInventory;
+        ResetChargeLevel();
     }
     protected virtual void OnDestroy()
     {
