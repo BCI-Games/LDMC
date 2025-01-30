@@ -38,12 +38,16 @@ public abstract class CharacterPresenter: MonoBehaviour
     private void StartRestCycle()
     {
         ShowRestStarted();
-        _restCycleCoroutine = StartCoroutine(RunRestCycle());
+        _restCycleCoroutine = StartCoroutine(WrapRestCycle());
     }
     private void EndRestCycle()
     {
         StopCoroutine(_restCycleCoroutine);
         ShowRestEnded();
+    }
+    private IEnumerator WrapRestCycle()
+    {
+        while(true) yield return RunRestCycle();
     }
     protected abstract IEnumerator RunRestCycle();
 }
