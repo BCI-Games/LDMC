@@ -5,7 +5,6 @@ public class ThrowManager : MonoBehaviour
     [SerializeField] private Vector2 _throwForce = new(15, 20);
 
     [Header("References")]
-    [SerializeField] private Transform _spawnLocation;
     [SerializeField] private GameObject _spherePrefab;
 
     protected bool SpheresRemain => _numberOfSpheresRemaining > 0;
@@ -19,6 +18,14 @@ public class ThrowManager : MonoBehaviour
     protected float ChargeLevel = 0;
     protected float ChargePeriod;
 
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0.5f, 0.5f, 0.8f, 0.8f);
+        Gizmos.DrawSphere(transform.position, 0.4f);
+        Gizmos.color = Color.white;
+        Gizmos.DrawRay(transform.position, _throwForce / 8f);
+    }
 
     protected virtual void Start()
     {
@@ -57,7 +64,7 @@ public class ThrowManager : MonoBehaviour
     public void ThrowSphere()
     {
         _numberOfSpheresRemaining--;
-        GameObject sphere = Instantiate(_spherePrefab, _spawnLocation);
+        GameObject sphere = Instantiate(_spherePrefab, transform);
         sphere.GetComponent<Rigidbody2D>().AddForce(_throwForce, ForceMode2D.Impulse);
 
         BattleEventBus.NotifySphereThrown();
