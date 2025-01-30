@@ -7,6 +7,7 @@ public class AutomatedThrowManager: ThrowManager
     private Coroutine _autoThrowCoroutine;
 
     private float _throwDelay;
+    private bool _shouldCharge;
 
 
     protected override void Start()
@@ -49,18 +50,16 @@ public class AutomatedThrowManager: ThrowManager
         _isThrowing = true;
         while(SpheresRemain)
         {
+            _shouldCharge = true;
             BattleEventBus.NotifyWindupStarted();
-            while (!ChargeThresholdIsMet)
-            {
-                AddFrameTimeToChargeLevel();
-                yield return new WaitForEndOfFrame();
-            }
+            yield return new WaitForSeconds(ChargePeriod);
             ThrowSphere();
             ResetChargeLevel();
+            _shouldCharge = false;
             yield return new WaitForSeconds(_throwDelay);
         }
         _isThrowing = false;
     }
     
-    protected override bool GetShouldCharge() => false;
+    protected override bool GetShouldCharge() => _shouldCharge;
 }

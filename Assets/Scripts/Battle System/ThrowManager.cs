@@ -11,13 +11,13 @@ public class ThrowManager : MonoBehaviour
     protected bool SpheresRemain => _numberOfSpheresRemaining > 0;
     private int _sphereCount;
     private int _numberOfSpheresRemaining;
-    private float _chargePeriod;
 
 
     protected bool ShouldCharge {get => GetShouldCharge();}
-    protected bool IsCharging => _chargeLevel > 0;
-    protected bool ChargeThresholdIsMet => _chargeLevel >= 1;
-    private float _chargeLevel = 0;
+    protected bool IsCharging => ChargeLevel > 0;
+    protected bool ChargeThresholdIsMet => ChargeLevel >= 1;
+    protected float ChargeLevel = 0;
+    protected float ChargePeriod;
 
 
     protected virtual void Start()
@@ -33,7 +33,7 @@ public class ThrowManager : MonoBehaviour
 
     protected virtual void UpdateParametersFromSettings()
     {
-        _chargePeriod = Settings.CharacterActiveDuration;
+        ChargePeriod = Settings.CharacterActiveDuration;
         _sphereCount = Settings.OnBlockCycleCount;
     }
 
@@ -65,9 +65,10 @@ public class ThrowManager : MonoBehaviour
             BattleEventBus.NotifyLastSphereThrown();
     }
 
-    protected void ResetInventory() => _numberOfSpheresRemaining = _sphereCount;
+    private void ResetInventory() => _numberOfSpheresRemaining = _sphereCount;
 
-    protected void AddFrameTimeToChargeLevel() => _chargeLevel += Time.deltaTime / _chargePeriod;
-    protected void ResetChargeLevel() => _chargeLevel = 0;
+    private void AddFrameTimeToChargeLevel() => ChargeLevel += Time.deltaTime / ChargePeriod;
+    
+    protected void ResetChargeLevel() => ChargeLevel = 0;
     protected virtual bool GetShouldCharge() => Input.GetKey(KeyCode.Space);
 }
