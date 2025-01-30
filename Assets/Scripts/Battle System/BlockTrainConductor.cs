@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class BlockManager: MonoBehaviour
+public class BlockTrainConductor: MonoBehaviour
 {
     public static bool IsOnBlock = false;
     public static event Action OnBlockStarted;
@@ -10,7 +10,19 @@ public class BlockManager: MonoBehaviour
     private float _timer = 0;
 
 
-    private void Start() => BattleEventBus.PauseToggled += OnPauseToggled;
+    private void Start()
+    {
+        BattleEventBus.PauseToggled += OnPauseToggled;
+        OffBlockStarted += BattleEventBus.NotifyRestPeriodStarted;
+        OnBlockStarted += BattleEventBus.NotifyRestPeriodEnded;
+    }
+    private void OnDestroy()
+    {
+        BattleEventBus.PauseToggled -= OnPauseToggled;
+        OffBlockStarted -= BattleEventBus.NotifyRestPeriodStarted;
+        OnBlockStarted -= BattleEventBus.NotifyRestPeriodEnded;
+    }
+
 
     private void Update()
     {

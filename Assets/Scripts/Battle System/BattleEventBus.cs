@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using UnityEngine;
 
 public static class BattleEventBus
 {
@@ -30,7 +32,16 @@ public static class BattleEventBus
     public static void NotifyMonsterCaptured(MonsterData monsterData)
         => MonsterCaptured?.Invoke(monsterData);
 
+    
+    public static event Action RestPeriodStarted;
+    public static void NotifyRestPeriodStarted()
+        => RestPeriodStarted?.Invoke();
+    public static event Action RestPeriodEnded;
+    public static void NotifyRestPeriodEnded()
+        => RestPeriodEnded?.Invoke();
+
+
     public static event Action<bool> PauseToggled;
     public static void NotifyPauseToggled(bool isPaused)
-        => PauseToggled?.Invoke(isPaused);
+        => PauseToggled?.Invoke(isPaused);    
 }
