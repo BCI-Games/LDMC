@@ -12,7 +12,7 @@ public class StaticCharacterPresenter: CharacterPresenter
     [SerializeField] private Sprite _restSprite;
     
     private SpriteRenderer _renderer;
-    protected Sprite Sprite { set => _renderer.sprite = value; }
+    private bool _isResting;
 
 
     protected override void Start()
@@ -28,17 +28,31 @@ public class StaticCharacterPresenter: CharacterPresenter
     }
 
 
-    protected override void ShowWindupStarted() => Sprite = _activeSprite;
-    protected override void ShowWindupCancelled() => Sprite = _idleSprite;
-    protected override void ShowThrow() => Sprite = _idleSprite;
+    protected override void ShowWindupStarted()
+        => SetSpriteIfNotResting(_activeSprite);
+    protected override void ShowWindupCancelled()
+        => SetSpriteIfNotResting(_idleSprite);
+    protected override void ShowThrow()
+        => SetSpriteIfNotResting(_idleSprite);
+
+    private void SetSpriteIfNotResting(Sprite newSprite)
+    {
+        if (_isResting) return;
+        _renderer.sprite = newSprite;
+    }
 
     protected override void ShowRestEnded()
     {
-        Sprite = _idleSprite;
+        _isResting = false;
+        _renderer.sprite = _idleSprite;
         _sleepyZObject.SetActive(false);
     }
     
-    protected override void ShowRestStarted() => Sprite = _restSprite;
+    protected override void ShowRestStarted()
+    {
+        _isResting = true;
+        _renderer.sprite = _restSprite;
+    }
 
     protected override IEnumerator RunRestCycle()
     {
