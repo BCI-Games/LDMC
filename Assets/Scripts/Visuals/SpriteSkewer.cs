@@ -36,11 +36,7 @@ public class SpriteSkewer: MonoBehaviour
         return _renderer;
     }}
     private SpriteRenderer _renderer;
-    private Material SkewMaterial { get {
-        if (!_skewMaterial)
-            CreateAndAssignSkewMaterial();
-        return _skewMaterial;
-    }}
+    private Material SkewMaterial => GetSkewMaterial();
     private Material _skewMaterial;
     private Vector2 _rendererSize;
 
@@ -54,8 +50,6 @@ public class SpriteSkewer: MonoBehaviour
             Settings.AddAndInvokeModificationCallback(OnSettingsModified);
         
         Renderer.drawMode = SpriteDrawMode.Sliced;
-        CreateAndAssignSkewMaterial();
-
         ResetCorners();
     }
 
@@ -149,9 +143,22 @@ public class SpriteSkewer: MonoBehaviour
         SkewMaterial.SetVector("_" + CornerNames[index] + "AxisScale", axisScale);
     }
 
-    private void CreateAndAssignSkewMaterial()
+    private Material GetSkewMaterial()
     {
-        _skewMaterial = new(Shader.Find("Shader Graphs/Sprite Skew"));
-        Renderer.sharedMaterial = _skewMaterial;
+        if (!_skewMaterial)
+        {
+            Shader skewShader = Shader.Find("Shader Graphs/Sprite Skew");
+            Material rendererMaterial = Renderer.sharedMaterial;
+            if (rendererMaterial && rendererMaterial.shader == skewShader)
+            {
+                _skewMaterial = rendererMaterial;
+            }
+            else
+            {
+                _skewMaterial = new Material(skewShader);
+                Renderer.sharedMaterial = _skewMaterial;
+            }
+        }
+        return _skewMaterial;
     }
 }
