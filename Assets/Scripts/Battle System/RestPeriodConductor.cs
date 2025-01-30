@@ -6,13 +6,15 @@ public class RestPeriodConductor: MonoBehaviour
     private void Start()
     {
         BattleEventBus.MonsterCaptured += OnMonsterCaptured;
+        StartRestPeriod();
     }
     private void OnDestroy()
     {
         BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
     }
 
-    private void OnMonsterCaptured(MonsterData capturedMonster)
+    private void OnMonsterCaptured(MonsterData capturedMonster) => StartRestPeriod();
+    private void StartRestPeriod()
     {
         BattleEventBus.NotifyRestPeriodStarted();
         StartCoroutine(RunRestPeriod());
