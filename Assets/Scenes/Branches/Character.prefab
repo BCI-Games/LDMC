@@ -170,8 +170,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7819102733056587016}
-  - component: {fileID: 8494067074292671010}
   - component: {fileID: 5854038541345354195}
+  - component: {fileID: 8494067074292671010}
   m_Layer: 0
   m_Name: Simplified Presenter
   m_TagString: Untagged
@@ -195,6 +195,22 @@ Transform:
   - {fileID: 1634796310497675002}
   m_Father: {fileID: 582499762411571493}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5854038541345354195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4273243898639755057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b023802e812054a4c882c064a2b5ab67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sleepyZObject: {fileID: 8948395056472450865}
+  _idleSprite: {fileID: 7152930139536384079, guid: dd7f2304dcc70ab449ee6156052ee360, type: 3}
+  _activeSprite: {fileID: -8401692288953904933, guid: dd7f2304dcc70ab449ee6156052ee360, type: 3}
+  _restSprite: {fileID: 1747843122, guid: dd7f2304dcc70ab449ee6156052ee360, type: 3}
 --- !u!212 &8494067074292671010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -250,22 +266,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5854038541345354195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4273243898639755057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 200599a2103d6e04f91787569147eeb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sleepyZObject: {fileID: 8948395056472450865}
-  _idleSprite: {fileID: 7152930139536384079, guid: dd7f2304dcc70ab449ee6156052ee360, type: 3}
-  _activeSprite: {fileID: -8401692288953904933, guid: dd7f2304dcc70ab449ee6156052ee360, type: 3}
-  _restSprite: {fileID: 1747843122, guid: dd7f2304dcc70ab449ee6156052ee360, type: 3}
 --- !u!1 &8822174897692618548
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,12 +311,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8822174897692618548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d962c714cfbeed43887acafba81d3b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 308dcdbaf9e7e654faf799e9d67a4cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sleepyZedAnimator: {fileID: 4942739281241285240}
-  _sleepyZedInitialDelay: 0.75
-  _sleepyZedCycleDelay: 0.2
 --- !u!114 &3922694832682961227
 MonoBehaviour:
   m_ObjectHideFlags: 0

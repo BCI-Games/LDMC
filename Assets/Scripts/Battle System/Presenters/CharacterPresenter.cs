@@ -1,47 +1,49 @@
 using UnityEngine;
+using System.Collections;
 
-public class CharacterPresenter: MonoBehaviour
+public abstract class CharacterPresenter: MonoBehaviour
 {
-    [SerializeField] protected Animator _sleepyZedAnimator;
-
-    protected Animator _animator;
+    private Coroutine _restCycleCoroutine;
 
 
-    protected virtual void Start()
+    protected virtual void Start() => SubscribeToBattleEvents();
+    protected virtual void OnDestroy() => UnsubscribeFromBattleEvents();
+
+    protected void SubscribeToBattleEvents()
     {
-        if (Settings.AnimationSimplified)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        BattleEventBus.WindupStarted += ShowWindupStarted;
+        BattleEventBus.WindupCancelled += ShowWindupCancelled;
+        BattleEventBus.SphereThrown += ShowThrow;
 
-        _animator = GetComponent<Animator>();
-
-        BattleEventBus.OnBlockStarted += SetBlockState;
-        BattleEventBus.OffBlockStarted += SetBlockState;
-        BattleEventBus.WindupStarted += PlayWindupAnimation;
-        BattleEventBus.WindupCancelled += CancelWindupAnimation;
-        BattleEventBus.SphereThrown += PlayReleaseAnimation;
+        BattleEventBus.RestPeriodStarted += StartRestCycle;
+        BattleEventBus.RestPeriodEnded += EndRestCycle;
     }
 
-    protected virtual void OnDestroy()
+    protected void UnsubscribeFromBattleEvents()
     {
-        BattleEventBus.OnBlockStarted -= SetBlockState;
-        BattleEventBus.OffBlockStarted -= SetBlockState;
-        BattleEventBus.WindupStarted -= PlayWindupAnimation;
-        BattleEventBus.WindupCancelled -= CancelWindupAnimation;
-        BattleEventBus.SphereThrown -= PlayReleaseAnimation;
+        BattleEventBus.WindupStarted -= ShowWindupStarted;
+        BattleEventBus.WindupCancelled -= ShowWindupCancelled;
+        BattleEventBus.SphereThrown -= ShowThrow;
+
+        BattleEventBus.RestPeriodStarted -= StartRestCycle;
+        BattleEventBus.RestPeriodEnded -= EndRestCycle;
     }
 
+    protected abstract void ShowWindupStarted();
+    protected abstract void ShowWindupCancelled();
+    protected abstract void ShowThrow();
+    protected abstract void ShowRestEnded();
+    protected abstract void ShowRestStarted();
 
-    protected virtual void SetBlockState() => _animator.SetBool("Active", BlockManager.IsOnBlock);
-    protected void PlayWindupAnimation() => _animator.SetBool("Charge", true);
-    protected void CancelWindupAnimation() => _animator.SetBool("Charge", false);
-    protected void PlayReleaseAnimation()
+    private void StartRestCycle()
     {
-        _animator.SetTrigger("Release");
-        _animator.SetBool("Charge", false);
+        ShowRestStarted();
+        _restCycleCoroutine = StartCoroutine(RunRestCycle());
     }
-
-    protected void EmitSleepyZed() => _sleepyZedAnimator.SetTrigger("Emit");
+    private void EndRestCycle()
+    {
+        StopCoroutine(_restCycleCoroutine);
+        ShowRestEnded();
+    }
+    protected abstract IEnumerator RunRestCycle();
 }
