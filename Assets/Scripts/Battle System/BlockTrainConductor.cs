@@ -1,14 +1,28 @@
 using System;
 using UnityEngine;
 
-public class BlockManager: MonoBehaviour
+public class BlockTrainConductor: MonoBehaviour
 {
     public static bool IsOnBlock = false;
+    public static event Action OnBlockStarted;
+    public static event Action OffBlockStarted;
 
     private float _timer = 0;
 
 
-    private void Start() => BattleEventBus.PauseToggled += OnPauseToggled;
+    private void Start()
+    {
+        BattleEventBus.PauseToggled += OnPauseToggled;
+        OffBlockStarted += BattleEventBus.NotifyRestPeriodStarted;
+        OnBlockStarted += BattleEventBus.NotifyRestPeriodEnded;
+    }
+    private void OnDestroy()
+    {
+        BattleEventBus.PauseToggled -= OnPauseToggled;
+        OffBlockStarted -= BattleEventBus.NotifyRestPeriodStarted;
+        OnBlockStarted -= BattleEventBus.NotifyRestPeriodEnded;
+    }
+
 
     private void Update()
     {
@@ -38,12 +52,12 @@ public class BlockManager: MonoBehaviour
     private void StartOffBlock()
     {
         IsOnBlock = false;
-        BattleEventBus.NotifyOffBlockStarted();
+        OffBlockStarted?.Invoke();
     }
 
     private void StartOnBlock()
     {
         IsOnBlock = true;
-        BattleEventBus.NotifyOnBlockStarted();
+        OnBlockStarted?.Invoke();
     }
 }

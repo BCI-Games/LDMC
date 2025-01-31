@@ -15,14 +15,14 @@ public class BlockTimingFileLogger: MonoBehaviour
 
     void Start()
     {
-        BattleEventBus.OnBlockStarted += LogOnBlockOnset;
-        BattleEventBus.OffBlockStarted += LogOffBlockOnset;
+        BlockTrainConductor.OnBlockStarted += LogOnBlockOnset;
+        BlockTrainConductor.OffBlockStarted += LogOffBlockOnset;
     }
 
     void OnDestroy()
     {
-        BattleEventBus.OnBlockStarted -= LogOnBlockOnset;
-        BattleEventBus.OffBlockStarted -= LogOffBlockOnset;
+        BlockTrainConductor.OnBlockStarted -= LogOnBlockOnset;
+        BlockTrainConductor.OffBlockStarted -= LogOffBlockOnset;
     }
 
 

@@ -14,11 +14,11 @@ public class MonsterSpawnController : MonoBehaviour
     void Start()
     {
         BattleEventBus.MonsterCaptured += OnMonsterCaptured;
-        BattleEventBus.OnBlockStarted += SpawnNewMonsterIfPending;
+        BattleEventBus.RestPeriodEnded += SpawnNewMonsterIfPending;
         _monsterPresenter = GetComponentInChildren<MonsterPresenter>();
 
         if (Settings.OffBockMonsterDisplayEnabled)
-            SpawnMonster();
+            SpawnMonsterFromList(_monsters);
         else
             QueueMonsterSpawn();
     }
@@ -26,7 +26,7 @@ public class MonsterSpawnController : MonoBehaviour
     private void OnDestroy()
     {
         BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
-        BattleEventBus.OnBlockStarted -= SpawnNewMonsterIfPending;
+        BattleEventBus.RestPeriodEnded -= SpawnNewMonsterIfPending;
     }
 
 
@@ -55,9 +55,9 @@ public class MonsterSpawnController : MonoBehaviour
     }
     
 
-    public void SpawnMonster()
+    private void SpawnMonsterFromList(MonsterData[] monsterList)
     {
-        MonsterData newMonster = SelectRandom(_monsters);
+        MonsterData newMonster = SelectRandom(monsterList);
         _monsterPresenter.ShowNewMonster(newMonster);
         BattleEventBus.NotifyMonsterAppeared(newMonster);
     }
@@ -66,17 +66,13 @@ public class MonsterSpawnController : MonoBehaviour
     {
         if (!excludedMonster)
         {
-            SpawnMonster();
+            SpawnMonsterFromList(_monsters);
             return;
         }
         List<MonsterData> monstersCopy = _monsters.ToList();
         monstersCopy.Remove(excludedMonster);
-
-        MonsterData newMonster = SelectRandom(monstersCopy);
-        _monsterPresenter.ShowNewMonster(newMonster);
-        BattleEventBus.NotifyMonsterAppeared(newMonster);
+        SpawnMonsterFromList(monstersCopy.ToArray());
     }
 
     private T SelectRandom<T>(T[] array) => array[Random.Range(0, array.Length)];
-    private T SelectRandom<T>(List<T> list) => list[Random.Range(0, list.Count)];
 }

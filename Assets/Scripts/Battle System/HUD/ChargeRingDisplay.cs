@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class ChargeRingDisplay: Tweener
+[RequireComponent(typeof(SpriteRenderer))]
+public class ChargeRingDisplay: ChargeDisplay
 {
     [SerializeField] private AnimationCurve _fillCurve;
     [SerializeField] private float _chargingScale = 0.75f;
@@ -28,13 +29,6 @@ public class ChargeRingDisplay: Tweener
 
     private Coroutine _activeTween;
 
-
-    public float ChargeLevel{
-        get => _chargeLevel;
-        set => SetChargeLevel(value);
-    }
-    protected float _chargeLevel;
-
     private SpriteRenderer _renderer;
 
 
@@ -44,7 +38,7 @@ public class ChargeRingDisplay: Tweener
     }
 
 
-    private void SetChargeLevel(float value)
+    protected override void SetChargeLevel(float value)
     {
         if (value >= 1 && _chargeLevel < 1)
         {
