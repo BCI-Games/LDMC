@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Options Menu.unity
     guid: 027555d174d33b44198dae7623e94c97
   - enabled: 1
-    path: Assets/Scenes/Block Train Battle.unity
+    path: Assets/Scenes/Passive Battle.unity
     guid: a765431175d75d64fab0a57fda592921
   - enabled: 1
-    path: Assets/Scenes/Live Input Battle.unity
+    path: Assets/Scenes/Reactive Battle.unity
     guid: 05edb8786834e0a468b538d8f56cd12d
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
