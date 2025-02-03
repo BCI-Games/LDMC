@@ -248,6 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwForce: {x: 15, y: 20}
   _spherePrefab: {fileID: 8854408415455498323, guid: 400d525a207dd88438e48d26699c48bc, type: 3}
+  _chargeDisplay: {fileID: 0}
 --- !u!4 &421435774
 Transform:
   m_ObjectHideFlags: 0
@@ -867,10 +868,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.0020833334
+    x: 0.003699137
     y: 0
-    width: 0.7239584
-    height: 0.39814815
+    width: 0.99136865
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
