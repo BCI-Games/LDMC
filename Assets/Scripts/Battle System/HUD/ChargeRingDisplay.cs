@@ -29,13 +29,14 @@ public class ChargeRingDisplay: ChargeDisplay
 
     private Coroutine _activeTween;
 
-    private SpriteRenderer _renderer;
-
-
-    private void Start()
-    {
-        _renderer = GetComponent<SpriteRenderer>();
+    private SpriteRenderer Renderer {
+        get {
+            if (!_renderer)
+                _renderer = GetComponent<SpriteRenderer>();
+            return _renderer;
+        }
     }
+    private SpriteRenderer _renderer;
 
 
     protected override void SetChargeLevel(float value)
@@ -58,7 +59,7 @@ public class ChargeRingDisplay: ChargeDisplay
         
         _chargeLevel = value;
         float fillAmount = _fillCurve.Evaluate(value);
-        _renderer.material.SetFloat("_FillAmount", fillAmount);
+        Renderer.material.SetFloat("_FillAmount", fillAmount);
     }
 
     private void StartScaleTween(float finalScale, float period, TransitionType transition, EaseType easing)
