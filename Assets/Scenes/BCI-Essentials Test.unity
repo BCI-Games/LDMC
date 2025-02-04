@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1546453272}
   - component: {fileID: 1546453274}
+  - component: {fileID: 1546453275}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -163,10 +164,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df02e787ee4947041b0fee8a4c19b9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsOn: 0
+--- !u!114 &1546453275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546453270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb877269b3722d47884fe2114b78c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _streamName: PythonResponse
+  _autoStart: 1
   _resolverPeriod: 0.1
   _openStreamTimeout: 1
   _pullSampleTimeout: 1
+  _pollingFrequency: 0.1
 --- !u!1 &1861543165
 GameObject:
   m_ObjectHideFlags: 0
