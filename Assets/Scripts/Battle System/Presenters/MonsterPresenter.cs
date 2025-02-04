@@ -10,6 +10,11 @@ public class MonsterPresenter : MonoBehaviour
     public bool Catchable => _health <= 0;
     private int _health;
 
+    private SpriteRenderer Renderer{ get {
+        if (!_renderer)
+            _renderer = GetComponent<SpriteRenderer>();
+        return _renderer;
+    }}
     private SpriteRenderer _renderer;
     private PolygonCollider2D _collider;
     private Animator _animator;
@@ -20,7 +25,6 @@ public class MonsterPresenter : MonoBehaviour
     {
         BattleEventBus.MonsterHit += TakeDamage;
 
-        _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<PolygonCollider2D>();
         _animator = GetComponent<Animator>();
 
@@ -45,7 +49,7 @@ public class MonsterPresenter : MonoBehaviour
 
     public void HideMonster()
     {
-        _renderer.enabled = false;
+        Renderer.enabled = false;
     }
 
     public void ShowNewMonster(MonsterData monsterData)
@@ -53,10 +57,10 @@ public class MonsterPresenter : MonoBehaviour
         _currentMonsterData = monsterData;
         transform.localPosition = Vector2.zero;
         _health = _useMonsterHealth? monsterData.BaseHP: Settings.OnBlockCycleCount;
-        _renderer.sprite = monsterData.FrontSprite;
-        _renderer.enabled = true;
+        Renderer.sprite = monsterData.FrontSprite;
+        Renderer.enabled = true;
         _collider.sharedMaterial.bounciness = monsterData.Bounciness;
-        UpdateCollisionShape(_renderer.sprite);
+        UpdateCollisionShape(Renderer.sprite);
     }
 
     private void UpdateCollisionShape(Sprite sprite)
