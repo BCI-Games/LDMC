@@ -1,11 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SubscribableLslSampleReceiver))]
-public class BciEssentialsInputManager: MonoBehaviour, ILslSampleSubscriber
+public class BciEssentialsInputProvider: MonoBehaviour, ILslSampleSubscriber, IBooleanInputProvider
 {
-    public bool IsOn;
+    public bool InputValue => _lastPredictionWasNonZero;
 
     private SubscribableLslSampleReceiver _sampleReceiver;
+    private bool _lastPredictionWasNonZero = false;
 
 
     private void Start()
@@ -19,11 +20,7 @@ public class BciEssentialsInputManager: MonoBehaviour, ILslSampleSubscriber
         switch (sample)
         {
             case LslIntegerSample:
-                IsOn = (sample as LslIntegerSample).Value > 0;
-                break;
-            case LslPing:
-                Debug.Log("Ping Received, unsubscribing");
-                _sampleReceiver.Unsubscribe(this);
+                _lastPredictionWasNonZero = (sample as LslIntegerSample).Value > 0;
                 break;
         }
     }
