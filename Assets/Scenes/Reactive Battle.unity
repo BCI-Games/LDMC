@@ -1381,6 +1381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 634966747640259234}
   - component: {fileID: 7629355657591272064}
+  - component: {fileID: 7629355657591272065}
   - component: {fileID: 7629355657591272063}
   - component: {fileID: 7629355657591272062}
   m_Layer: 0
@@ -1435,6 +1436,19 @@ MonoBehaviour:
   _throwForce: {x: 15, y: 20}
   _spherePrefab: {fileID: 8854408415455498323, guid: 400d525a207dd88438e48d26699c48bc, type: 3}
   _chargeDisplay: {fileID: 209494563}
+--- !u!114 &7629355657591272065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7629355657591272061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc09d36f5cd8f04f80c7e9bf737fac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keyCodes: 200000000d000000
 --- !u!61 &8068385204599129686
 BoxCollider2D:
   m_ObjectHideFlags: 0
