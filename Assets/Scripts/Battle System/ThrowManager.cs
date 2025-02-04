@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class ThrowManager : MonoBehaviour
 {
+    public enum DrainMode {Immediate, Gradual, None}
+
     [SerializeField] private Vector2 _throwForce = new(15, 20);
+    [SerializeField] private DrainMode _drainMode;
 
     [Header("References")]
     [SerializeField] private GameObject _spherePrefab;
@@ -63,9 +66,16 @@ public class ThrowManager : MonoBehaviour
         }
         else if (IsCharging)
         {
-            if (ChargeThresholdIsMet) ThrowSphere();
-            else BattleEventBus.NotifyWindupCancelled();
-            ResetChargeLevel();
+            if (ChargeThresholdIsMet)
+            {
+                ThrowSphere();
+                ResetChargeLevel();
+            }
+            
+            DrainCharge();
+            
+            if (!IsCharging)
+                BattleEventBus.NotifyWindupCancelled();
         }
     }
     
@@ -84,6 +94,18 @@ public class ThrowManager : MonoBehaviour
     private void ResetInventory() => _numberOfSpheresRemaining = _sphereCount;
 
     private void AddFrameTimeToChargeLevel() => ChargeLevel += Time.deltaTime / ChargePeriod;
+    private void DrainCharge()
+    {
+        switch(_drainMode)
+        {
+            case DrainMode.Immediate:
+                ResetChargeLevel();
+                break;
+            case DrainMode.Gradual:
+                ChargeLevel -= Time.deltaTime / ChargePeriod;
+                break;
+        }
+    }
     
     protected void ResetChargeLevel() => ChargeLevel = 0;
     protected virtual bool GetShouldCharge() => Input.GetKey(KeyCode.Space);
