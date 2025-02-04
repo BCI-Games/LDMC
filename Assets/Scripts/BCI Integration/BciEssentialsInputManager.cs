@@ -22,7 +22,8 @@ public class BciEssentialsInputManager: MonoBehaviour, ILslSampleSubscriber
                 IsOn = (sample as LslIntegerSample).Value > 0;
                 break;
             case LslPing:
-                _sampleReceiver.CloseInlet();
+                Debug.Log("Ping Received, unsubscribing");
+                _sampleReceiver.Unsubscribe(this);
                 break;
         }
     }

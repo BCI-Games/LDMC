@@ -6,24 +6,27 @@ using System.Collections.Generic;
 public class LslSampleReceiver: MonoBehaviour
 {
     [SerializeField] string _streamName = "PythonResponse";
-    [SerializeField] bool _autoStart = true;
+    [SerializeField] bool _autoResolve = false;
 
     [Header("Timing Settings")]
-    [SerializeField] float _resolverPeriod = 0.1f;
+    [Min(0)]
+    [SerializeField] float _nameResolutionPeriod = 0.1f;
     [SerializeField] float _openStreamTimeout = 1;
     [SerializeField] float _pullSampleTimeout = 1;
 
-    public bool HasResolvedStream => _resolvedStreamInfo != null;
+    protected bool IsResolvingStream = false;
     private ContinuousResolver _resolver;
+    protected bool HasResolvedStream => _resolvedStreamInfo != null;
     private StreamInfo _resolvedStreamInfo;
     
+    protected bool HasLiveInlet => _inlet != null;
     private StreamInlet _inlet;
     private string[] _sampleBuffer;
 
 
     private void Start()
     {
-        if (_autoStart) FindAndConnectToStream();
+        if (_autoResolve) FindAndConnectToStream();
     }
 
     private void OnDestroy()
@@ -34,26 +37,34 @@ public class LslSampleReceiver: MonoBehaviour
 
     public void FindAndConnectToStream()
     {
+        if (HasResolvedStream)
+        {
+            OpenInletForResolvedStream();
+            return;
+        }
+
         if (string.IsNullOrEmpty(_streamName))
         {
             Debug.LogWarning("Can't search for a nameless stream, aborting...");
             return;
         }
         _resolver = new("name", _streamName);
-        StartCoroutine(RunResolveStream());
+        StartCoroutine(RunResolveStreamByName());
     }
 
-    IEnumerator RunResolveStream()
+    IEnumerator RunResolveStreamByName()
     {
+        IsResolvingStream = true;
         StreamInfo[] resolvedStreams = _resolver.results();
 
         while (resolvedStreams.Length == 0)
         {
-            yield return new WaitForSeconds(_resolverPeriod);
+            yield return new WaitForSeconds(_nameResolutionPeriod);
             resolvedStreams = _resolver.results();
         }
 
         _resolvedStreamInfo = resolvedStreams[0];
+        IsResolvingStream = false;
         OpenInletForResolvedStream();
     }
 
@@ -68,14 +79,14 @@ public class LslSampleReceiver: MonoBehaviour
         OpenInlet(_resolvedStreamInfo);
     }
 
-    public void OpenInlet(StreamInfo streamInfo)
+    protected void OpenInlet(StreamInfo streamInfo)
     {
         _sampleBuffer = new string[streamInfo.channel_count()];
         _inlet = new StreamInlet(streamInfo);
         _inlet.open_stream(_openStreamTimeout);
     }
 
-    public void CloseInlet()
+    protected void CloseInlet()
     {
         _inlet?.Dispose();
         _inlet = null;
@@ -84,7 +95,7 @@ public class LslSampleReceiver: MonoBehaviour
 
     public LslSample[] PullAllSamples()
     {
-        if (_inlet == null) return new LslSample[0];
+        if (!HasLiveInlet) return new LslSample[0];
 
         List<LslSample> pulledSamples = new();
         double lastCaptureTime = double.MaxValue;

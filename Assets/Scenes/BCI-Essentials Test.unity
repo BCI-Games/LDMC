@@ -178,11 +178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _streamName: PythonResponse
-  _autoStart: 1
-  _resolverPeriod: 0.1
+  _autoResolve: 0
+  _nameResolutionPeriod: 0.1
   _openStreamTimeout: 1
   _pullSampleTimeout: 1
-  _pollingFrequency: 0.1
+  _pollingPeriod: 0.1
 --- !u!1 &1861543165
 GameObject:
   m_ObjectHideFlags: 0
