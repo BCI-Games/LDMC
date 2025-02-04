@@ -11,8 +11,9 @@ public class LslSampleReceiver: MonoBehaviour
     [Header("Timing Settings")]
     [Min(0)]
     [SerializeField] float _nameResolutionPeriod = 0.1f;
-    [SerializeField] float _openStreamTimeout = 1;
-    [SerializeField] float _pullSampleTimeout = 1;
+    [SerializeField] float _openStreamTimeout = 0;
+    [Tooltip("A non-zero value will significantly impact performance")]
+    [SerializeField] float _pullSampleTimeout = 0;
 
     protected bool IsResolvingStream = false;
     private ContinuousResolver _resolver;
@@ -26,6 +27,10 @@ public class LslSampleReceiver: MonoBehaviour
 
     private void Start()
     {
+        if (_pullSampleTimeout > 0)
+        {
+            Debug.LogWarning("Pulling Timeout is non-zero, this will block the main thread and significantly impact performance.");
+        }
         if (_autoResolve) FindAndConnectToStream();
     }
 
