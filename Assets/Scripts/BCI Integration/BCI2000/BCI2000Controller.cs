@@ -5,10 +5,12 @@ using System.IO;
 using BCI2000RemoteNET;
 using UnityEngine;
 using System.Threading;
+using UnityEngine.tvOS;
 
 namespace BCI2000 
 {
     using static BCI2000Remote;
+    using static BCI2000Remote.SystemState;
     public class BCI2000Controller: MonoBehaviour
     {
         [SerializeField] private bool _autoConnect = true;
@@ -28,7 +30,7 @@ namespace BCI2000
         [SerializeField] private bool _startModulesWithConnection = true;
         [SerializeField] private BCI2000Module[] _startupModules
         = new BCI2000Module[] {
-            new("SignalGenerater"),
+            new("SignalGenerator"),
             new("DummySignalProcessing"),
             new("DummyApplication")
         };
@@ -64,7 +66,7 @@ namespace BCI2000
                 _remote?.Stop();
 
             if (_autoDisconnect)
-                CloseRemoteOperator();
+                WrapBlockingMethod(() => _remote?.connection.Quit());
         }
 
 
@@ -73,12 +75,13 @@ namespace BCI2000
             string operatorPath, int port = 3999
         )
         {
+            BCI2000Connection connection = new();
+            _remote = new(connection);
             if (!File.Exists(_operatorPath))
             {
                 Debug.LogWarning("Operator path invalid, aborting...");
                 return;
             }
-            BCI2000Connection connection = new();
             connection.StartOperator(operatorPath, port: port);
             ConnectToOperator(port, existingConnection: connection);
         }
@@ -99,11 +102,12 @@ namespace BCI2000
 
             if (_startModulesWithConnection)
             {
-                StartCoroutine
-                (
-                    RunAwaitSystemState
+                StartModules(_startupModules);
+                StartCoroutine(
+                    RunAwaitSystemStates
                     (
-                        SystemState.Connected, CompleteInitialization
+                        new[] {Connected, Initialization},
+                        CompleteInitialization
                     )
                 );
             }
@@ -113,10 +117,8 @@ namespace BCI2000
             }
         }
 
-        protected void CloseRemoteOperator()
-        {
-            new Thread(() => _remote?.connection.Quit()).Start();
-        }
+        public void CloseRemoteOperator()
+        => WrapBlockingMethod(() => _remote?.connection.Quit());
 
 
         protected void CompleteInitialization()
@@ -177,17 +179,21 @@ namespace BCI2000
         }
 
 
-        protected IEnumerator RunAwaitSystemState
+        protected IEnumerator RunAwaitSystemStates
         (
-            SystemState state, Action callback,
+            SystemState[] states, Action callback,
             float pollingPeriod = 0.1f
         )
         {
-            while(!_remote.WaitForSystemState(state, 0))
+            while(_remote.WaitForSystemState(states, 0))
             {
                 yield return new WaitForSeconds(pollingPeriod);
             }
             callback();
         }
+
+
+        protected void WrapBlockingMethod(ThreadStart blockingMethod)
+        => new Thread(blockingMethod).Start();
     }
 }
