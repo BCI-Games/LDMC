@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using BCI2000RemoteNET;
 using UnityEngine;
-using UnityEngine.Events;
+using System.Threading;
 
 namespace BCI2000 
 {
@@ -66,7 +64,7 @@ namespace BCI2000
                 _remote?.Stop();
 
             if (_autoDisconnect)
-                _remote?.connection.Quit();
+                CloseRemoteOperator();
         }
 
 
@@ -114,6 +112,12 @@ namespace BCI2000
                 CompleteInitialization();
             }
         }
+
+        protected void CloseRemoteOperator()
+        {
+            new Thread(() => _remote?.connection.Quit()).Start();
+        }
+
 
         protected void CompleteInitialization()
         {
