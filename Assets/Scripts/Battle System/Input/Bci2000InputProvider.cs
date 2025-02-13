@@ -1,26 +1,24 @@
 using UnityEngine;
-using BCI2000;
-using BCIEssentials.Controllers;
+using Bci2000;
 
-[RequireComponent(typeof(BCI2000Controller))]
 public class Bci2000InputProvider: MonoBehaviour, IBooleanInputProvider
 {
     public bool InputValue => _eventValue;
 
     public string EventName = "test";
 
-    private BCI2000Controller _controller;
+    private Bci2000RemoteProxy _bci2000Proxy;
     private bool _eventValue = false;
 
 
     private void Start()
     {
-        _controller = GetComponent<BCI2000Controller>();
+        _bci2000Proxy = GetComponent<Bci2000RemoteProxy>();
         
     }
 
     private void Update()
     {
-        _eventValue = _controller.GetEvent(EventName) > 0;
+        _eventValue = _bci2000Proxy.GetEvent(EventName) > 0;
     }
 }
