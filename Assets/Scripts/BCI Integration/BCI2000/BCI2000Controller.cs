@@ -70,6 +70,13 @@ namespace BCI2000
         }
 
 
+        public uint GetEvent(string name)
+        => _remote.GetEvent(name);
+
+        public void SetEvent(string name, uint value)
+        => _remote.SetEvent(name, value);
+
+
         public void StartAndConnectToLocalOperator
         (
             string operatorPath, int port = 3999

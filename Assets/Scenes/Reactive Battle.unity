@@ -1384,6 +1384,8 @@ GameObject:
   - component: {fileID: 7629355657591272065}
   - component: {fileID: 7629355657591272063}
   - component: {fileID: 7629355657591272062}
+  - component: {fileID: 7629355657591272067}
+  - component: {fileID: 7629355657591272066}
   m_Layer: 0
   m_Name: Throw Manager
   m_TagString: Untagged
@@ -1434,6 +1436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _throwForce: {x: 15, y: 20}
+  _drainMode: 0
   _spherePrefab: {fileID: 8854408415455498323, guid: 400d525a207dd88438e48d26699c48bc, type: 3}
   _chargeDisplay: {fileID: 209494563}
 --- !u!114 &7629355657591272065
@@ -1449,6 +1452,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _keyCodes: 200000000d000000
+--- !u!114 &7629355657591272066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7629355657591272061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5bb39369eb2bd34580ea80bd705bf22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _autoConnect: 1
+  _startWhenConnected: 1
+  _stopWithScene: 1
+  _autoDisconnect: 1
+  _startLocalOperator: 1
+  _operatorPath: C:\Users\Twig\BCI2000\BCI2000 v3.6.beta.R7385\BCI2000.x64\prog\Operator.exe
+  _operatorAddress: 127.0.0.1
+  _operatorPort: 3999
+  _startModulesWithConnection: 1
+  _startupModules:
+  - Name: SignalGenerator
+    Arguments: []
+  - Name: DummySignalProcessing
+    Arguments: []
+  - Name: DummyApplication
+    Arguments: []
+  _events:
+  - Name: test
+    BitWidth: 1
+    InitialValue: 0
+  _parameters: []
+  _parameterFiles: []
+  _states: []
+--- !u!114 &7629355657591272067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7629355657591272061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f70a2f7b8b9ba34d812758d90c3d29a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventName: test
 --- !u!61 &8068385204599129686
 BoxCollider2D:
   m_ObjectHideFlags: 0
