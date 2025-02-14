@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using BCI2000RemoteNET;
+using BCI2000;
 using UnityEngine;
 using System.Threading;
 using UnityEngine.tvOS;

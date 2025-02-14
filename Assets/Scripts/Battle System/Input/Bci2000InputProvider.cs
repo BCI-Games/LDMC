@@ -1,5 +1,5 @@
 using UnityEngine;
-using Bci2000;
+using BCI2000;
 
 public class Bci2000InputProvider: MonoBehaviour, IBooleanInputProvider
 {

@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
 
-namespace Bci2000
+namespace BCI2000
 {
     public class TcpHostPing
     {

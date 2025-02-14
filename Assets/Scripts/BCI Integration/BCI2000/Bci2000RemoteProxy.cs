@@ -3,9 +3,9 @@
 using System;
 using System.IO;
 using UnityEngine;
-using BCI2000RemoteNET;
+using BCI2000;
 
-namespace Bci2000
+namespace BCI2000
 {
     using static MethodExtensions;
     using static BCI2000Remote.SystemState;
