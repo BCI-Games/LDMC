@@ -23,7 +23,20 @@ namespace Bci2000
         [Header("Parameters")]
         [SerializeField] private string[] _parameterFiles;
 
+        protected BCI2000Remote Remote
+        {
+            get {
+                if(_connection is not null && !_connection.Connected())
+                {
+                    Debug.LogWarning("Connection invalidated");
+                    _remote = null;
+                    _connection = null;
+                }
+                return _remote;
+            }
+        }
         protected BCI2000Remote _remote;
+        protected BCI2000Connection _connection;
 
 
         void Awake()
@@ -35,24 +48,24 @@ namespace Bci2000
         void OnDestroy()
         {
             if(_stopWithScene)
-                _remote?.Stop();
+                Remote?.Stop();
         }
 
 
         public uint GetState(string name)
-        => _remote?.GetState(name) ?? 0;
+        => Remote?.GetState(name) ?? 0;
         public void SetState(string name, uint value)
-        => _remote?.SetState(name, value);
+        => Remote?.SetState(name, value);
 
         public uint GetEvent(string name)
-        => _remote?.GetEvent(name) ?? 0;
+        => Remote?.GetEvent(name) ?? 0;
         public void SetEvent(string name, uint value)
-        => _remote?.SetEvent(name, value);
+        => Remote?.SetEvent(name, value);
 
         public string GetParameter(string name)
-        => _remote?.GetParameter(name) ?? "";
+        => Remote?.GetParameter(name) ?? "";
         public void SetParameter(string name, string value)
-        => _remote?.SetParameter(name, value);
+        => Remote?.SetParameter(name, value);
 
 
         public void Connect
@@ -60,13 +73,14 @@ namespace Bci2000
             int port = 3999, string address = "127.0.0.1"
         )
         {
-            BCI2000Connection connection = new();
-            connection.Connect(address, port);
-            _remote = new(connection);
+            _connection = new();
+            _connection.Timeout = 200;
+            _connection.Connect(address, port);
+            _remote = new(_connection);
 
             InitializeRemote();
             this.ExecuteWhen(
-                () => _remote.GetSystemState() >= Connected,
+                () => Remote.GetSystemState() >= Initialization,
                 OnConnected
             );
         }
@@ -76,14 +90,14 @@ namespace Bci2000
         {
             Array.ForEach(_parameterFiles, LoadParameterFile);
             if (_startWhenConnected)
-                _remote.Start();
+                Remote.Start();
         }
 
 
         public void LoadParameterFile(string path)
         {
             if (File.Exists(path))
-                _remote.LoadParameters(path);
+                Remote.LoadParameters(path);
             else
                 Debug.LogWarning("Parameter file not found: " + path);
         }
