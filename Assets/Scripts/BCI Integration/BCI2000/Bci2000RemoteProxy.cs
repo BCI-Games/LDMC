@@ -7,7 +7,7 @@ using BCI2000RemoteNET;
 
 namespace Bci2000
 {
-    using static BCI2000Remote;
+    using static MethodExtensions;
     using static BCI2000Remote.SystemState;
 
     public class Bci2000RemoteProxy: MonoBehaviour
@@ -23,9 +23,6 @@ namespace Bci2000
         [Header("Parameters")]
         [SerializeField] private string[] _parameterFiles;
 
-
-        protected static readonly SystemState[] ConnectedStates
-        = new[] {Connected, Initialization, Resting};
         protected BCI2000Remote _remote;
 
 
@@ -68,14 +65,15 @@ namespace Bci2000
             _remote = new(connection);
 
             InitializeRemote();
-            _remote.WaitForSystemState(ConnectedStates);
-            OnConnected();
+            this.ExecuteWhen(
+                () => _remote.GetSystemState() >= Connected,
+                OnConnected
+            );
         }
 
         protected virtual void InitializeRemote() {}
         protected virtual void OnConnected()
         {
-            Debug.Log("On Connected");
             Array.ForEach(_parameterFiles, LoadParameterFile);
             if (_startWhenConnected)
                 _remote.Start();
@@ -102,6 +100,6 @@ namespace Bci2000
 
 
         public void CloseRemote()
-        => this.ExecuteMethodInThread(() => _remote.connection.Quit());
+        => ExecuteMethodInThread(() => _remote?.connection.Quit());
     }
 }
