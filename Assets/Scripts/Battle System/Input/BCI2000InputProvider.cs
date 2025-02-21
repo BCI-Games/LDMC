@@ -1,7 +1,7 @@
 using UnityEngine;
 using BCI2000;
 
-public class Bci2000InputProvider: MonoBehaviour, IBooleanInputProvider
+public class BCI2000InputProvider: MonoBehaviour, IBooleanInputProvider
 {
     public bool InputValue => _eventValue;
 
