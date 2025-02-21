@@ -7,18 +7,19 @@ public class Bci2000InputProvider: MonoBehaviour, IBooleanInputProvider
 
     public string EventName = "test";
 
-    private Bci2000RemoteProxy _bci2000Proxy;
+    private BCI2000RemoteProxy _bci2000Proxy;
     private bool _eventValue = false;
 
 
     private void Start()
     {
-        _bci2000Proxy = GetComponent<Bci2000RemoteProxy>();
+        _bci2000Proxy = GetComponent<BCI2000RemoteProxy>();
         
     }
 
     private void Update()
     {
-        _eventValue = _bci2000Proxy.GetEvent(EventName) > 0;
+        if (_bci2000Proxy.Connected())
+            _eventValue = _bci2000Proxy.GetEvent(EventName) > 0;
     }
 }

@@ -1385,7 +1385,7 @@ GameObject:
   - component: {fileID: 7629355657591272063}
   - component: {fileID: 7629355657591272062}
   - component: {fileID: 7629355657591272067}
-  - component: {fileID: 7629355657591272068}
+  - component: {fileID: 7629355657591272069}
   m_Layer: 0
   m_Name: Throw Manager
   m_TagString: Untagged
@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EventName: test
---- !u!114 &7629355657591272068
+--- !u!114 &7629355657591272069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1474,15 +1474,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 7629355657591272061}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7f4700c74155940a3e7190b78aa2cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9214030fea1866440ae1784f5a98b5f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Timeout: 1000
+  TerminateOperatorOnDisconnect: 0
+  PrintDebugLogs: 0
+  _windowTitle: 
+  _hideWindow: 0
+  _startupConfiguration:
+    StartModulesWithConnection: 0
+    SignalSourceModule:
+      Name: SignalGenerator
+      Arguments: []
+    SignalProcessingModule:
+      Name: DummySignalProcessing
+      Arguments: []
+    ApplicationModule:
+      Name: DummyApplication
+      Arguments: []
+    OtherModules: []
+    Parameters: []
+    ParameterFiles: []
+    States: []
+    Events: []
   _autoConnect: 1
   _startWhenConnected: 1
-  _stopWithScene: 1
+  _stopWhenDestroyed: 1
+  _autoStartLocalOperator: 0
+  OperatorPath: 
   OperatorAddress: 127.0.0.1
   OperatorPort: 3999
-  _parameterFiles: []
 --- !u!61 &8068385204599129686
 BoxCollider2D:
   m_ObjectHideFlags: 0
