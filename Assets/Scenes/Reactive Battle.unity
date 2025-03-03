@@ -199,6 +199,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _chargingScale: 0.75
+  _drainingScale: 0.85
   _fullyChargedScale: 0.5
   _startedChargingPeriod: 0.2
   _startedChargingTransition: 4
@@ -209,9 +210,12 @@ MonoBehaviour:
   _throwTweenPeriod: 0.6
   _throwTweenTransition: 5
   _throwTweenEasing: 0
-  _cancelTweenPeriod: 0.2
-  _cancelTweenTransition: 2
-  _cancelTweenEasing: 2
+  _startedDrainingTweenPeriod: 0.2
+  _startedDrainingTweenTransition: 4
+  _startedDrainingTweenEasing: 0
+  _cancelTweenPeriod: 0.3
+  _cancelTweenTransition: 4
+  _cancelTweenEasing: 0
 --- !u!212 &209494564
 SpriteRenderer:
   m_ObjectHideFlags: 0

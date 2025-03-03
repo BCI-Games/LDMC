@@ -105,6 +105,9 @@ public class ThrowManager : MonoBehaviour
             case DrainMode.Gradual:
                 ChargeLevel -= Time.deltaTime / ChargePeriod;
                 break;
+            case DrainMode.None:
+                ChargeLevel = ChargeLevel;
+                break;
         }
     }
     
