@@ -2,30 +2,38 @@ using UnityEngine;
 
 public class AggregateInputThrowManager: ThrowManager
 {
-    private IBooleanInputProvider[] _inputProviders;
+    private IInputProvider[] _inputProviders;
+    private float NormalizedInputValue => GetNormalizedInputValue();
 
 
     protected override void Start()
     {
         base.Start();
-        _inputProviders = GetComponents<IBooleanInputProvider>();
+        _inputProviders = GetComponents<IInputProvider>();
     }
 
 
-    protected override bool GetShouldCharge()
+    private float GetNormalizedInputValue()
     {
-        if (_inputProviders == null) return false;
+        if (_inputProviders == null) return 0;
 
-        bool shouldCharge = false;
+        float totalInputValue = 0;
         foreach(var inputProvider in _inputProviders)
         {
-            shouldCharge |= inputProvider.InputValue;
+            totalInputValue += Mathf.Clamp01(inputProvider.InputValue);
         }
-        return shouldCharge;
+        return Mathf.Clamp01(totalInputValue);
     }
+
+
+    protected override void AddFrameTimeToChargeLevel()
+    => ChargeLevel += NormalizedInputValue * Time.deltaTime / ChargePeriod;
+
+    protected override bool GetShouldCharge()
+    => NormalizedInputValue > 0;
 }
 
-public interface IBooleanInputProvider
+public interface IInputProvider
 {
-    public abstract bool InputValue {get;}
+    public abstract float InputValue {get;}
 }

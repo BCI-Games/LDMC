@@ -93,7 +93,8 @@ public class ThrowManager : MonoBehaviour
 
     private void ResetInventory() => _numberOfSpheresRemaining = _sphereCount;
 
-    private void AddFrameTimeToChargeLevel() => ChargeLevel += Time.deltaTime / ChargePeriod;
+    protected virtual void AddFrameTimeToChargeLevel()
+    => ChargeLevel += Time.deltaTime / ChargePeriod;
     private void DrainCharge()
     {
         switch(_drainMode)

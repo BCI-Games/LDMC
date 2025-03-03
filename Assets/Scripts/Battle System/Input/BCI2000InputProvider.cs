@@ -1,14 +1,14 @@
 using UnityEngine;
 using BCI2000;
 
-public class BCI2000InputProvider: MonoBehaviour, IBooleanInputProvider
+public class BCI2000InputProvider: MonoBehaviour, IInputProvider
 {
-    public bool InputValue => _eventValue;
+    public float InputValue => _eventValue;
 
     public string EventName = "test";
 
     private BCI2000RemoteProxy _bci2000Proxy;
-    private bool _eventValue = false;
+    private float _eventValue = 0;
 
 
     private void Start()
@@ -20,6 +20,6 @@ public class BCI2000InputProvider: MonoBehaviour, IBooleanInputProvider
     private void Update()
     {
         if (_bci2000Proxy.Connected())
-            _eventValue = _bci2000Proxy.GetEvent(EventName) > 0;
+            _eventValue = _bci2000Proxy.GetEvent(EventName);
     }
 }
