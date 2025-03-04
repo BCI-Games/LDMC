@@ -26,7 +26,7 @@ public class BCI2000StateManager: MonoBehaviour
     {
         _bci2000Proxy ??= FindAnyObjectByType<BCI2000RemoteProxy>();
 
-        _bci2000Proxy.OnOperatorConnected += () => {
+        _bci2000Proxy.OperatorConnected += () => {
             SetPhase(true);
             SetCodeAndCondition(StateValue.StartTask);
         };
