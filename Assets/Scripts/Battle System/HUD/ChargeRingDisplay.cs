@@ -5,6 +5,7 @@ public class ChargeRingDisplay: ChargeDisplay
 {
     [SerializeField] private AnimationCurve _fillCurve;
     [SerializeField] private float _chargingScale = 0.75f;
+    [SerializeField] private float _drainingScale = 0.85f;
     [SerializeField] private float _fullyChargedScale = 0.5f;
 
     [Header("Start Charging Tween")]
@@ -22,12 +23,18 @@ public class ChargeRingDisplay: ChargeDisplay
     [SerializeField] private TransitionType _throwTweenTransition = TransitionType.Elastic;
     [SerializeField] private EaseType _throwTweenEasing = EaseType.EaseOut;
 
+    [Header("Start Draining Tween")]
+    [SerializeField] private float _startedDrainingTweenPeriod = 0.2f;
+    [SerializeField] private TransitionType _startedDrainingTweenTransition = TransitionType.Back;
+    [SerializeField] private EaseType _startedDrainingTweenEasing = EaseType.EaseOut;
+
     [Header("Cancel Tween")]
-    [SerializeField] private float _cancelTweenPeriod = 0.4f;
-    [SerializeField] private TransitionType _cancelTweenTransition = TransitionType.Cubic;
-    [SerializeField] private EaseType _cancelTweenEasing = EaseType.EaseInOut;
+    [SerializeField] private float _cancelTweenPeriod = 0.3f;
+    [SerializeField] private TransitionType _cancelTweenTransition = TransitionType.Back;
+    [SerializeField] private EaseType _cancelTweenEasing = EaseType.EaseOut;
 
     private Coroutine _activeTween;
+    private bool _isCharging = false;
 
     private SpriteRenderer Renderer {
         get {
@@ -45,16 +52,27 @@ public class ChargeRingDisplay: ChargeDisplay
         {
             StartScaleTween(_fullyChargedScale, _fullyChargedTweenPeriod, _fullyChargedTweenTransition, _fullyChargedTweenEasing);
         }
-        else if (value > 0 && _chargeLevel <= 0)
-        {
-            StartScaleTween(_chargingScale, _startedChargingPeriod, _startedChargingTransition, _startedChargingEasing);
-        }
-        else if (value == 0)
+        else if (value <= 0)
         {
             if (_chargeLevel >= 1)
+            {
                 StartScaleTween(1, _throwTweenPeriod, _throwTweenTransition, _throwTweenEasing);
-            else
+            }
+            else if (_chargeLevel > 0)
+            {
                 StartScaleTween(1, _cancelTweenPeriod, _cancelTweenTransition, _cancelTweenEasing);
+            }
+            _isCharging = false;
+        }
+        else if (value > _chargeLevel && !_isCharging)
+        {
+            StartScaleTween(_chargingScale, _startedChargingPeriod, _startedChargingTransition, _startedChargingEasing);
+            _isCharging = true;
+        }
+        else if (value <= _chargeLevel && _isCharging)
+        {
+            StartScaleTween(_drainingScale, _startedDrainingTweenPeriod, _startedDrainingTweenTransition, _startedDrainingTweenEasing);
+            _isCharging = false;
         }
         
         _chargeLevel = value;

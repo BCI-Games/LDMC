@@ -1,9 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SubscribableLslSampleReceiver))]
-public class BciEssentialsInputProvider: MonoBehaviour, ILslSampleSubscriber, IBooleanInputProvider
+public class BciEssentialsInputProvider: MonoBehaviour, ILslSampleSubscriber, IInputProvider
 {
-    public bool InputValue => _lastPredictionWasNonZero;
+    public float InputValue => _lastPredictionWasNonZero? 1: 0;
 
     private SubscribableLslSampleReceiver _sampleReceiver;
     private bool _lastPredictionWasNonZero = false;
