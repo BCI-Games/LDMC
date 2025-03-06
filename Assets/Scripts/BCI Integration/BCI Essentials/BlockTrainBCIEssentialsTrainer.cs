@@ -1,15 +1,11 @@
 using UnityEngine;
-using BCIEssentials.LSLFramework;
 
 public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
 {
-    private LSLMarkerStream _markerOutlet;
     private bool isInTrial;
 
     void Start()
     {
-        _markerOutlet = FindAnyObjectByType<LSLMarkerStream>();
-
         BlockTrainConductor.OffBlockStarted += SendOffTrialMarkers;
         BattleEventBus.WindupStarted += SendOnTrialMarkers;
         BattleEventBus.SphereThrown += EndPreviousTrial;
@@ -51,12 +47,17 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
     }
 
 
-    void SendTrialStartedMarker() => _markerOutlet.Write("Trial Started");
-    void SendTrialEndsMarker() => _markerOutlet.Write("Trial Ends");
-    void SendUpdateClassifierMarker() => _markerOutlet.Write("Update Classifier");
+    void SendTrialStartedMarker() => WriteMarker("Trial Started");
+    void SendTrialEndsMarker() => WriteMarker("Trial Ends");
+    void SendUpdateClassifierMarker() => WriteMarker("Update Classifier");
 
     void SendMIEventMarker(float windowLength, int trainingTarget = -1, int optionCount = 2)
     {
-        _markerOutlet.Write($"mi,{optionCount},{trainingTarget},{windowLength:f2}");
+        WriteMarker($"mi,{optionCount},{trainingTarget},{windowLength:f2}");
+    }
+
+    void WriteMarker(string markerString)
+    {
+        PersistentMarkerStream.PushString(markerString);
     }
 }

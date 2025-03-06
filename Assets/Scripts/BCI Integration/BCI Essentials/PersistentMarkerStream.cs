@@ -15,4 +15,12 @@ public class PersistentMarkerStream: LSLMarkerStream
         else if (_instance != this)
             Destroy(this);
     }
+
+    public static void PushString(string markerString)
+    {
+        if (_instance)
+            _instance.Write(markerString);
+        else
+            Debug.LogWarning("No marker stream to push to");
+    }
 }
