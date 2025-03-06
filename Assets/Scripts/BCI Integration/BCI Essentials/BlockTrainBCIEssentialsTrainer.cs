@@ -1,7 +1,6 @@
 using UnityEngine;
 using BCIEssentials.LSLFramework;
 
-[RequireComponent(typeof(LSLMarkerStream))]
 public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
 {
     private LSLMarkerStream _markerOutlet;
@@ -9,7 +8,7 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
 
     void Start()
     {
-        _markerOutlet = GetComponent<LSLMarkerStream>();
+        _markerOutlet = FindAnyObjectByType<LSLMarkerStream>();
 
         BlockTrainConductor.OffBlockStarted += SendOffTrialMarkers;
         BattleEventBus.WindupStarted += SendOnTrialMarkers;
