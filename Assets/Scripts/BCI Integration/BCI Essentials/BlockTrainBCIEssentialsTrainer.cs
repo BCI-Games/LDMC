@@ -2,54 +2,53 @@ using UnityEngine;
 
 public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
 {
-    private bool isInTrial;
+    private bool _isInTrial;
+    private bool _hasTrained;
 
     void Start()
     {
-        BlockTrainConductor.OffBlockStarted += SendOffTrialMarkers;
-        BattleEventBus.WindupStarted += SendOnTrialMarkers;
-        BattleEventBus.SphereThrown += EndPreviousTrial;
+        BlockTrainConductor.OffBlockStarted += SendOffBlockMarker;
+        BattleEventBus.WindupStarted += SendOnBlockMarker;
+        BattleEventBus.MonsterCaptured += OnMonsterCaptured;
     }
 
     void OnDestroy()
     {
-        BlockTrainConductor.OffBlockStarted -= SendOffTrialMarkers;
-        BattleEventBus.WindupStarted -= SendOnTrialMarkers;
-        BattleEventBus.SphereThrown -= EndPreviousTrial;
+        BlockTrainConductor.OffBlockStarted -= SendOffBlockMarker;
+        BattleEventBus.WindupStarted -= SendOnBlockMarker;
+        BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
 
-        EndPreviousTrial();
+        if (_isInTrial) SendTrialEndsMarker();
+        if (_hasTrained) SendTrainingCompleteMarker();
     }
 
-    
-    void SendOffTrialMarkers()
+
+    void SendOffBlockMarker()
     {
-        EndPreviousTrial();
-        SendTrialStartedMarker();
+        if (!_isInTrial)
+        {
+            _isInTrial = true;
+            SendTrialStartedMarker();
+        }
         SendMIEventMarker(Settings.OffBlockDuration, 0);
-        isInTrial = true;
     }
 
-
-    void SendOnTrialMarkers()
+    void SendOnBlockMarker()
     {
-        EndPreviousTrial();
-        SendTrialStartedMarker();
         SendMIEventMarker(Settings.CharacterActiveDuration, 1);
-        isInTrial = true;
     }
 
-    void EndPreviousTrial()
+    void OnMonsterCaptured(MonsterData _)
     {
-        if (!isInTrial) return;
-        SendTrialEndsMarker();
+        _hasTrained = true;
         SendUpdateClassifierMarker();
-        isInTrial = false;
     }
 
 
     void SendTrialStartedMarker() => WriteMarker("Trial Started");
     void SendTrialEndsMarker() => WriteMarker("Trial Ends");
     void SendUpdateClassifierMarker() => WriteMarker("Update Classifier");
+    void SendTrainingCompleteMarker() => WriteMarker("Training Complete");
 
     void SendMIEventMarker(float windowLength, int trainingTarget = -1, int optionCount = 2)
     {
