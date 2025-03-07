@@ -3,7 +3,7 @@ using UnityEngine;
 public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
 {
     private bool _isInTrial;
-    private bool _hasTrained;
+    private bool _shouldUpdateClassifier;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
         BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
 
         if (_isInTrial) SendTrialEndsMarker();
-        if (_hasTrained) SendTrainingCompleteMarker();
+        if (_shouldUpdateClassifier) SendTrainingCompleteMarker();
     }
 
 
@@ -30,18 +30,19 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
             _isInTrial = true;
             SendTrialStartedMarker();
         }
+        if (_shouldUpdateClassifier) SendUpdateClassifierMarker();
         SendMIEventMarker(Settings.OffBlockDuration, 0);
     }
 
     void SendOnBlockMarker()
     {
+        if (_shouldUpdateClassifier) SendUpdateClassifierMarker();
         SendMIEventMarker(Settings.CharacterActiveDuration, 1);
     }
 
     void OnMonsterCaptured(MonsterData _)
     {
-        _hasTrained = true;
-        SendUpdateClassifierMarker();
+        _shouldUpdateClassifier = true;
     }
 
 
