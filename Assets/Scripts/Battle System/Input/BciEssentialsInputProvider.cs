@@ -4,11 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(SubscribableLslSampleReceiver))]
 public class BciEssentialsInputProvider: MonoBehaviour, ILslSampleSubscriber, IInputProvider
 {
-    public float InputValue => _lastPredictionWasNonZero? 1: 0;
+    public float InputValue => _lastPredictionWasActive? 1: 0;
     public float trialPeriod = 0.1f;
 
     private SubscribableLslSampleReceiver _sampleReceiver;
-    private bool _lastPredictionWasNonZero = false;
+    private bool _lastPredictionWasActive = false;
 
     private float trialTimer = 0;
 
@@ -42,7 +42,7 @@ public class BciEssentialsInputProvider: MonoBehaviour, ILslSampleSubscriber, II
         switch (sample)
         {
             case LslIntegerSample:
-                _lastPredictionWasNonZero = (sample as LslIntegerSample).Value > 0;
+                _lastPredictionWasActive = (sample as LslIntegerSample).Value > 1;
                 break;
         }
     }
