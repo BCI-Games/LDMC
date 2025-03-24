@@ -51,7 +51,6 @@ public class AutomatedThrowManager: ThrowManager
         while(SpheresRemain)
         {
             _shouldCharge = true;
-            BattleEventBus.NotifyWindupStarted();
             yield return new WaitForSeconds(ChargePeriod);
             ThrowSphere();
             ResetChargeLevel();
