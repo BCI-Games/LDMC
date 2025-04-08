@@ -1,63 +1,110 @@
+using System.Collections;
 using UnityEngine;
-using BCIEssentials.LSLFramework;
 
-[RequireComponent(typeof(LSLMarkerStream))]
 public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
 {
-    private LSLMarkerStream _markerOutlet;
-    private bool isInTrial;
+    private bool _isInTrial;
+    private float _windowLength;
+    private bool _shouldUpdateClassifier;
+
+    private bool IsTraining => _markerRoutine != null;
+    private Coroutine _markerRoutine = null;
+
 
     void Start()
     {
-        _markerOutlet = GetComponent<LSLMarkerStream>();
+        _windowLength = GetCommonWindowLength();
 
-        BlockTrainConductor.OffBlockStarted += SendOffTrialMarkers;
-        BattleEventBus.WindupStarted += SendOnTrialMarkers;
-        BattleEventBus.SphereThrown += EndPreviousTrial;
+        BlockTrainConductor.OffBlockStarted += SendOffBlockMarkers;
+        BattleEventBus.WindupStarted += SendActiveWindowMarkers;
+        BattleEventBus.MonsterCaptured += OnMonsterCaptured;
     }
 
     void OnDestroy()
     {
-        BlockTrainConductor.OffBlockStarted -= SendOffTrialMarkers;
-        BattleEventBus.WindupStarted -= SendOnTrialMarkers;
-        BattleEventBus.SphereThrown -= EndPreviousTrial;
+        BlockTrainConductor.OffBlockStarted -= SendOffBlockMarkers;
+        BattleEventBus.WindupStarted -= SendActiveWindowMarkers;
+        BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
 
-        EndPreviousTrial();
-    }
-
-    
-    void SendOffTrialMarkers()
-    {
-        EndPreviousTrial();
-        SendTrialStartedMarker();
-        SendMIEventMarker(Settings.OffBlockDuration, 0);
-        isInTrial = true;
+        if (_isInTrial) SendTrialEndsMarker();
+        if (IsTraining) StopCoroutine(_markerRoutine);
+        if (_shouldUpdateClassifier) SendTrainingCompleteMarker();
     }
 
 
-    void SendOnTrialMarkers()
+    void SendOffBlockMarkers()
     {
-        EndPreviousTrial();
-        SendTrialStartedMarker();
-        SendMIEventMarker(Settings.CharacterActiveDuration, 1);
-        isInTrial = true;
+        if (!_isInTrial)
+        {
+            _isInTrial = true;
+            SendTrialStartedMarker();
+        }
+
+        SendMarkersForPeriod(1, Settings.OffBlockDuration);
     }
 
-    void EndPreviousTrial()
+    void SendActiveWindowMarkers()
     {
-        if (!isInTrial) return;
-        SendTrialEndsMarker();
+        SendMarkersForPeriod(2, Settings.CharacterActiveDuration);
+    }
+
+    void OnMonsterCaptured(MonsterData _)
+    {
         SendUpdateClassifierMarker();
-        isInTrial = false;
     }
 
 
-    void SendTrialStartedMarker() => _markerOutlet.Write("Trial Started");
-    void SendTrialEndsMarker() => _markerOutlet.Write("Trial Ends");
-    void SendUpdateClassifierMarker() => _markerOutlet.Write("Update Classifier");
+    private void SendMarkersForPeriod
+    (int trainingTarget, float duration)
+    => _markerRoutine = StartCoroutine
+    (
+        RunSendMarkersForPeriod(
+            trainingTarget, duration
+        )
+    );
+    IEnumerator RunSendMarkersForPeriod
+    (int trainingTarget, float duration)
+    {
+        float lifetime = 0;
+        while(lifetime < duration)
+        {
+            SendMIEventMarker(_windowLength, trainingTarget);
+            yield return new WaitForSeconds(_windowLength);
+            lifetime += _windowLength;
+        }
+    }
+
+
+    void SendTrialStartedMarker() => WriteMarker("Trial Started");
+    void SendTrialEndsMarker() => WriteMarker("Trial Ends");
+    void SendUpdateClassifierMarker() => WriteMarker("Update Classifier");
+    void SendTrainingCompleteMarker() => WriteMarker("Training Complete");
 
     void SendMIEventMarker(float windowLength, int trainingTarget = -1, int optionCount = 2)
     {
-        _markerOutlet.Write($"mi,{optionCount},{trainingTarget},{windowLength:f2}");
+        WriteMarker($"mi,{optionCount},{trainingTarget},{windowLength:f2}");
+    }
+
+    void WriteMarker(string markerString)
+    {
+        PersistentMarkerStream.PushString(markerString);
+    }
+
+    
+    public static float GetCommonWindowLength()
+    => GetCommonDivisor(Settings.CharacterActiveDuration, Settings.OffBlockDuration);
+
+    public static float GetCommonDivisor(float a, float b)
+    {
+        if (a == b)
+            return a;
+
+        float max = Mathf.Max(a, b);
+        float min = Mathf.Min(a, b);
+
+        if (max % min == 0) return min;
+        if (1 / min % max == 0) return 1 / min;
+        if (1 / max % min == 0) return 1 / max;
+        return 1 / (min * max);
     }
 }

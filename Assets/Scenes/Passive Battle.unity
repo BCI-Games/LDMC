@@ -119,66 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &194266865
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 194266868}
-  - component: {fileID: 194266867}
-  - component: {fileID: 194266866}
-  m_Layer: 0
-  m_Name: BCi-Essentials Trainer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &194266866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194266865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abcc24b3277378e439b2519bf143cb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StreamName: UnityMarkerStream
-  StreamType: LSL_Marker_Strings
-  StreamId: MyStreamID-Unity1234
---- !u!114 &194266867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194266865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a486f044c4c86404eb2a5c266659fa9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &194266868
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194266865}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &235158806
 Material:
   serializedVersion: 8
@@ -385,6 +325,7 @@ GameObject:
   - component: {fileID: 531431146}
   - component: {fileID: 531431145}
   - component: {fileID: 531431147}
+  - component: {fileID: 531431148}
   m_Layer: 0
   m_Name: Block Train Conductor
   m_TagString: Untagged
@@ -435,6 +376,18 @@ MonoBehaviour:
   BaseFileName: block onsets
   FileNameTimestampTemplate: dd-MM-yyyy HH-mm
   TimestampTemplate: HH:mm:ss.fff
+--- !u!114 &531431148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531431144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a486f044c4c86404eb2a5c266659fa9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &541124132
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +826,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1026391629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1026391631}
+  - component: {fileID: 1026391630}
+  m_Layer: 0
+  m_Name: LSL Marker Stream
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1026391630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026391629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf79091a1cfe0834eaaf2375c74d5ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StreamName: UnityMarkerStream
+  StreamType: LSL_Marker_Strings
+  StreamId: MyStreamID-Unity1234
+--- !u!4 &1026391631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026391629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1093411896
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,10 +929,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.00052083336
     y: 0
-    width: 1
-    height: 1
+    width: 0.73437506
+    height: 0.39814815
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -1584,4 +1584,4 @@ SceneRoots:
   - {fileID: 761539521}
   - {fileID: 1801045136471096679}
   - {fileID: 5535050184380131170}
-  - {fileID: 194266868}
+  - {fileID: 1026391631}
