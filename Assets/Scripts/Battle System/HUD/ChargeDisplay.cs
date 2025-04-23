@@ -1,4 +1,6 @@
-public abstract class ChargeDisplay: Tweener
+using UnityEngine;
+
+public abstract class ChargeDisplay: MonoBehaviour
 {
     public float ChargeLevel{
         get => _chargeLevel;
