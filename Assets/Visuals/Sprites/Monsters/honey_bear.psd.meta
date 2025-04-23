@@ -55,7 +55,7 @@ ScriptedImporter:
     flipbookColumns: 0
     ignorePngGamma: 0
     cookieMode: 0
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -4875,13 +4875,13 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: left arm
-    spriteName: left arm
+  - name: right eye
+    spriteName: right eye
     isGroup: 0
     parentIndex: -1
-    spriteID: 7ec31ccccd5719e40a57faca3abce603
+    spriteID: f809c85cd3c2460419daf1c101b65e64
     layerID: 0
-    mosaicPosition: {x: 1616, y: 2147}
+    mosaicPosition: {x: 3488, y: 878}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -4895,16 +4895,6 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: left leg
-    spriteName: left leg
-    isGroup: 0
-    parentIndex: -1
-    spriteID: aa93aca732aa98e46bf5e01873b54b2a
-    layerID: 0
-    mosaicPosition: {x: 4, y: 2448}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
   - name: head
     spriteName: head
     isGroup: 0
@@ -4915,6 +4905,16 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
+  - name: right ear
+    spriteName: right ear
+    isGroup: 0
+    parentIndex: -1
+    spriteID: b378353198f91034c96c7f8e4be6cc29
+    layerID: 0
+    mosaicPosition: {x: 3250, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: jar
     spriteName: jar
     isGroup: 0
@@ -4922,6 +4922,26 @@ ScriptedImporter:
     spriteID: ec66f80e53c0ea0429304b1e6ab983d8
     layerID: 0
     mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: left arm
+    spriteName: left arm
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7ec31ccccd5719e40a57faca3abce603
+    layerID: 0
+    mosaicPosition: {x: 1616, y: 2147}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: left leg
+    spriteName: left leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: aa93aca732aa98e46bf5e01873b54b2a
+    layerID: 0
+    mosaicPosition: {x: 4, y: 2448}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -4945,16 +4965,6 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: right ear
-    spriteName: right ear
-    isGroup: 0
-    parentIndex: -1
-    spriteID: b378353198f91034c96c7f8e4be6cc29
-    layerID: 0
-    mosaicPosition: {x: 3250, y: 4}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
   - name: right leg
     spriteName: right leg
     isGroup: 0
@@ -4962,16 +4972,6 @@ ScriptedImporter:
     spriteID: 4a1a25554e6343743bdaab57788b1914
     layerID: 0
     mosaicPosition: {x: 1616, y: 1344}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: right eye
-    spriteName: right eye
-    isGroup: 0
-    parentIndex: -1
-    spriteID: f809c85cd3c2460419daf1c101b65e64
-    layerID: 0
-    mosaicPosition: {x: 3488, y: 878}
     flatten: 0
     isImported: 1
     isVisible: 1
