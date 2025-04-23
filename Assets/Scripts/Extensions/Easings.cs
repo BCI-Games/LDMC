@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public abstract class Easer: Lerper
+public static class Easings
 {
     public enum TransitionType {
         Linear,
@@ -23,7 +23,10 @@ public abstract class Easer: Lerper
     }
 
 
-    protected Func<float, float> GetInterpolationMethod(TransitionType transition, EaseType easing)
+    public static Func<float, float> GetInterpolationMethod
+    (
+        TransitionType transition, EaseType easing
+    )
     {
         Dictionary<TransitionType, Func<float, float>> transitionMethods = new()
         {
@@ -45,20 +48,20 @@ public abstract class Easer: Lerper
         }
     }
 
-    protected Func<float, float> GetEaseInMethod(Func<float, float> easeOutMethod)
+    public static Func<float, float> GetEaseInMethod(Func<float, float> easeOutMethod)
         => (float t) =>  1 - easeOutMethod(1 - t);
 
-    protected Func<float, float> GetEaseInOutMethod(Func<float, float> easeOutMethod)
+    public static Func<float, float> GetEaseInOutMethod(Func<float, float> easeOutMethod)
         => (float t) => (t < 0.5)
             ? (1 - easeOutMethod(1 - 2 * t) / 2)
             : (1 + easeOutMethod(2 * t - 1) / 2);
 
 
-    protected float EaseOutLinear(float t) => t;
-    protected float EaseOutSine(float t) => Mathf.Sin(t * Mathf.PI / 2);
-    protected float EaseOutCubic(float t) => 1 - Mathf.Pow(1 - t, 3);
-    protected float EaseOutExpo(float t) => t == 1 ? 1 : 1 - Mathf.Pow(2, -10 * t);
-    protected float EaseOutBack(float t)
+    public static float EaseOutLinear(float t) => t;
+    public static float EaseOutSine(float t) => Mathf.Sin(t * Mathf.PI / 2);
+    public static float EaseOutCubic(float t) => 1 - Mathf.Pow(1 - t, 3);
+    public static float EaseOutExpo(float t) => t == 1 ? 1 : 1 - Mathf.Pow(2, -10 * t);
+    public static float EaseOutBack(float t)
     {
         const float constant = 1.70158f;
 
@@ -66,7 +69,7 @@ public abstract class Easer: Lerper
         float v2 = constant * Mathf.Pow(t - 1, 2);
         return 1 + v1 + v2;
     }
-    protected float EaseOutElastic(float t)
+    public static float EaseOutElastic(float t)
     {
         const float constant = 2 * Mathf.PI / 3;
 
