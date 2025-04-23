@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
 
 public static class Easings
 {
@@ -28,24 +27,23 @@ public static class Easings
         TransitionType transition, EaseType easing
     )
     {
-        Dictionary<TransitionType, Func<float, float>> transitionMethods = new()
+        Func<float, float> interpolationMethod = transition switch
         {
-            {TransitionType.Linear, EaseOutLinear},
-            {TransitionType.Sine, EaseOutSine},
-            {TransitionType.Cubic, EaseOutCubic},
-            {TransitionType.Expo, EaseOutExpo},
-            {TransitionType.Back, EaseOutBack},
-            {TransitionType.Elastic, EaseOutElastic},
+            TransitionType.Linear => EaseOutLinear,
+            TransitionType.Sine => EaseOutSine,
+            TransitionType.Cubic => EaseOutCubic,
+            TransitionType.Expo => EaseOutExpo,
+            TransitionType.Back => EaseOutBack,
+            TransitionType.Elastic => EaseOutElastic,
+            _ => EaseOutLinear
         };
 
-        Func<float, float> interpolationMethod = transitionMethods[transition];
-
-        switch(easing)
+        return easing switch
         {
-            case EaseType.EaseIn: return GetEaseInMethod(interpolationMethod);
-            case EaseType.EaseInOut: return GetEaseInOutMethod(interpolationMethod);
-            default: return interpolationMethod;
-        }
+            EaseType.EaseIn => GetEaseInMethod(interpolationMethod),
+            EaseType.EaseInOut => GetEaseInOutMethod(interpolationMethod),
+            _ => interpolationMethod,
+        };
     }
 
     public static Func<float, float> GetEaseInMethod(Func<float, float> easeOutMethod)
