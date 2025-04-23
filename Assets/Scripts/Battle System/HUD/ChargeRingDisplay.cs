@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using static Easings;
+
 [RequireComponent(typeof(SpriteRenderer))]
 public class ChargeRingDisplay: ChargeDisplay
 {
@@ -50,28 +52,28 @@ public class ChargeRingDisplay: ChargeDisplay
     {
         if (value >= 1 && _chargeLevel < 1)
         {
-            StartScaleTween(_fullyChargedScale, _fullyChargedTweenPeriod, _fullyChargedTweenTransition, _fullyChargedTweenEasing);
+            RestartScaleTween(_fullyChargedScale, _fullyChargedTweenPeriod, _fullyChargedTweenTransition, _fullyChargedTweenEasing);
         }
         else if (value <= 0)
         {
             if (_chargeLevel >= 1)
             {
-                StartScaleTween(1, _throwTweenPeriod, _throwTweenTransition, _throwTweenEasing);
+                RestartScaleTween(1, _throwTweenPeriod, _throwTweenTransition, _throwTweenEasing);
             }
             else if (_chargeLevel > 0)
             {
-                StartScaleTween(1, _cancelTweenPeriod, _cancelTweenTransition, _cancelTweenEasing);
+                RestartScaleTween(1, _cancelTweenPeriod, _cancelTweenTransition, _cancelTweenEasing);
             }
             _isCharging = false;
         }
         else if (value > _chargeLevel && !_isCharging)
         {
-            StartScaleTween(_chargingScale, _startedChargingPeriod, _startedChargingTransition, _startedChargingEasing);
+            RestartScaleTween(_chargingScale, _startedChargingPeriod, _startedChargingTransition, _startedChargingEasing);
             _isCharging = true;
         }
         else if (value <= _chargeLevel && _isCharging)
         {
-            StartScaleTween(_drainingScale, _startedDrainingTweenPeriod, _startedDrainingTweenTransition, _startedDrainingTweenEasing);
+            RestartScaleTween(_drainingScale, _startedDrainingTweenPeriod, _startedDrainingTweenTransition, _startedDrainingTweenEasing);
             _isCharging = false;
         }
         
@@ -80,9 +82,9 @@ public class ChargeRingDisplay: ChargeDisplay
         Renderer.material.SetFloat("_FillAmount", fillAmount);
     }
 
-    private void StartScaleTween(float finalScale, float period, TransitionType transition, EaseType easing)
+    private void RestartScaleTween(float finalScale, float period, TransitionType transition, EaseType easing)
     {
         if (_activeTween != null) StopCoroutine(_activeTween);
-        _activeTween = StartScaleTween(transform, finalScale, period, transition, easing);
+        _activeTween = this.StartScaleTween(finalScale, period, transition, easing);
     }
 }
