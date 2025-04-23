@@ -5464,16 +5464,6 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: body back
-    spriteName: body back
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 35de70ebf17dfee4693db1259dc1cf11
-    layerID: 0
-    mosaicPosition: {x: 1156, y: 2880}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
   - name: left ear
     spriteName: left ear
     isGroup: 0
@@ -5504,6 +5494,16 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
+  - name: tentacle 3
+    spriteName: tentacle 3
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 1a9841d3be0240b43b3bb98ca8f3e2a1
+    layerID: 0
+    mosaicPosition: {x: 1995, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: tentacle 2
     spriteName: tentacle 2
     isGroup: 0
@@ -5514,13 +5514,13 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: tentacle 3
-    spriteName: tentacle 3
+  - name: body back
+    spriteName: body back
     isGroup: 0
     parentIndex: -1
-    spriteID: 1a9841d3be0240b43b3bb98ca8f3e2a1
+    spriteID: 35de70ebf17dfee4693db1259dc1cf11
     layerID: 0
-    mosaicPosition: {x: 1995, y: 4}
+    mosaicPosition: {x: 1156, y: 2880}
     flatten: 0
     isImported: 1
     isVisible: 1
