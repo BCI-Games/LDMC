@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: This reclusive bear is made from light and crystals
   FrontSprite: {fileID: -7107855079914382254, guid: 0c098c52664b97d43944e3403fe52370, type: 3}
-  IconSprite: {fileID: -1832911661894727625, guid: 5ed16c13dd0b2344d9760e71e007b07e, type: 3}
+  IconSprite: {fileID: 0}
   PrimaryType: 11
   SecondaryType: 12
   BaseHP: 5

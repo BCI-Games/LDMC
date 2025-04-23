@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: A wolf of ice and thunder
   FrontSprite: {fileID: 6209677326260776795, guid: 0c098c52664b97d43944e3403fe52370, type: 3}
-  IconSprite: {fileID: -6972266080495587314, guid: 15c500d81562a174b96af1a004bbce32, type: 3}
+  IconSprite: {fileID: 0}
   PrimaryType: 5
   SecondaryType: 4
   BaseHP: 5
