@@ -11,6 +11,7 @@ public class SocketHost: MonoBehaviour
 
     public string Host = "localhost";
     public int Port = 8005;
+    public bool LogIncomingData;
 
     public bool IsConnected => _socket != null && _socket.Connected;
     public bool IsReading => _readThread != null && _readThread.IsAlive;
@@ -19,6 +20,15 @@ public class SocketHost: MonoBehaviour
     private Thread _readThread;
     private readonly Queue<byte[]> _readQueue = new();
 
+
+    void Start()
+    {
+        if (LogIncomingData)
+        {
+            DataReceived += (data) =>
+            Debug.Log(Encoding.UTF8.GetString(data));
+        }
+    }
 
     void Update()
     {
@@ -36,7 +46,10 @@ public class SocketHost: MonoBehaviour
     void OnDestroy() => Close();
 
 
-    public async void Open(SocketType type = SocketType.Stream, ProtocolType protocol = ProtocolType.Tcp)
+    [ContextMenu("Open Socket")]
+    public void Open()
+    => Open(SocketType.Stream, ProtocolType.Tcp);
+    public async void Open(SocketType type, ProtocolType protocol)
     {
         if (IsConnected) _socket.Close();
         _socket = new(type, protocol);
@@ -47,6 +60,7 @@ public class SocketHost: MonoBehaviour
         _readThread.Start();
     }
 
+    [ContextMenu("Close Socket")]
     public void Close()
     {
         if (IsReading) _readThread.Abort();
