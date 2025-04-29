@@ -4,24 +4,21 @@ using System.Threading;
 using System.Text;
 using System.Collections.Generic;
 using System;
-using System.Linq;
 
 public class SocketHost: MonoBehaviour
 {
+    public event Action<byte[]> DataReceived;
+
     public string Host = "localhost";
     public int Port = 8005;
 
-    public event Action<byte[]> DataReceived;
+    public bool IsConnected => _socket != null && _socket.Connected;
+    public bool IsReading => _readThread != null && _readThread.IsAlive;
 
-    private readonly Socket _socket = new(SocketType.Stream, ProtocolType.Tcp);
+    private Socket _socket;
     private Thread _readThread;
     private readonly Queue<byte[]> _readQueue = new();
 
-
-    void Start()
-    {
-        Open();
-    }
 
     void Update()
     {
@@ -32,33 +29,37 @@ public class SocketHost: MonoBehaviour
             {
                 byte[] data = _readQueue.Dequeue();
                 DataReceived?.Invoke(data);
-                Debug.Log(Encoding.UTF8.GetString(data));
             }
         }
     }
 
-    void OnDestroy()
-    {
-        Close();
-    }
+    void OnDestroy() => Close();
 
 
-    public async void Open()
+    public async void Open(SocketType type = SocketType.Stream, ProtocolType protocol = ProtocolType.Tcp)
     {
+        if (IsConnected) _socket.Close();
+        _socket = new(type, protocol);
         await _socket.ConnectAsync(Host, Port);
+
+        if (IsReading) _readThread.Abort();
         _readThread = new Thread(RunReadData);
         _readThread.Start();
     }
 
     public void Close()
     {
-        _readThread?.Abort();
+        if (IsReading) _readThread.Abort();
         _socket?.Close();
     }
 
     public void SendString(string message)
     {
-        if (!_socket.Connected) return;
+        if (!IsConnected)
+        {
+            Debug.LogWarning("Socket is not connected");
+            return;
+        }
         _socket.Send(Encoding.UTF8.GetBytes(message));
     }
 
