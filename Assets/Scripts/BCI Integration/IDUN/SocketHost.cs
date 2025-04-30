@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Net.Sockets;
 using System.Threading;
-using System.Text;
 using System.Collections.Generic;
 using System;
 
@@ -9,10 +8,11 @@ using System;
 public class SocketHost: MonoBehaviour
 {
     public event Action<byte[]> DataReceived;
+    public event Action SocketOpened;
+    public event Action SocketClosed;
 
     public string Host = "localhost";
     public int Port = 8005;
-    public bool LogIncomingData;
 
     public bool IsConnected => _socket != null && _socket.Connected;
     public bool IsReading => _readThread != null && _readThread.IsAlive;
@@ -20,16 +20,8 @@ public class SocketHost: MonoBehaviour
     private Socket _socket;
     private Thread _readThread;
     private readonly Queue<byte[]> _readQueue = new();
+    private bool _shouldBeConnected;
 
-
-    void Start()
-    {
-        if (LogIncomingData)
-        {
-            DataReceived += (data) =>
-            Debug.Log(Encoding.UTF8.GetString(data));
-        }
-    }
 
     void Update()
     {
@@ -40,11 +32,18 @@ public class SocketHost: MonoBehaviour
             {
                 byte[] data = _readQueue.Dequeue();
                 DataReceived?.Invoke(data);
+                OnDataReceived(data);
             }
         }
+
+        if (_shouldBeConnected && !IsConnected)
+            NotifyConnectionState(false);
     }
 
-    void OnDestroy() => Close();
+    void OnDestroy()
+    {
+        if (IsConnected) Close();
+    }
 
 
     [ContextMenu("Open Socket")]
@@ -59,23 +58,31 @@ public class SocketHost: MonoBehaviour
         if (IsReading) _readThread.Abort();
         _readThread = new Thread(RunReadData);
         _readThread.Start();
+
+        NotifyConnectionState(true);
     }
 
     [ContextMenu("Close Socket")]
     public void Close()
     {
+        if (!IsConnected)
+        {
+            Debug.LogWarning("Socket isn't open, ignoring...");
+            return;
+        }
         if (IsReading) _readThread.Abort();
         _socket?.Close();
+        NotifyConnectionState(false);
     }
 
-    public void SendString(string message)
+    public void Send(byte[] buffer)
     {
         if (!IsConnected)
         {
             Debug.LogWarning("Socket is not connected");
             return;
         }
-        _socket.Send(Encoding.UTF8.GetBytes(message));
+        _socket.Send(buffer);
     }
 
     private void RunReadData()
@@ -92,4 +99,13 @@ public class SocketHost: MonoBehaviour
             }
         }
     }
+
+
+    private void NotifyConnectionState(bool connected)
+    {
+        _shouldBeConnected = connected;
+        (connected? SocketOpened: SocketClosed)?.Invoke();
+    }
+
+    protected virtual void OnDataReceived(byte[] data) {}
 }
