@@ -6,7 +6,7 @@ using System;
 using Debug = UnityEngine.Debug;
 
 [ExecuteAlways]
-public class ProcessManager: MonoBehaviour
+public class ProcessHost: MonoBehaviour
 {
     public event Action<string> OutputLineReceived;
     public event Action<string> ErrorLineReceived;
