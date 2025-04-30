@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92955b79bc688d346922a98fcf40e08f, type: 3}
   m_Name: Jellyfish
   m_EditorClassIdentifier: 
-  Description: A sweet and sticky bear
-  FrontSprite: {fileID: 21300000, guid: 7041b6eb801337447b9c3ab54b6b5f5f, type: 3}
+  Description: A vibrant and cuddly jellyfish
+  FrontSprite: {fileID: 21300000, guid: 3bca49dbf8a93d74abff4a46bf713355, type: 3}
   IconSprite: {fileID: 0}
-  PrimaryType: 11
+  PrimaryType: 2
   SecondaryType: 18
   BaseHP: 5
   Rarity: 3
