@@ -74,6 +74,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+/[Aa]ssets/[Ss]treamingAssets/*
+!/[Aa]ssets/[Ss]treamingAssets/requirements.md
+
 /[Aa]ssets/BCI2000 Samples*
 
 [Bb]lock[Tt]iming[Ll]ogs/
