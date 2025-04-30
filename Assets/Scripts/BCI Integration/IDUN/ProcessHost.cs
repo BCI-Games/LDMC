@@ -8,26 +8,23 @@ using Debug = UnityEngine.Debug;
 [ExecuteAlways]
 public class ProcessManager: MonoBehaviour
 {
-    public event Action<string> OutputDataReceived;
-    public event Action<string> ErrorDataReceived;
+    public event Action<string> OutputLineReceived;
+    public event Action<string> ErrorLineReceived;
 
     [Tooltip("filepath of the target application relative to the streaming assets folder")]
     public string ApplicationPath;
     public string[] Arguments;
+
+    [Header("Debug")]
     public bool LogOutput;
+    public string LogLabel = "Process Output";
 
     public bool ProcessRunning => _process != null && !_process.HasExited;
     private Process _process;
 
+    private bool _areOutputEventsSubscribed;
+    private bool _isLoggingMethodSubscribed;
 
-    void Start()
-    {
-        if (LogOutput)
-        {
-            OutputDataReceived += dataString =>
-                Debug.Log("Output data received: " + dataString);
-        }
-    }
 
     void OnDestroy()
     {
@@ -41,39 +38,58 @@ public class ProcessManager: MonoBehaviour
         if (ProcessRunning)
         {
             Debug.LogWarning("Process is already running, ignoring...");
+            return;
         }
-        else if (_process != null) _process.Start();
-        else
+        if (_process == null)
         {
-            string fullApplicationPath = Path.Combine(
+            string qualifiedApplicationPath = Path.Combine(
                 Application.streamingAssetsPath, ApplicationPath
             );
-            if (!File.Exists(fullApplicationPath))
+            if (!File.Exists(qualifiedApplicationPath))
             {
                 Debug.LogWarning("Target application not found");
                 return;
             }
 
-            string argumentsString = string.Join(' ', Arguments);
-            ProcessStartInfo startInfo = new(fullApplicationPath, argumentsString)
+            BuildProcess(qualifiedApplicationPath);
+        }
+
+        _process.Start();
+        _process.BeginOutputReadLine();
+        _process.BeginErrorReadLine();
+
+        if (!_areOutputEventsSubscribed)
+        {
+            _process.OutputDataReceived += (sender, dataArgs)
+            => OutputLineReceived?.Invoke(dataArgs.Data);
+            _process.ErrorDataReceived += (sender, dataArgs)
+            => ErrorLineReceived?.Invoke(dataArgs.Data);
+
+            _areOutputEventsSubscribed = true;
+        }
+
+        if (LogOutput)
+        {
+            OutputLineReceived += LogOutputLine;
+            _isLoggingMethodSubscribed = true;
+        }
+    }
+
+    private void BuildProcess(string qualifiedPath)
+    {
+        _process = new()
+        {
+            StartInfo = new(qualifiedPath)
             {
-                CreateNoWindow = false, UseShellExecute = false,
+                Arguments = string.Join(' ', Arguments),
+                ErrorDialog = true,
+                CreateNoWindow = false,
+                UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 WindowStyle = ProcessWindowStyle.Hidden
-            };
-
-            _process = Process.Start(startInfo);
-            _process.OutputDataReceived += BindDataHandler(OutputDataReceived);
-            _process.ErrorDataReceived += BindDataHandler(ErrorDataReceived);
-            _process.BeginOutputReadLine();
-
-            if (LogOutput)
-            {
-                _process.OutputDataReceived += (sender, data)
-                => Debug.Log("Output data received directly: " + data.Data);
             }
-        }
+        };
     }
 
     [ContextMenu("End Process")]
@@ -85,10 +101,19 @@ public class ProcessManager: MonoBehaviour
             return;
         }
 
+        if (_isLoggingMethodSubscribed)
+        {
+            OutputLineReceived -= LogOutputLine;
+            _isLoggingMethodSubscribed = false;
+        }
+
+        _process.CancelOutputRead();
+        _process.CancelErrorRead();
+
         foreach (Process p in Process.GetProcessesByName(_process.ProcessName))
             p.Kill();
     }
 
-    private DataReceivedEventHandler BindDataHandler(Action<string> dataEvent)
-    => (sender, dataArgs) => dataEvent?.Invoke(dataArgs.Data);
+    private void LogOutputLine(string outputLine)
+    => Debug.Log($"{LogLabel}: {outputLine}");
 }
