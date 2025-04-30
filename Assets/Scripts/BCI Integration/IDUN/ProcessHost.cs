@@ -22,7 +22,6 @@ public class ProcessManager: MonoBehaviour
     public bool ProcessRunning => _process != null && !_process.HasExited;
     private Process _process;
 
-    private bool _areOutputEventsSubscribed;
     private bool _isLoggingMethodSubscribed;
 
 
@@ -57,16 +56,8 @@ public class ProcessManager: MonoBehaviour
         _process.Start();
         _process.BeginOutputReadLine();
         _process.BeginErrorReadLine();
-
-        if (!_areOutputEventsSubscribed)
-        {
-            _process.OutputDataReceived += (sender, dataArgs)
-            => OutputLineReceived?.Invoke(dataArgs.Data);
-            _process.ErrorDataReceived += (sender, dataArgs)
-            => ErrorLineReceived?.Invoke(dataArgs.Data);
-
-            _areOutputEventsSubscribed = true;
-        }
+        _process.OutputDataReceived += SendOutputEvent;
+        _process.ErrorDataReceived += SendErrorEvent;
 
         if (LogOutput)
         {
@@ -107,12 +98,21 @@ public class ProcessManager: MonoBehaviour
             _isLoggingMethodSubscribed = false;
         }
 
+        _process.OutputDataReceived -= SendOutputEvent;
+        _process.ErrorDataReceived -= SendErrorEvent;
         _process.CancelOutputRead();
         _process.CancelErrorRead();
 
         foreach (Process p in Process.GetProcessesByName(_process.ProcessName))
             p.Kill();
     }
+
+
+    private void SendOutputEvent(object sender, DataReceivedEventArgs args)
+    => OutputLineReceived?.Invoke(args.Data);
+
+    private void SendErrorEvent(object sender, DataReceivedEventArgs args)
+    => ErrorLineReceived?.Invoke(args.Data);
 
     private void LogOutputLine(string outputLine)
     => Debug.Log($"{LogLabel}: {outputLine}");
