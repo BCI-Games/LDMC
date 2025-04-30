@@ -103,8 +103,7 @@ public class ProcessManager: MonoBehaviour
         _process.CancelOutputRead();
         _process.CancelErrorRead();
 
-        foreach (Process p in Process.GetProcessesByName(_process.ProcessName))
-            p.Kill();
+        _process.Kill();
     }
 
 
