@@ -583,6 +583,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac069def1d4eef24a87876e90d2b1563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &608740201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 608740202}
+  - component: {fileID: 608740204}
+  - component: {fileID: 608740205}
+  m_Layer: 0
+  m_Name: IDUN Input Host
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &608740202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608740201}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 634966747640259234}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &608740204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608740201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd490462e11c2124fa9b05dd82ac57f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ApplicationPath: idun_input_provider.exe
+  Arguments:
+  - -s
+  LogOutput: 0
+  LogLabel: IDUN Input
+--- !u!114 &608740205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608740201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e1508620140ea44855f4b448c6fc03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Host: localhost
+  Port: 8005
+  LogIncomingData: 0
 --- !u!1 &746584803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,6 +1262,7 @@ MonoBehaviour:
   _windowTitle: 
   _hideWindow: 0
   _startupConfiguration:
+    ResetSystemWhenConnected: 0
     StartModulesWithConnection: 0
     SignalSourceModule:
       Name: SignalGenerator
@@ -1271,7 +1337,8 @@ Transform:
   m_LocalPosition: {x: -1.25, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 608740202}
   m_Father: {fileID: 261770877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1801045136471096679
@@ -1475,6 +1542,7 @@ GameObject:
   - component: {fileID: 7629355657591272063}
   - component: {fileID: 7629355657591272062}
   - component: {fileID: 7629355657591272067}
+  - component: {fileID: 7629355657591272068}
   m_Layer: 0
   m_Name: Throw Manager
   m_TagString: Untagged
@@ -1512,6 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df02e787ee4947041b0fee8a4c19b9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trialPeriod: 0.1
 --- !u!114 &7629355657591272064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1554,6 +1623,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EventName: test
+--- !u!114 &7629355657591272068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7629355657591272061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76906ab72116fbd498f9f1082561ae61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _processHost: {fileID: 608740204}
+  _socketHost: {fileID: 608740205}
 --- !u!61 &8068385204599129686
 BoxCollider2D:
   m_ObjectHideFlags: 0
