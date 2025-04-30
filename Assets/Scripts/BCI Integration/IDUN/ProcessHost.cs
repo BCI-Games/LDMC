@@ -5,6 +5,7 @@ using System;
 
 using Debug = UnityEngine.Debug;
 
+[ExecuteAlways]
 public class ProcessManager: MonoBehaviour
 {
     public event Action<string> OutputDataReceived;

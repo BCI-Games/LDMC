@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.Generic;
 using System;
 
+[ExecuteAlways]
 public class SocketHost: MonoBehaviour
 {
     public event Action<byte[]> DataReceived;
