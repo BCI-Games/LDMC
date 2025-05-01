@@ -897,7 +897,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Nuerami
+  m_text: Neurami
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f81e4fb7364899b4a8931beac70d0ec8, type: 2}
   m_sharedMaterial: {fileID: 3327460346644961324, guid: f81e4fb7364899b4a8931beac70d0ec8, type: 2}
