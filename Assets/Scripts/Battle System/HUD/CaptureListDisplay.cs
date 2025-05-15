@@ -12,6 +12,7 @@ public class CaptureListDisplay : MonoBehaviour
     public float IconTweenDiscoveryScale = 1.5f;
     public float IconTweenRecaptureScale = 1.25f;
     public float IconTweenGrowPeriod = 0.1f;
+    public float IconTweenHoldPeriod = 0.1f;
     public float IconTweenShrinkPeriod = 0.5f;
 
     private CaptureDisplay[] _displays;
@@ -48,7 +49,7 @@ public class CaptureListDisplay : MonoBehaviour
             IconTweenGrowPeriod,
             TransitionType.Back, EaseType.EaseOut
         );
-        yield return new WaitForSeconds(IconTweenGrowPeriod);
+        yield return new WaitForSeconds(IconTweenGrowPeriod + IconTweenHoldPeriod);
         target.StartScaleTween(
             1, IconTweenShrinkPeriod,
             TransitionType.Elastic, EaseType.EaseOut
