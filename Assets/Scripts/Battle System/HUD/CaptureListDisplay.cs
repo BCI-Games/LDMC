@@ -8,9 +8,9 @@ public class CaptureListDisplay : MonoBehaviour
 {
     [SerializeField] private MonsterSpawnController _monsterSpawner;
     [SerializeField] private Sprite _undiscoveredSprite;
-    public float discovered_tween_scale = 2.0f;
+    public float discovered_tween_scale = 1.5f;
     public float discovered_tween_grow_duration = 0.1f;
-    public float discovered_tween_shrink_duration = 0.25f;
+    public float discovered_tween_shrink_duration = 0.5f;
 
     private CaptureDisplay[] _displays;
 
@@ -47,7 +47,7 @@ public class CaptureListDisplay : MonoBehaviour
         this.StartTween(
             discovered_tween_scale, 1, target.SetScale,
             discovered_tween_shrink_duration,
-            TransitionType.Back, EaseType.EaseOut
+            TransitionType.Elastic, EaseType.EaseOut
         );
     }
 
