@@ -32,7 +32,8 @@ public class BciEssentialsInputProvider: MonoBehaviour, ILslSampleSubscriber, II
         if (trialTimer > trialPeriod)
         {
             trialTimer -= trialPeriod;
-            PersistentMarkerStream.PushString($"mi,2,-1,{trialPeriod:f2}");
+            if (PersistentMarkerStream.CanPush)
+                PersistentMarkerStream.PushString($"mi,2,-1,{trialPeriod:f2}");
         }
     }
 

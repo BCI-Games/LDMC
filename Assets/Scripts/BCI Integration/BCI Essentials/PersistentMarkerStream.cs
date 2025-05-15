@@ -3,6 +3,7 @@ using BCIEssentials.LSLFramework;
 
 public class PersistentMarkerStream: LSLMarkerStream
 {
+    public static bool CanPush => _instance;
     static PersistentMarkerStream _instance;
 
     void Awake()

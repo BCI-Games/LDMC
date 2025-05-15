@@ -74,7 +74,7 @@ public class ProcessHost: MonoBehaviour
             {
                 Arguments = string.Join(' ', Arguments),
                 ErrorDialog = true,
-                CreateNoWindow = false,
+                CreateNoWindow = true,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
