@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: Metal spines provide this large land bird with a hard outer shell
   FrontSprite: {fileID: 5839461465105924336, guid: 0c098c52664b97d43944e3403fe52370, type: 3}
-  IconSprite: {fileID: 0}
+  IconSprite: {fileID: -1695278717, guid: 6d4ab12587bf0ef44a71eb5e1d79d7e3, type: 3}
   PrimaryType: 0
   SecondaryType: 0
   BaseHP: 5
