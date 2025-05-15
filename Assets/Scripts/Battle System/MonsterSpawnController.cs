@@ -4,7 +4,7 @@ using System.Linq;
 
 public class MonsterSpawnController : MonoBehaviour
 {
-    [SerializeField] private MonsterData[] _monsters;
+    public MonsterData[] Monsters;
     
     private MonsterPresenter _monsterPresenter;
     private MonsterData _monsterExcludedFromNextSpawn;
@@ -18,7 +18,7 @@ public class MonsterSpawnController : MonoBehaviour
         _monsterPresenter = GetComponentInChildren<MonsterPresenter>();
 
         if (Settings.OffBockMonsterDisplayEnabled)
-            SpawnMonsterFromList(_monsters);
+            SpawnMonsterFromList(Monsters);
         else
             QueueMonsterSpawn();
     }
@@ -66,10 +66,10 @@ public class MonsterSpawnController : MonoBehaviour
     {
         if (!excludedMonster)
         {
-            SpawnMonsterFromList(_monsters);
+            SpawnMonsterFromList(Monsters);
             return;
         }
-        List<MonsterData> monstersCopy = _monsters.ToList();
+        List<MonsterData> monstersCopy = Monsters.ToList();
         monstersCopy.Remove(excludedMonster);
         SpawnMonsterFromList(monstersCopy.ToArray());
     }
