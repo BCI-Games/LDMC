@@ -75,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monsterSpawner: {fileID: 0}
   _undiscoveredSprite: {fileID: 21300000, guid: 6f69ef4d517d1064fb19e14b1e9a76ae, type: 3}
-  discovered_tween_scale: 1.5
-  discovered_tween_grow_duration: 0.1
-  discovered_tween_shrink_duration: 0.6
+  IconTweenDiscoveryScale: 1.5
+  IconTweenRecaptureScale: 1.25
+  IconTweenGrowPeriod: 0.1
+  IconTweenShrinkPeriod: 0.5

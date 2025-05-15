@@ -8,9 +8,11 @@ public class CaptureListDisplay : MonoBehaviour
 {
     [SerializeField] private MonsterSpawnController _monsterSpawner;
     [SerializeField] private Sprite _undiscoveredSprite;
-    public float discovered_tween_scale = 1.5f;
-    public float discovered_tween_grow_duration = 0.1f;
-    public float discovered_tween_shrink_duration = 0.5f;
+
+    public float IconTweenDiscoveryScale = 1.5f;
+    public float IconTweenRecaptureScale = 1.25f;
+    public float IconTweenGrowPeriod = 0.1f;
+    public float IconTweenShrinkPeriod = 0.5f;
 
     private CaptureDisplay[] _displays;
 
@@ -28,25 +30,27 @@ public class CaptureListDisplay : MonoBehaviour
     {
         foreach(CaptureDisplay display in _displays)
         {
-            if (display.RepresentsUndiscoveredMonster(capturedMonsterData))
+            if (display.RepresentsMonster(capturedMonsterData))
             {
                 display.ShowMonsterDiscovered();
                 StartCoroutine(RunDisplayScaleTween(display));
+                display.MonsterDiscovered = true;
             }
         }
     }
 
     private IEnumerator RunDisplayScaleTween(CaptureDisplay target)
     {
-        this.StartTween(
-            1, discovered_tween_scale, target.SetScale,
-            discovered_tween_grow_duration,
+        target.StartScaleTween(
+            target.MonsterDiscovered
+            ? IconTweenRecaptureScale
+            : IconTweenDiscoveryScale,
+            IconTweenGrowPeriod,
             TransitionType.Back, EaseType.EaseOut
         );
-        yield return new WaitForSeconds(discovered_tween_grow_duration);
-        this.StartTween(
-            discovered_tween_scale, 1, target.SetScale,
-            discovered_tween_shrink_duration,
+        yield return new WaitForSeconds(IconTweenGrowPeriod);
+        target.StartScaleTween(
+            1, IconTweenShrinkPeriod,
             TransitionType.Elastic, EaseType.EaseOut
         );
     }
@@ -65,27 +69,30 @@ public class CaptureListDisplay : MonoBehaviour
 
     private class CaptureDisplay
     {
+        public bool MonsterDiscovered;
         private MonsterData _monster;
         private Image _monsterImage;
         private Image _undiscoveredOverlay;
-        private bool _monsterDiscovered;
 
         public CaptureDisplay(MonsterData monster)
         =>  _monster = monster;
 
-        public bool RepresentsUndiscoveredMonster(MonsterData monster)
-        => !_monsterDiscovered && monster == _monster;
+        public bool RepresentsMonster(MonsterData monster)
+        => monster == _monster;
         
         public void ShowMonsterDiscovered()
         {
-            _monsterDiscovered = true;
             _monsterImage.color = Color.white;
+            if (!_undiscoveredOverlay) return;
             Destroy(_undiscoveredOverlay.gameObject);
             _undiscoveredOverlay = null;
         }
 
-        public void SetScale(float scale)
-        => _monsterImage.transform.localScale = Vector3.one * scale;
+        public void StartScaleTween(
+            float scale, float period,
+            TransitionType transition, EaseType easing
+        )
+        => _monsterImage.StartScaleTween(scale, period, transition, easing);
 
 
         public void Instantiate(Transform parent, Sprite undiscoveredIcon)
