@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class MonsterSpawnController : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class MonsterSpawnController : MonoBehaviour
         _monsterPresenter = GetComponentInChildren<MonsterPresenter>();
 
         if (Settings.OffBockMonsterDisplayEnabled)
-            SpawnMonsterFromList(Monsters);
+            SpawnMonster(Monsters.PickRandom());
         else
             QueueMonsterSpawn();
     }
@@ -53,26 +51,18 @@ public class MonsterSpawnController : MonoBehaviour
         _monsterExcludedFromNextSpawn = excludedMonster;
         _monsterSpawnQueued = true;
     }
-    
-
-    private void SpawnMonsterFromList(MonsterData[] monsterList)
-    {
-        MonsterData newMonster = SelectRandom(monsterList);
-        _monsterPresenter.ShowNewMonster(newMonster);
-        BattleEventBus.NotifyMonsterAppeared(newMonster);
-    }
 
     private void SpawnNewMonster(MonsterData excludedMonster)
     {
-        if (!excludedMonster)
-        {
-            SpawnMonsterFromList(Monsters);
-            return;
-        }
-        List<MonsterData> monstersCopy = Monsters.ToList();
-        monstersCopy.Remove(excludedMonster);
-        SpawnMonsterFromList(monstersCopy.ToArray());
+        SpawnMonster(
+            !excludedMonster ? Monsters.PickRandom()
+            : Monsters.PickRandomExcluding(excludedMonster)
+        );
     }
 
-    private T SelectRandom<T>(T[] array) => array[Random.Range(0, array.Length)];
+    private void SpawnMonster(MonsterData newMonster)
+    {
+        _monsterPresenter.ShowNewMonster(newMonster);
+        BattleEventBus.NotifyMonsterAppeared(newMonster);
+    }
 }
