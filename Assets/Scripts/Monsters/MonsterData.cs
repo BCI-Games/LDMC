@@ -22,6 +22,11 @@ public class MonsterData : ScriptableObject
     [Range(0, 2)]
     public float Bounciness = 1;
 
+    [Header("Sounds")]
+    public AudioClip[] AppearSounds;
+    public AudioClip[] HitSounds;
+    public AudioClip[] CaptureSounds;
+
     
     public bool HasType(MonsterType type)
     {
