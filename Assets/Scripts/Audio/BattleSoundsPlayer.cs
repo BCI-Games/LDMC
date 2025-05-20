@@ -18,7 +18,7 @@ public class BattleSoundsPlayer : MonoBehaviour
     {
         _defaultAppearSounds = _appearSounds.Clips;
         _defaultHitSounds = _hitSounds.Clips;
-        _defaultCaptureSounds = _hitSounds.Clips;
+        _defaultCaptureSounds = _captureSounds.Clips;
 
         foreach (RandomSoundEffectPlayer player in new[]{
             _throwSounds, _restSounds, _wakeupSounds,
