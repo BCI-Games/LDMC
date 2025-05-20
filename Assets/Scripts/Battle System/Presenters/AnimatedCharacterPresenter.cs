@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class AnimatedCharacterPresenter : CharacterPresenter
 {
     [SerializeField] protected Animator _sleepyZedAnimator;
+    public bool CelebrationEnabled = false;
 
     private Animator _animator;
     private readonly List<MonsterData> _discoveredMonsters = new();
@@ -49,8 +50,11 @@ public class AnimatedCharacterPresenter : CharacterPresenter
 
     protected override void ShowRestStarted()
     {
-        if (!_currentMonsterIsNew) StartRestAnimation();
-        else StartCoroutine(RunCelebrationDisplay());
+        if (CelebrationEnabled && _currentMonsterIsNew)
+        {
+            StartCoroutine(RunCelebrationDisplay());
+        }
+        else StartRestAnimation();
     }
 
     private void StartRestAnimation()
