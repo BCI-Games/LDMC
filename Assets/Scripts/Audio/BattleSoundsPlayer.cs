@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class BattleSoundsPlayer : MonoBehaviour
 {
+    [SerializeField] private AudioMixerGroup _sfxMixerGroup;
     [SerializeField] private RandomSoundEffectPlayer _throwSounds;
     [SerializeField] private RandomSoundEffectPlayer _restSounds;
     [SerializeField] private RandomSoundEffectPlayer _wakeupSounds;
@@ -24,7 +26,7 @@ public class BattleSoundsPlayer : MonoBehaviour
             _throwSounds, _restSounds, _wakeupSounds,
             _appearSounds, _hitSounds, _captureSounds
         })
-            player.CreateAudioSource(gameObject);
+            player.CreateAudioSource(gameObject, _sfxMixerGroup);
 
         BattleEventBus.SphereThrown += _throwSounds.Play;
         BattleEventBus.RestPeriodStarted += _restSounds.Play;
@@ -75,9 +77,10 @@ public class BattleSoundsPlayer : MonoBehaviour
             _source.Play();
         }
 
-        public void CreateAudioSource(GameObject hostObject)
+        public void CreateAudioSource(GameObject hostObject, AudioMixerGroup mixerGroup)
         {
             _source = hostObject.AddComponent<AudioSource>();
+            _source.outputAudioMixerGroup = mixerGroup;
         }
     }
 }
