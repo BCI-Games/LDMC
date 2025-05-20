@@ -14,9 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: A vibrant and cuddly jellyfish
   FrontSprite: {fileID: 21300000, guid: 3bca49dbf8a93d74abff4a46bf713355, type: 3}
-  IconSprite: {fileID: 0}
+  IconSprite: {fileID: 667885848, guid: 6d4ab12587bf0ef44a71eb5e1d79d7e3, type: 3}
   PrimaryType: 2
   SecondaryType: 18
   BaseHP: 5
   Rarity: 3
   Bounciness: 0.8
+  AppearSounds: []
+  HitSounds:
+  - {fileID: 8300000, guid: fb7ce36143dde444892f5bd83d778e4a, type: 3}
+  - {fileID: 8300000, guid: 4bf1fca07eece2b4b937139e7f6a5eef, type: 3}
+  - {fileID: 8300000, guid: 2fa78960e414a4040912f82cf28ed45c, type: 3}
+  - {fileID: 8300000, guid: 36df60f1f39ace74a9890f4130d86cfc, type: 3}
+  CaptureSounds: []

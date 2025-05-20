@@ -115,6 +115,7 @@ public static class Tweener
             timer += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+        tweenMethod(1);
     }
 
 

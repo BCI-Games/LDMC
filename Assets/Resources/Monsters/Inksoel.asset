@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: A dark seal of unknown might
   FrontSprite: {fileID: 4578840963039966018, guid: 0c098c52664b97d43944e3403fe52370, type: 3}
-  IconSprite: {fileID: 0}
+  IconSprite: {fileID: -1096933001996292029, guid: 6d4ab12587bf0ef44a71eb5e1d79d7e3, type: 3}
   PrimaryType: 7
   SecondaryType: 17
   BaseHP: 5

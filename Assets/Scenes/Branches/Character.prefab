@@ -315,6 +315,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sleepyZedAnimator: {fileID: 4942739281241285240}
+  CelebrationEnabled: 0
+  _celebrationPeriod: 0.58
 --- !u!114 &3922694832682961227
 MonoBehaviour:
   m_ObjectHideFlags: 0

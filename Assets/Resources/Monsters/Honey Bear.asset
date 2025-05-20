@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: A sweet and sticky bear
   FrontSprite: {fileID: 21300000, guid: 7041b6eb801337447b9c3ab54b6b5f5f, type: 3}
-  IconSprite: {fileID: 0}
+  IconSprite: {fileID: 402886795, guid: 6d4ab12587bf0ef44a71eb5e1d79d7e3, type: 3}
   PrimaryType: 11
   SecondaryType: 18
   BaseHP: 5
