@@ -20,3 +20,10 @@ MonoBehaviour:
   BaseHP: 5
   Rarity: 5
   Bounciness: 0.1
+  AppearSounds: []
+  HitSounds:
+  - {fileID: 8300000, guid: 9bd7c2e51f72ad343a5aa3833a3def42, type: 3}
+  - {fileID: 8300000, guid: c85d949b27614ab40b21baa60b63a672, type: 3}
+  - {fileID: 8300000, guid: b6fe84e04c60cc644b446e581901c613, type: 3}
+  - {fileID: 8300000, guid: 6f053445c65e8b047b6e1f73c206ba0c, type: 3}
+  CaptureSounds: []
