@@ -7,6 +7,7 @@ public class AnimatedCharacterPresenter : CharacterPresenter
 {
     [SerializeField] protected Animator _sleepyZedAnimator;
     public bool CelebrationEnabled = false;
+    [SerializeField] float _celebrationPeriod = 0.5f;
 
     private Animator _animator;
     private readonly List<MonsterData> _discoveredMonsters = new();
@@ -68,9 +69,7 @@ public class AnimatedCharacterPresenter : CharacterPresenter
     private IEnumerator RunCelebrationDisplay()
     {
         _animator.Play("Celebrate");
-        yield return new WaitForSeconds(
-            _animator.GetCurrentAnimatorStateInfo(0).length / 2
-        );
+        yield return new WaitForSeconds(_celebrationPeriod);
         StartRestAnimation();
     }
 
