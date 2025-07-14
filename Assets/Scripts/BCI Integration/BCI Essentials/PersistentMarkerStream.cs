@@ -17,6 +17,8 @@ public class PersistentMarkerStream: LSLMarkerStream
             Destroy(this);
     }
 
+    void OnApplicationQuit() => StreamOutlet?.Close();
+
     public static void PushString(string markerString)
     {
         if (_instance)
