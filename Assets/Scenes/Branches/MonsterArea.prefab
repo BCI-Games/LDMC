@@ -46,13 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Monsters:
-  - {fileID: 11400000, guid: 502aa7e0812face4d9f89089f2b527d7, type: 2}
-  - {fileID: 11400000, guid: b0f330c9e669f3f49b379f85536a2bb4, type: 2}
   - {fileID: 11400000, guid: 4e0cf2f12a67c8c41a17fefea50c4804, type: 2}
+  - {fileID: 11400000, guid: 502aa7e0812face4d9f89089f2b527d7, type: 2}
   - {fileID: 11400000, guid: e9c93edbf4866934cb019ed0c05bcbc1, type: 2}
-  - {fileID: 11400000, guid: bd09edc44426ecf4ebff189d27de4166, type: 2}
   - {fileID: 11400000, guid: 5d9bcd102110f284da3fbc0ac5f7d120, type: 2}
+  - {fileID: 11400000, guid: b0f330c9e669f3f49b379f85536a2bb4, type: 2}
   - {fileID: 11400000, guid: 153c2c8bae033d64e8389d3d73eb73b8, type: 2}
+  - {fileID: 11400000, guid: bd09edc44426ecf4ebff189d27de4166, type: 2}
 --- !u!1001 &4738698946440388804
 PrefabInstance:
   m_ObjectHideFlags: 0

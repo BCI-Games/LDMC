@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class CaptureListDisplay : MonoBehaviour
 {
     [SerializeField] private MonsterSpawnController _monsterSpawner;
     [SerializeField] private Sprite _undiscoveredSprite;
+    [SerializeField] private int _hiddenIconRarityThreshold = 5;
 
     public float IconTweenDiscoveryScale = 1.5f;
     public float IconTweenRecaptureScale = 1.25f;
@@ -22,14 +24,30 @@ public class CaptureListDisplay : MonoBehaviour
     {
         if (!_monsterSpawner) _monsterSpawner = FindAnyObjectByType<MonsterSpawnController>();
         CreateIcons();
-        BattleEventBus.MonsterCaptured += ShowMonsterIcon;
+        BattleEventBus.MonsterAppeared += ShowMonsterIcon;
+        BattleEventBus.MonsterCaptured += UnveilMonsterIcon;
     }
-    private void OnDestroy() => BattleEventBus.MonsterCaptured -= ShowMonsterIcon;
-
-
-    public void ShowMonsterIcon(MonsterData capturedMonsterData)
+    private void OnDestroy()
     {
-        foreach(CaptureDisplay display in _displays)
+        BattleEventBus.MonsterAppeared -= ShowMonsterIcon;
+        BattleEventBus.MonsterCaptured -= UnveilMonsterIcon;
+    }
+
+
+    public void ShowMonsterIcon(MonsterData newMonsterData)
+    {
+        foreach (CaptureDisplay display in _displays)
+        {
+            if (display.RepresentsMonster(newMonsterData))
+            {
+                display.Show();
+            }
+        }
+    }
+
+    public void UnveilMonsterIcon(MonsterData capturedMonsterData)
+    {
+        foreach (CaptureDisplay display in _displays)
         {
             if (display.RepresentsMonster(capturedMonsterData))
             {
@@ -64,6 +82,10 @@ public class CaptureListDisplay : MonoBehaviour
         {
             _displays[i] = new(monsterList[i]);
             _displays[i].Instantiate(transform, _undiscoveredSprite);
+            if (monsterList[i].Rarity >= _hiddenIconRarityThreshold)
+            {
+                _displays[i].Hide();
+            }
         }
     }
 
@@ -74,15 +96,20 @@ public class CaptureListDisplay : MonoBehaviour
         private MonsterData _monster;
         private Image _monsterImage;
         private Image _undiscoveredOverlay;
+        private CanvasGroup _canvasGroup;
 
         public CaptureDisplay(MonsterData monster)
-        =>  _monster = monster;
+        => _monster = monster;
 
         public bool RepresentsMonster(MonsterData monster)
         => monster == _monster;
+
+        public void Hide() => _canvasGroup.alpha = 0;
+        public void Show() => _canvasGroup.alpha = 1;
         
         public void ShowMonsterDiscovered()
         {
+            Show();
             _monsterImage.sprite = _monster.IconSprite;
             _monsterImage.color = Color.white;
             if (!_undiscoveredOverlay) return;
@@ -111,6 +138,8 @@ public class CaptureListDisplay : MonoBehaviour
             overlayRect.anchorMax = Vector2.one;
             overlayRect.anchoredPosition = Vector2.zero;
             overlayRect.sizeDelta = Vector2.zero;
+
+            _canvasGroup = _monsterImage.AddComponent<CanvasGroup>();
         }
 
         private static Image CreateImageObject(
