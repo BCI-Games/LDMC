@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: 
   FrontSprite: {fileID: -1903495931, guid: 818efbb55f431d74480bd10676597dea, type: 3}
-  IconSprite: {fileID: 1255756153, guid: 6d4ab12587bf0ef44a71eb5e1d79d7e3, type: 3}
+  IconSprite: {fileID: -3893343560473771482, guid: 1b57d9ee2885c1e41a34620fda9f0792, type: 3}
+  UndiscoveredIconSprite: {fileID: 5153687401579603423, guid: 1b57d9ee2885c1e41a34620fda9f0792, type: 3}
   PrimaryType: 0
   SecondaryType: 0
   BaseHP: 5
   Rarity: 3
   Bounciness: 0.8
   AppearSounds: []
-  HitSounds: []
+  HitSounds:
+  - {fileID: 8300000, guid: fb7ce36143dde444892f5bd83d778e4a, type: 3}
+  - {fileID: 8300000, guid: 4bf1fca07eece2b4b937139e7f6a5eef, type: 3}
+  - {fileID: 8300000, guid: 2fa78960e414a4040912f82cf28ed45c, type: 3}
+  - {fileID: 8300000, guid: 36df60f1f39ace74a9890f4130d86cfc, type: 3}
   CaptureSounds: []
