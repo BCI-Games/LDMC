@@ -1721,6 +1721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonsterArea
       objectReference: {fileID: 0}
+    - target: {fileID: 7912241295035832015, guid: 8c0619e0f19b487498791e662528c17c, type: 3}
+      propertyPath: EnableRarity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8227726592798979794, guid: 8c0619e0f19b487498791e662528c17c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

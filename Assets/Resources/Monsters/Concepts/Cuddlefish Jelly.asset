@@ -19,7 +19,7 @@ MonoBehaviour:
   PrimaryType: 0
   SecondaryType: 0
   BaseHP: 5
-  Rarity: 3
+  Rarity: 1
   Bounciness: 0.8
   AppearSounds: []
   HitSounds:
