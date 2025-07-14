@@ -83,6 +83,7 @@ public class CaptureListDisplay : MonoBehaviour
         
         public void ShowMonsterDiscovered()
         {
+            _monsterImage.sprite = _monster.IconSprite;
             _monsterImage.color = Color.white;
             if (!_undiscoveredOverlay) return;
             Destroy(_undiscoveredOverlay.gameObject);
@@ -99,13 +100,17 @@ public class CaptureListDisplay : MonoBehaviour
         public void Instantiate(Transform parent, Sprite undiscoveredIcon)
         {
             _monsterImage = CreateImageObject(
-                _monster.IconSprite, parent, "Monster Image"
+                _monster.UndiscoveredIconSprite, parent, "Monster Image"
             );
             _monsterImage.color = Color.black;
             _undiscoveredOverlay = CreateImageObject(
                 undiscoveredIcon, _monsterImage.transform, "Undiscovered Overlay"
             );
-            _undiscoveredOverlay.rectTransform.sizeDelta = undiscoveredIcon.rect.size;
+            RectTransform overlayRect = _undiscoveredOverlay.rectTransform;
+            overlayRect.anchorMin = Vector2.zero;
+            overlayRect.anchorMax = Vector2.one;
+            overlayRect.anchoredPosition = Vector2.zero;
+            overlayRect.sizeDelta = Vector2.zero;
         }
 
         private static Image CreateImageObject(
