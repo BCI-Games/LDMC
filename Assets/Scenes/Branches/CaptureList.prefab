@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8495527494128744486}
   - component: {fileID: 1084432144284234524}
   - component: {fileID: 7265231067570625893}
+  - component: {fileID: 8588845506316295993}
   m_Layer: 0
   m_Name: CaptureList
   m_TagString: Untagged
@@ -51,15 +52,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 0
-    m_Right: 0
+    m_Right: 2
     m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
+    m_Bottom: 2
+  m_ChildAlignment: 8
   m_StartCorner: 3
   m_StartAxis: 0
-  m_CellSize: {x: 12, y: 12}
-  m_Spacing: {x: 2, y: 1}
-  m_Constraint: 0
+  m_CellSize: {x: 10, y: 10}
+  m_Spacing: {x: 1, y: 1}
+  m_Constraint: 1
   m_ConstraintCount: 4
 --- !u!114 &7265231067570625893
 MonoBehaviour:
@@ -74,8 +75,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _monsterSpawner: {fileID: 0}
-  _undiscoveredSprite: {fileID: 21300000, guid: 6f69ef4d517d1064fb19e14b1e9a76ae, type: 3}
+  _undiscoveredSprite: {fileID: 1745955711040293137, guid: 1b57d9ee2885c1e41a34620fda9f0792, type: 3}
   IconTweenDiscoveryScale: 1.5
   IconTweenRecaptureScale: 1.25
   IconTweenGrowPeriod: 0.1
+  IconTweenHoldPeriod: 0.1
   IconTweenShrinkPeriod: 0.5
+--- !u!225 &8588845506316295993
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6642267072081678495}
+  m_Enabled: 1
+  m_Alpha: 0.6
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

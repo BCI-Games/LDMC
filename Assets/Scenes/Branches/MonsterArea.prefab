@@ -46,13 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Monsters:
-  - {fileID: 11400000, guid: bfd3a09493705fb41af1e16233f4ec00, type: 2}
-  - {fileID: 11400000, guid: 899484571dde1584a9dd37cc4cc5a0fd, type: 2}
-  - {fileID: 11400000, guid: d889f94fe74529a4b86457983e02878a, type: 2}
-  - {fileID: 11400000, guid: 7ccab60b38dba53498523eef52154df8, type: 2}
-  - {fileID: 11400000, guid: 20be4407844e38445ac1413a7fc8fb67, type: 2}
-  - {fileID: 11400000, guid: 5ed7b468ff623044cb7fa3d15b854417, type: 2}
-  - {fileID: 11400000, guid: 305526b917887354f9bdf1d1fc2bef6a, type: 2}
+  - {fileID: 11400000, guid: 502aa7e0812face4d9f89089f2b527d7, type: 2}
+  - {fileID: 11400000, guid: b0f330c9e669f3f49b379f85536a2bb4, type: 2}
+  - {fileID: 11400000, guid: 4e0cf2f12a67c8c41a17fefea50c4804, type: 2}
+  - {fileID: 11400000, guid: e9c93edbf4866934cb019ed0c05bcbc1, type: 2}
+  - {fileID: 11400000, guid: bd09edc44426ecf4ebff189d27de4166, type: 2}
+  - {fileID: 11400000, guid: 5d9bcd102110f284da3fbc0ac5f7d120, type: 2}
+  - {fileID: 11400000, guid: 153c2c8bae033d64e8389d3d73eb73b8, type: 2}
 --- !u!1001 &4738698946440388804
 PrefabInstance:
   m_ObjectHideFlags: 0

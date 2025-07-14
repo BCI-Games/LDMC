@@ -9,6 +9,7 @@ public class MonsterData : ScriptableObject
     [Header("Sprites")]
     public Sprite FrontSprite;
     public Sprite IconSprite;
+    public Sprite UndiscoveredIconSprite;
 
     [Header("Types")]
     public MonsterType PrimaryType;

@@ -1,0 +1,615 @@
+fileFormatVersion: 2
+guid: 1b57d9ee2885c1e41a34620fda9f0792
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7048735446188351651
+    second: concept monster icons_0
+  - first:
+      213: -2078904902099553379
+    second: concept monster icons_1
+  - first:
+      213: 4511371880599985755
+    second: concept monster icons_2
+  - first:
+      213: 5781668080100173072
+    second: concept monster icons_3
+  - first:
+      213: 2156189477925581526
+    second: concept monster icons_4
+  - first:
+      213: 3262994851165593202
+    second: concept monster icons_5
+  - first:
+      213: -3893343560473771482
+    second: concept monster icons_6
+  - first:
+      213: -7596294258010278065
+    second: concept monster icons_7
+  - first:
+      213: -3556181775224053335
+    second: concept monster icons_8
+  - first:
+      213: -6379637724534340566
+    second: concept monster icons_9
+  - first:
+      213: -5123052335005591255
+    second: concept monster icons_10
+  - first:
+      213: 6247629976197639590
+    second: concept monster icons_11
+  - first:
+      213: 3779487523408130732
+    second: concept monster icons_12
+  - first:
+      213: -4064392665485493768
+    second: concept monster icons_13
+  - first:
+      213: 5153687401579603423
+    second: concept monster icons_14
+  - first:
+      213: 1745955711040293137
+    second: concept monster icons_15
+  - first:
+      213: 7999690544425677972
+    second: concept monster icons_16
+  - first:
+      213: -9143741573324687132
+    second: concept monster icons_17
+  - first:
+      213: 3310625999667998013
+    second: concept monster icons_18
+  - first:
+      213: -7148677774641032772
+    second: concept monster icons_19
+  - first:
+      213: 477448848676516581
+    second: concept monster icons_20
+  - first:
+      213: -7775560577482897954
+    second: concept monster icons_21
+  - first:
+      213: -4190434901222009139
+    second: concept monster icons_22
+  - first:
+      213: 7181316285096297099
+    second: concept monster icons_23
+  - first:
+      213: 2543071952407252800
+    second: concept monster icons_24
+  - first:
+      213: 1389850667790401972
+    second: concept monster icons_25
+  - first:
+      213: 3588407338335847400
+    second: concept monster icons_26
+  - first:
+      213: -421352450126405148
+    second: concept monster icons_27
+  - first:
+      213: 570664083162551831
+    second: concept monster icons_28
+  - first:
+      213: -2153807861320459602
+    second: concept monster icons_29
+  - first:
+      213: -225084781297464637
+    second: concept monster icons_30
+  - first:
+      213: 1742130581004869721
+    second: concept monster icons_31
+  - first:
+      213: 1481303315087070716
+    second: concept monster icons_32
+  - first:
+      213: 8624284408501979286
+    second: concept monster icons_33
+  - first:
+      213: 5488200536055922657
+    second: concept monster icons_34
+  - first:
+      213: 4088040037989867510
+    second: concept monster icons_35
+  - first:
+      213: -6208254499194078406
+    second: concept monster icons_36
+  - first:
+      213: 7501333190915286123
+    second: concept monster icons_37
+  - first:
+      213: -1151538188293703267
+    second: concept monster icons_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 50
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: concept monster icons_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a0e2c1ea8322d160800000000000000
+      internalID: 7048735446188351651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d93b98c810f3623e0800000000000000
+      internalID: -2078904902099553379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5e19d8b2dc9b9e30800000000000000
+      internalID: 4511371880599985755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 015e59b7c7c9c3050800000000000000
+      internalID: 5781668080100173072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d2703cf7e25ced10800000000000000
+      internalID: 2156189477925581526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_5
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e57af678c784d20800000000000000
+      internalID: 3262994851165593202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_6
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6220869d8a018f9c0800000000000000
+      internalID: -3893343560473771482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_7
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4735f58e9a849690800000000000000
+      internalID: -7596294258010278065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a16d035487e5aec0800000000000000
+      internalID: -3556181775224053335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_9
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2403715a49f677a0800000000000000
+      internalID: -6379637724534340566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_10
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929914e5b0347e8b0800000000000000
+      internalID: -5123052335005591255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_11
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ada75bac5a04b650800000000000000
+      internalID: 6247629976197639590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca233c1c0ef637430800000000000000
+      internalID: 3779487523408130732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_13
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f9b802a7606897c0800000000000000
+      internalID: -4064392665485493768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_14
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd5ee86e263958740800000000000000
+      internalID: 5153687401579603423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: concept monster icons_15
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1190f1ef771ea3810800000000000000
+      internalID: 1745955711040293137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: aa96ce7a53ee1d348ac0de23c92b3e90
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      concept monster icons_0: 7048735446188351651
+      concept monster icons_1: -2078904902099553379
+      concept monster icons_10: -5123052335005591255
+      concept monster icons_11: 6247629976197639590
+      concept monster icons_12: 3779487523408130732
+      concept monster icons_13: -4064392665485493768
+      concept monster icons_14: 5153687401579603423
+      concept monster icons_15: 1745955711040293137
+      concept monster icons_2: 4511371880599985755
+      concept monster icons_3: 5781668080100173072
+      concept monster icons_4: 2156189477925581526
+      concept monster icons_5: 3262994851165593202
+      concept monster icons_6: -3893343560473771482
+      concept monster icons_7: -7596294258010278065
+      concept monster icons_8: -3556181775224053335
+      concept monster icons_9: -6379637724534340566
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
