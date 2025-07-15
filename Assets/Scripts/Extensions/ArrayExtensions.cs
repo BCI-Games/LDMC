@@ -10,13 +10,16 @@ public static class ArrayExtensions
     public static T[] Coalesce<T>(this T[] array, T[] defaultArray)
     => array.IsNullOrEmpty() ? defaultArray : array;
 
+    public static T[] Excluding<T>(this T[] array, T exclude)
+    {
+        List<T> arrayCopy = array.ToList();
+        arrayCopy.Remove(exclude);
+        return arrayCopy.ToArray();
+    }
+
     public static T PickRandom<T>(this T[] array)
     => array[Random.Range(0, array.Length)];
 
     public static T PickRandomExcluding<T>(this T[] array, T exclude)
-    {
-        List<T> arrayCopy = array.ToList();
-        arrayCopy.Remove(exclude);
-        return arrayCopy.ToArray().PickRandom();
-    }
+    => array.Excluding(exclude).PickRandom();
 }
