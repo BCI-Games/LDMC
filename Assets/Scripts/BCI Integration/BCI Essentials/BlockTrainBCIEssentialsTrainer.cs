@@ -1,11 +1,14 @@
 using System.Collections;
+using BCIEssentials;
+using BCIEssentials.LSLFramework;
 using UnityEngine;
 
-public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
+public class BlockTrainBCIEssentialsTrainer: MonoBehaviour, IMarkerSource
 {
+    public MarkerWriter MarkerWriter { get; set; }
+
     private bool _isInTrial;
     private float _windowLength;
-    private bool _shouldUpdateClassifier;
 
     private bool IsTraining => _markerRoutine != null;
     private Coroutine _markerRoutine = null;
@@ -26,9 +29,9 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
         BattleEventBus.WindupStarted -= SendActiveWindowMarkers;
         BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
 
-        if (_isInTrial) SendTrialEndsMarker();
+        if (_isInTrial) MarkerWriter.PushTrialEndsMarker();
         if (IsTraining) StopCoroutine(_markerRoutine);
-        if (_shouldUpdateClassifier) SendTrainingCompleteMarker();
+        MarkerWriter.PushTrainingCompleteMarker();
     }
 
 
@@ -37,20 +40,20 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
         if (!_isInTrial)
         {
             _isInTrial = true;
-            SendTrialStartedMarker();
+            MarkerWriter.PushTrialStartedMarker();
         }
 
-        SendMarkersForPeriod(1, Settings.OffBlockDuration);
+        SendMarkersForPeriod(0, Settings.OffBlockDuration);
     }
 
     void SendActiveWindowMarkers()
     {
-        SendMarkersForPeriod(2, Settings.CharacterActiveDuration);
+        SendMarkersForPeriod(1, Settings.CharacterActiveDuration);
     }
 
     void OnMonsterCaptured(MonsterData _)
     {
-        SendUpdateClassifierMarker();
+        MarkerWriter.PushUpdateClassifierMarker();
     }
 
 
@@ -68,29 +71,13 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour
         float lifetime = 0;
         while(lifetime < duration)
         {
-            SendMIEventMarker(_windowLength, trainingTarget);
+            MarkerWriter.PushMITrainingMarker(2, trainingTarget, _windowLength);
             yield return new WaitForSeconds(_windowLength);
             lifetime += _windowLength;
         }
     }
 
 
-    void SendTrialStartedMarker() => WriteMarker("Trial Started");
-    void SendTrialEndsMarker() => WriteMarker("Trial Ends");
-    void SendUpdateClassifierMarker() => WriteMarker("Update Classifier");
-    void SendTrainingCompleteMarker() => WriteMarker("Training Complete");
-
-    void SendMIEventMarker(float windowLength, int trainingTarget = -1, int optionCount = 2)
-    {
-        WriteMarker($"mi,{optionCount},{trainingTarget},{windowLength:f2}");
-    }
-
-    void WriteMarker(string markerString)
-    {
-        PersistentMarkerStream.PushString(markerString);
-    }
-
-    
     public static float GetCommonWindowLength()
     => GetCommonDivisor(Settings.CharacterActiveDuration, Settings.OffBlockDuration);
 

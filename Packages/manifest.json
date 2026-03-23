@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.bci4kids.bciessentials": "https://github.com/kirtonBCIlab/bci-essentials-unity.git?path=/Packages/com.bci4kids.bciessentials",
+    "com.bci4kids.bciessentials": "https://github.com/kirtonBCIlab/bci-essentials-unity.git",
     "com.labstreaminglayer.lsl4unity": "https://github.com/labstreaminglayer/LSL4Unity.git",
     "com.unity.feature.2d": "2.0.2",
     "com.unity.ide.visualstudio": "2.0.27",
