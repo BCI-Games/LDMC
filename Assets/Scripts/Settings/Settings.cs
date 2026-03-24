@@ -59,6 +59,7 @@ public static partial class Settings
     public static int OffBlockEpochCount => (int)(OffBlockDuration / EpochLength);
     public static int OnBlockEpochCount => OnBlockCycleCount
         * (int)(CharacterActiveDuration / EpochLength);
+    public static int MinimumSharedEpochCount => Mathf.Min(OffBlockEpochCount, OnBlockEpochCount);
 
 
     public static float CharacterActiveDuration
