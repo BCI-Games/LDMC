@@ -76,11 +76,6 @@ public static partial class Settings
         get => Container.EnableSpriteDeformation && !AnimationSimplified;
         set { Container.EnableSpriteDeformation = value; ApplyModifiedValue(); }
     }
-
-    public static bool PixelPerfectCameraEnabled {
-        get => Container.EnablePixelPerfectCamera;
-        set { Container.EnablePixelPerfectCamera = value; ApplyModifiedValue(); }
-    }
     public static bool OffBockMonsterDisplayEnabled {
         get => Container.EnableOffBlockMonsterDisplay;
         set { Container.EnableOffBlockMonsterDisplay = value; ApplyModifiedValue(); }

@@ -17,8 +17,6 @@ public class SettingsContainer
     public bool SimplifyAnimation = false;
     public bool EnableMonsterAnimation = true;
     public bool EnableSpriteDeformation = true;
-
-    public bool EnablePixelPerfectCamera = true;
     public bool EnableOffBlockMonsterDisplay = false;
 
     public bool EnableWakeupSequence = true;
