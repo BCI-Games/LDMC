@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ThrowManager : MonoBehaviour
 {
@@ -112,5 +113,5 @@ public class ThrowManager : MonoBehaviour
     }
     
     protected void ResetChargeLevel() => ChargeLevel = 0;
-    protected virtual bool GetShouldCharge() => Input.GetKey(KeyCode.Space);
+    protected virtual bool GetShouldCharge() => Keyboard.current.spaceKey.isPressed;
 }

@@ -1,14 +1,17 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PauseManager: MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject _pauseOverlay;
 
-    public bool IsPaused {
+    public bool IsPaused
+    {
         get => _isPaused;
-        set {
+        set
+        {
             _isPaused = value;
-            Time.timeScale = value? 0: 1;
+            Time.timeScale = value ? 0 : 1;
             _pauseOverlay.SetActive(value);
             BattleEventBus.NotifyPauseToggled(value);
         }
@@ -21,7 +24,7 @@ public class PauseManager: MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
             IsPaused = !IsPaused;
     }
 }
