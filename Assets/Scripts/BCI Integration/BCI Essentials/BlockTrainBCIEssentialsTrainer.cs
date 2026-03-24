@@ -3,34 +3,29 @@ using BCIEssentials;
 using BCIEssentials.LSLFramework;
 using UnityEngine;
 
-public class BlockTrainBCIEssentialsTrainer: MonoBehaviour, IMarkerSource
+public class BlockTrainBCIEssentialsTrainer : MonoBehaviour, IMarkerSource
 {
     public MarkerWriter MarkerWriter { get; set; }
 
-    private bool _isInTrial;
-    private float _windowLength;
-
-    private bool IsTraining => _markerRoutine != null;
     private Coroutine _markerRoutine = null;
+    private bool _isInTrial;
 
 
     void Start()
     {
-        _windowLength = GetCommonWindowLength();
-
         BlockTrainConductor.OffBlockStarted += SendOffBlockMarkers;
-        BattleEventBus.WindupStarted += SendActiveWindowMarkers;
+        BattleEventBus.WindupStarted += SendActiveMarkers;
         BattleEventBus.MonsterCaptured += OnMonsterCaptured;
     }
 
     void OnDestroy()
     {
         BlockTrainConductor.OffBlockStarted -= SendOffBlockMarkers;
-        BattleEventBus.WindupStarted -= SendActiveWindowMarkers;
+        BattleEventBus.WindupStarted -= SendActiveMarkers;
         BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
 
         if (_isInTrial) MarkerWriter.PushTrialEndsMarker();
-        if (IsTraining) StopCoroutine(_markerRoutine);
+        if (_markerRoutine != null) StopCoroutine(_markerRoutine);
         MarkerWriter.PushTrainingCompleteMarker();
     }
 
@@ -43,12 +38,13 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour, IMarkerSource
             MarkerWriter.PushTrialStartedMarker();
         }
 
-        SendMarkersForPeriod(0, Settings.OffBlockDuration);
+        SendMarkers(0, Settings.MinimumSharedEpochCount);
     }
-
-    void SendActiveWindowMarkers()
+    void SendActiveMarkers()
     {
-        SendMarkersForPeriod(1, Settings.CharacterActiveDuration);
+        int totalEpochCount = Settings.MinimumSharedEpochCount;
+        int cycleCount = Settings.OnBlockCycleCount;
+        SendMarkers(1, totalEpochCount / cycleCount);
     }
 
     void OnMonsterCaptured(MonsterData _)
@@ -57,41 +53,20 @@ public class BlockTrainBCIEssentialsTrainer: MonoBehaviour, IMarkerSource
     }
 
 
-    private void SendMarkersForPeriod
-    (int trainingTarget, float duration)
+    private void SendMarkers(int trainingTarget, int count)
     => _markerRoutine = StartCoroutine
     (
-        RunSendMarkersForPeriod(
-            trainingTarget, duration
-        )
+        RunSendMarkers(trainingTarget, count)
     );
-    IEnumerator RunSendMarkersForPeriod
-    (int trainingTarget, float duration)
+    IEnumerator RunSendMarkers(int trainingTarget, int count)
     {
-        float lifetime = 0;
-        while(lifetime < duration)
+        WaitForSeconds trialSegmentDuration = new(Settings.EpochLength);
+
+        for (int i = 0; i < count; i++)
         {
-            MarkerWriter.PushMITrainingMarker(2, trainingTarget, _windowLength);
-            yield return new WaitForSeconds(_windowLength);
-            lifetime += _windowLength;
+            MarkerWriter.PushMITrainingMarker(2, trainingTarget, Settings.EpochLength);
+            yield return trialSegmentDuration;
         }
-    }
-
-
-    public static float GetCommonWindowLength()
-    => GetCommonDivisor(Settings.CharacterActiveDuration, Settings.OffBlockDuration);
-
-    public static float GetCommonDivisor(float a, float b)
-    {
-        if (a == b)
-            return a;
-
-        float max = Mathf.Max(a, b);
-        float min = Mathf.Min(a, b);
-
-        if (max % min == 0) return min;
-        if (1 / min % max == 0) return 1 / min;
-        if (1 / max % min == 0) return 1 / max;
-        return 1 / (min * max);
+        _markerRoutine = null;
     }
 }
