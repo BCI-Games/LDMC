@@ -7,12 +7,15 @@ public class SettingsContainer
     public int OnBlockCycleCount = 3;
     public bool EndOnBlockWithIdle = true;
 
+    public float EpochLength = 1.5f;
+    public float InputPollingPeriod = 0.5f;
+
+    public CharacterAnimationTimings CharacterAnimationTiming = new();
+
     public float MasterVolume = 0.5f;
     public float MusicVolume = 0.5f;
     public float SfxVolume = 0.5f;
     public int MusicTrackIndex = 0;
-
-    public CharacterAnimationTimings CharacterAnimationTiming = new();
 
     public bool SimplifyAnimation = false;
     public bool EnableMonsterAnimation = true;

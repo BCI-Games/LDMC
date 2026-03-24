@@ -11,7 +11,7 @@ public static partial class Settings
     {
         if (_container) return;
         _container = LoadContainer();
-        ApplyModifiedValue();
+        Modified?.Invoke();
     }
 
 

@@ -1,9 +1,9 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public static partial class Settings
 {
-    private static SettingsContainer Container => _container??= LoadContainer();
+    private static SettingsContainer Container => _container ??= LoadContainer();
     private static SettingsContainer _container;
     private static GameObject _audioManager;
 
@@ -15,87 +15,133 @@ public static partial class Settings
         Modified += callback;
     }
 
-    private static void ApplyModifiedValue()
+    private static void UpdateValue<T>(ref T target, T value)
     {
+        if (target.Equals(value)) return;
+
+        target = value;
         SaveContainer(Container);
         Modified?.Invoke();
     }
 
 
-    public static float OffBlockDuration {
+    #region Timing
+    public static float OffBlockDuration
+    {
         get => Container.OffBlockDuration;
-        set { Container.OffBlockDuration = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.OffBlockDuration, value);
     }
-    public static int OnBlockCycleCount {
+    public static int OnBlockCycleCount
+    {
         get => Container.OnBlockCycleCount;
-        set { Container.OnBlockCycleCount = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.OnBlockCycleCount, value);
     }
-    public static bool OnBlockEndedWithIdle {
+    public static bool OnBlockEndedWithIdle
+    {
         get => Container.EndOnBlockWithIdle;
-        set { Container.EndOnBlockWithIdle = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.EndOnBlockWithIdle, value);
     }
     public static float AnimationCycleDuration => Container.CharacterAnimationTiming.TotalCycleTime;
     public static float OnBlockDuration => OnBlockCycleCount * AnimationCycleDuration
-        - (OnBlockEndedWithIdle? 0: Container.CharacterAnimationTiming.Idle);
+        - (OnBlockEndedWithIdle ? 0 : Container.CharacterAnimationTiming.Idle);
 
-    public static float MasterVolume {
-        get => Container.MasterVolume;
-        set { Container.MasterVolume = value; ApplyModifiedValue(); }
+
+    public static float EpochLength
+    {
+        get => Container.EpochLength;
+        set => UpdateValue(ref Container.EpochLength, value);
     }
-    public static float MusicVolume {
-        get => Container.MusicVolume;
-        set { Container.MusicVolume = value; ApplyModifiedValue(); }
+    public static float InputPollingPeriod
+    {
+        get => Container.InputPollingPeriod;
+        set => UpdateValue(ref Container.InputPollingPeriod, value);
     }
-    public static float SfxVolume {
-        get => Container.SfxVolume;
-        set { Container.SfxVolume = value; ApplyModifiedValue(); }
-    }
-    public static int MusicTrackIndex {
-        get => Container.MusicTrackIndex;
-        set { Container.MusicTrackIndex = value; ApplyModifiedValue(); }
-    }
-    
-    public static float CharacterActiveDuration {
+    public static int OffBlockEpochCount => (int)(OffBlockDuration / EpochLength);
+    public static int OnBlockEpochCount => OnBlockCycleCount
+        * (int)(CharacterActiveDuration / EpochLength);
+
+
+    public static float CharacterActiveDuration
+    {
         get => Container.CharacterAnimationTiming.Active;
-        set { Container.CharacterAnimationTiming.Active = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.CharacterAnimationTiming.Active, value);
     }
-    public static float CharacterIdleDuration {
+    public static float CharacterIdleDuration
+    {
         get => Container.CharacterAnimationTiming.Idle;
-        set { Container.CharacterAnimationTiming.Idle = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.CharacterAnimationTiming.Idle, value);
     }
+    #endregion
 
-    public static bool AnimationSimplified {
+
+    #region Audio
+    public static float MasterVolume
+    {
+        get => Container.MasterVolume;
+        set => UpdateValue(ref Container.MasterVolume, value);
+    }
+    public static float MusicVolume
+    {
+        get => Container.MusicVolume;
+        set => UpdateValue(ref Container.MusicVolume, value);
+    }
+    public static float SfxVolume
+    {
+        get => Container.SfxVolume;
+        set => UpdateValue(ref Container.SfxVolume, value);
+    }
+    public static int MusicTrackIndex
+    {
+        get => Container.MusicTrackIndex;
+        set => UpdateValue(ref Container.MusicTrackIndex, value);
+    }
+    #endregion
+
+
+    #region Presentation
+    public static bool AnimationSimplified
+    {
         get => Container.SimplifyAnimation;
-        set { Container.SimplifyAnimation = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.SimplifyAnimation, value);
     }
-    public static bool MonsterAnimationEnabled {
+    public static bool MonsterAnimationEnabled
+    {
         get => Container.EnableMonsterAnimation && !AnimationSimplified;
-        set { Container.EnableMonsterAnimation = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.EnableMonsterAnimation, value);
     }
-    public static bool SpriteDeformationEnabled {
+    public static bool SpriteDeformationEnabled
+    {
         get => Container.EnableSpriteDeformation && !AnimationSimplified;
-        set { Container.EnableSpriteDeformation = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.EnableSpriteDeformation, value);
     }
-    public static bool OffBockMonsterDisplayEnabled {
+    public static bool OffBockMonsterDisplayEnabled
+    {
         get => Container.EnableOffBlockMonsterDisplay;
-        set { Container.EnableOffBlockMonsterDisplay = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.EnableOffBlockMonsterDisplay, value);
     }
 
-    public static bool WakeupSequenceEnabled {
+    #region Feedback Sequences
+    public static bool WakeupSequenceEnabled
+    {
         get => Container.EnableWakeupSequence && WakeupSequenceDuration > 0;
-        set { Container.EnableWakeupSequence = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.EnableWakeupSequence, value);
     }
-    public static float WakeupSequenceDuration {
+    public static float WakeupSequenceDuration
+    {
         get => Container.WakeupSequenceDuration;
-        set { Container.WakeupSequenceDuration = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.WakeupSequenceDuration, value);
     }
 
-    public static bool CaptureSequenceEnabled {
+    public static bool CaptureSequenceEnabled
+    {
         get => Container.EnableCaptureSequence && CaptureSequenceDuration > 0;
-        set { Container.EnableCaptureSequence = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.EnableCaptureSequence, value);
     }
-    public static float CaptureSequenceDuration {
+    public static float CaptureSequenceDuration
+    {
         get => Container.CaptureSequenceDuration;
-        set { Container.CaptureSequenceDuration = value; ApplyModifiedValue(); }
+        set => UpdateValue(ref Container.CaptureSequenceDuration, value);
     }
+    #endregion
+    #endregion
 }
