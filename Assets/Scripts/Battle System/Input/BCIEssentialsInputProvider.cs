@@ -6,7 +6,9 @@ public class BCIEssentialsInputProvider: MonoBehaviour, IMarkerSource, IPredicti
 {
     public MarkerWriter MarkerWriter { get; set; }
 
-    public float InputValue => _lastConfidenceRatio;
+    public float InputThreshold = 0.5f;
+
+    public float InputValue => Mathf.InverseLerp(InputThreshold, 1, _lastConfidenceRatio);
     private float PollingPeriod => Settings.InputPollingPeriod;
     private float EpochLength => Settings.EpochLength;
 
@@ -33,4 +35,7 @@ public class BCIEssentialsInputProvider: MonoBehaviour, IMarkerSource, IPredicti
     {
         _lastConfidenceRatio = prediction.Probabilities[1];
     }
+
+
+    public void SetInputThreshold(float value) => InputThreshold = value;
 }
