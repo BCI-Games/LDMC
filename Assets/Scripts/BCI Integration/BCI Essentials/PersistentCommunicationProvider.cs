@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PersistentCommunicationProvider : CommunicationProvider
 {
-    private PersistentCommunicationProvider _instance = null;
+    private static PersistentCommunicationProvider _instance = null;
 
     private void Awake()
     {
