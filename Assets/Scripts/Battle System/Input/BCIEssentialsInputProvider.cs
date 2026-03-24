@@ -2,15 +2,16 @@ using BCIEssentials;
 using BCIEssentials.LSLFramework;
 using UnityEngine;
 
-public class BciEssentialsInputProvider: MonoBehaviour, IMarkerSource, IPredictionSink, IInputProvider
+public class BCIEssentialsInputProvider: MonoBehaviour, IMarkerSource, IPredictionSink, IInputProvider
 {
     public MarkerWriter MarkerWriter { get; set; }
 
     public float InputValue => _lastConfidenceRatio;
-    public float EpochLength = 1.0f;
+    private float PollingPeriod => Settings.InputPollingPeriod;
+    private float EpochLength => Settings.EpochLength;
 
     private float _lastConfidenceRatio;
-    private float _epochTimer = 0;
+    private float _pollingTimer = 0;
 
 
     private void Start() => MarkerWriter.PushTrialStartedMarker();
@@ -19,10 +20,10 @@ public class BciEssentialsInputProvider: MonoBehaviour, IMarkerSource, IPredicti
 
     private void Update()
     {
-        _epochTimer += Time.deltaTime;
-        if (_epochTimer > EpochLength)
+        _pollingTimer += Time.deltaTime;
+        if (_pollingTimer > PollingPeriod)
         {
-            _epochTimer -= EpochLength;
+            _pollingTimer -= PollingPeriod;
             MarkerWriter.PushMIClassificationMarker(2, EpochLength);
         }
     }
