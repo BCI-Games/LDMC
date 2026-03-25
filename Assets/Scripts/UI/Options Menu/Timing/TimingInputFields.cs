@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TimingInputFields : MonoBehaviour
 {
+    [SerializeField] private TMP_InputField _restingStateDurationField;
     [SerializeField] private TMP_InputField _offBlockDurationField;
 
     [Header("Transitions")]
@@ -12,16 +13,24 @@ public class TimingInputFields : MonoBehaviour
 
     private void Start()
     {
+        _restingStateDurationField.text = Settings.RestingStateDuration.ToString();
         _offBlockDurationField.text = Settings.OffBlockDuration.ToString();
 
         _captureSequenceDurationField.text = Settings.CaptureSequenceDuration.ToString();
         _wakeupSequenceDurationField.text = Settings.WakeupSequenceDuration.ToString();
 
 
+        _restingStateDurationField.onValueChanged.AddListener(SetRestingStateDuration);
         _offBlockDurationField.onValueChanged.AddListener(SetOffBlockDuration);
 
         _captureSequenceDurationField.onValueChanged.AddListener(SetCaptureSequenceDuration);
         _wakeupSequenceDurationField.onValueChanged.AddListener(SetWakeupSequenceDuration);
+    }
+
+    private void SetRestingStateDuration(string text)
+    {
+        if (float.TryParse(text, out float value))
+            Settings.RestingStateDuration = value;
     }
 
     private void SetOffBlockDuration(string text)
