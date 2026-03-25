@@ -3,24 +3,14 @@ using UnityEngine.UI;
 
 public static class ValueProxyUIExtensions
 {
-    public static void ConnectInputField<T>
+    public static void ConnectInputField
     (
-        this ValueProxy<T> caller,
+        this ValueProxy caller,
         TMP_InputField inputField
     )
     {
-        inputField.text = caller.GetValue().ToString();
+        inputField.text = caller.ToString();
         inputField.onValueChanged.AddListener(text => caller.TrySetValue(text));
-    }
-
-    public static void ConnectSlider
-    (
-        this FloatProxy caller,
-        Slider slider
-    )
-    {
-        slider.value = caller;
-        slider.onValueChanged.AddListener(caller.SetValue);
     }
 
     public static void ConnectDropdown
@@ -33,13 +23,23 @@ public static class ValueProxyUIExtensions
         dropdown.onValueChanged.AddListener(caller.SetValue);
     }
 
+    public static void ConnectSlider
+    (
+        this FloatProxy caller,
+        Slider slider
+    )
+    {
+        slider.value = caller;
+        slider.onValueChanged.AddListener(caller.SetValue);
+    }
+
     public static void ConnectToggle
     (
         this BooleanProxy caller,
-        Toggle inputField
+        Toggle toggle
     )
     {
-        inputField.isOn = caller;
-        inputField.onValueChanged.AddListener(caller.SetValue);
+        toggle.isOn = caller;
+        toggle.onValueChanged.AddListener(caller.SetValue);
     }
 }

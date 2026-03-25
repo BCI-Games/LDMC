@@ -45,8 +45,11 @@ public abstract class ValueProxy<T> : ValueProxy
         _value = value;
         Modified?.Invoke();
     }
-    public override void SetValue(string valueString) => SetValue(Parse(valueString));
-    public bool TrySetValue(string valueString)
+    public override void SetValue(string valueString)
+    {
+        SetValue(Parse(valueString));
+    }
+    public override bool TrySetValue(string valueString)
     {
         if (TryParse(valueString, out T parsedValue))
         {
@@ -71,4 +74,5 @@ public abstract class ValueProxy
 {
     public abstract event Action Modified;
     public abstract void SetValue(string valueString);
+    public abstract bool TrySetValue(string valueString);
 }

@@ -21,6 +21,12 @@ public static partial class Settings
         return output != null;
     }
 
+    public static bool HasField(string name)
+    {
+        FieldInfo[] fields = typeof(Settings).GetFields();
+        return fields.Any(field => field.Name == name);
+    }
+
 
     #region Timing
     public static FloatProxy RestingStateDuration = new(180);
