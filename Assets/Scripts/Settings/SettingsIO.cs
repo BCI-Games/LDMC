@@ -1,60 +1,73 @@
 using UnityEngine;
 using System.IO;
+using System.Reflection;
+using System.Linq;
 
 public static partial class Settings
 {
     const string FileName = "settings.json";
     private static string FilePath => Application.dataPath + "/../" + FileName;
-    private static GameObject _audioManager;
 
 
     public static void LoadAndApplySettings()
     {
-        LoadContainer().ApplyValues();
-        Modified?.Invoke();
-    }
-
-
-    private static SettingsContainer LoadContainer()
-    {
-        SettingsContainer loadedSettings = new();
-        if (File.Exists(FilePath))
-        {
-            StreamReader reader = new(FilePath);
-            string fileContent = reader.ReadToEnd();
-            reader.Close();
-
-            JsonUtility.FromJsonOverwrite(fileContent, loadedSettings);
-        }
-        SaveContainer(loadedSettings);
+        LoadSettings();
         ConnectModificationEvents();
-        if (!_audioManager) InitializeAudioManager();
-        return loadedSettings;
+        WriteSettingsAndNotify();
     }
 
-    private static void InitializeAudioManager()
+
+    private static void LoadSettings()
     {
-        _audioManager = new("Audio Manager");
-        _audioManager.AddComponent<VolumeManager>();
-        _audioManager.AddComponent<MusicManager>();
-        GameObject.DontDestroyOnLoad(_audioManager);
+        StreamReader reader = new(FilePath);
+        string fileContent = reader.ReadToEnd();
+        reader.Close();
+
+        string bodyString = fileContent.Trim(new char[] { '{', '}' });
+        foreach(string fieldString in bodyString.Split(','))
+        {
+            string[] parts = fieldString.Split(':');
+            string fieldName = parts[0].Trim().Trim('"');
+
+            if (GetField(fieldName, out ValueProxy field))
+            {
+                field.SetValue(parts[1]);
+            }
+        }
+    }
+
+    private static void WriteSettings()
+    {
+        FieldInfo[] fields = typeof(Settings).GetFields();
+
+        string bodyString = string.Join(
+            ",\n", fields.Select(
+                field => $"\t\"{field.Name}\": {field.GetValue(null)}"
+            )
+        );
+        string fileContent = $"{{\n{bodyString}\n}}";
+
+        StreamWriter writer = new(FilePath);
+        writer.Write(fileContent);
+        writer.Close();
+    }
+
+
+    private static void WriteSettingsAndNotify()
+    {
+        WriteSettings();
+        Modified?.Invoke();
     }
 
     private static void ConnectModificationEvents()
     {
-        ValueProxy.InstanceModified += () =>
+        FieldInfo[] fields = typeof(Settings).GetFields();
+        foreach (FieldInfo field in fields)
         {
-            SaveContainer(new());
-            Modified?.Invoke();
-        };
-    }
-
-
-    private static void SaveContainer(SettingsContainer container)
-    {
-        string fileContent = JsonUtility.ToJson(container, true);
-        StreamWriter writer = new(FilePath);
-        writer.Write(fileContent);
-        writer.Close();
+            if (field.GetValue(null) is ValueProxy proxy)
+            {
+                proxy.Modified += WriteSettingsAndNotify;
+            }
+        }
     }
 }

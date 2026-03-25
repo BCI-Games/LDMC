@@ -19,6 +19,8 @@ public class BooleanProxy : ValueProxy<bool>
     public BooleanProxy(bool defaultValue) => _value = defaultValue;
     public override ParsingMethod Parse => bool.Parse;
     public override AttemptedParsingMethod TryParse => bool.TryParse;
+
+    public override string ToString() => _value ? "true" : "false";
 }
 
 public class ExclusiveBooleanProxy : BooleanProxy
@@ -33,7 +35,7 @@ public class ExclusiveBooleanProxy : BooleanProxy
 
 public abstract class ValueProxy<T> : ValueProxy
 {
-    public event Action Modified;
+    public override event Action Modified;
     protected T _value;
 
     public virtual T GetValue() => _value;
@@ -42,9 +44,8 @@ public abstract class ValueProxy<T> : ValueProxy
         if (_value.Equals(value)) return;
         _value = value;
         Modified?.Invoke();
-        InstanceModified?.Invoke();
     }
-    public void SetValue(string valueString) => SetValue(Parse(valueString));
+    public override void SetValue(string valueString) => SetValue(Parse(valueString));
     public bool TrySetValue(string valueString)
     {
         if (TryParse(valueString, out T parsedValue))
@@ -54,6 +55,8 @@ public abstract class ValueProxy<T> : ValueProxy
         }
         return false;
     }
+
+    public override string ToString() => _value.ToString();
 
 
     public delegate T ParsingMethod(string valueString);
@@ -66,5 +69,6 @@ public abstract class ValueProxy<T> : ValueProxy
 }
 public abstract class ValueProxy
 {
-    public static Action InstanceModified;
+    public abstract event Action Modified;
+    public abstract void SetValue(string valueString);
 }

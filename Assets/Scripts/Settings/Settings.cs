@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 public static partial class Settings
@@ -8,6 +10,15 @@ public static partial class Settings
     {
         callback();
         Modified += callback;
+    }
+
+    public static bool GetField<T>(string name, out T output)
+    where T : class
+    {
+        FieldInfo[] fields = typeof(Settings).GetFields();
+        FieldInfo match = fields.FirstOrDefault(field => field.Name == name);
+        output = match?.GetValue(null) as T;
+        return output != null;
     }
 
 
