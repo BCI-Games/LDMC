@@ -33,6 +33,7 @@ public static partial class Settings
         - (OnBlockEndedWithIdle ? 0 : CharacterIdleDuration);
 
 
+    [Space]
     public static FloatProxy EpochLength = new(1.5f);
     public static FloatProxy InputPollingPeriod = new(0.5f);
     public static int OffBlockEpochCount => (int)(OffBlockDuration / EpochLength);
@@ -40,13 +41,14 @@ public static partial class Settings
         * (int)(CharacterActiveDuration / EpochLength);
     public static int MinimumSharedEpochCount => Mathf.Min(OffBlockEpochCount, OnBlockEpochCount);
 
-
+    [Space]
     public static FloatProxy CharacterActiveDuration = new(2);
     public static FloatProxy CharacterIdleDuration = new(2);
     #endregion
 
 
     #region Audio
+    [Space]
     public static FloatProxy MasterVolume = new(0.5f);
     public static FloatProxy MusicVolume = new(0.5f);
     public static FloatProxy SfxVolume = new(0.5f);
@@ -55,11 +57,13 @@ public static partial class Settings
 
 
     #region Presentation
+    [Space]
     public static BooleanProxy AnimationSimplified = new(false);
     public static ExclusiveBooleanProxy MonsterAnimationEnabled = new(true, AnimationSimplified);
     public static ExclusiveBooleanProxy SpriteDeformationEnabled = new(true, AnimationSimplified);
     public static BooleanProxy OffBockMonsterDisplayEnabled = new(false);
 
+    [Space]
     public static BooleanProxy WakeupSequenceEnabled = new(true);
     public static FloatProxy WakeupSequenceDuration = new(1);
 

@@ -1,7 +1,7 @@
-using UnityEngine;
 using System.IO;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
+using UnityEngine;
 
 public static partial class Settings
 {
@@ -24,7 +24,7 @@ public static partial class Settings
         reader.Close();
 
         string bodyString = fileContent.Trim(new char[] { '{', '}' });
-        foreach(string fieldString in bodyString.Split(','))
+        foreach (string fieldString in bodyString.Split(','))
         {
             string[] parts = fieldString.Split(':');
             string fieldName = parts[0].Trim().Trim('"');
@@ -40,11 +40,16 @@ public static partial class Settings
     {
         FieldInfo[] fields = typeof(Settings).GetFields();
 
-        string bodyString = string.Join(
-            ",\n", fields.Select(
-                field => $"\t\"{field.Name}\": {field.GetValue(null)}"
-            )
-        );
+        static string GetFieldString(FieldInfo field)
+        {
+            var attributes = field.GetCustomAttributes();
+            string prefix
+                = attributes.Any(a => a is SpaceAttribute)
+                ? "\n\t" : "\t";
+            return $"{prefix}\"{field.Name}\": {field.GetValue(null)}";
+        }
+
+        string bodyString = string.Join(",\n", fields.Select(GetFieldString));
         string fileContent = $"{{\n{bodyString}\n}}";
 
         StreamWriter writer = new(FilePath);
