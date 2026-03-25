@@ -3,11 +3,6 @@ using UnityEngine;
 
 public static partial class Settings
 {
-    private static SettingsContainer Container => _container ??= LoadContainer();
-    private static SettingsContainer _container;
-    private static GameObject _audioManager;
-
-
     public static event Action Modified;
     public static void AddAndInvokeModificationCallback(Action callback)
     {
@@ -15,140 +10,49 @@ public static partial class Settings
         Modified += callback;
     }
 
-    private static void UpdateValue<T>(ref T target, T value)
-    {
-        if (target.Equals(value)) return;
-
-        target = value;
-        SaveContainer(Container);
-        Modified?.Invoke();
-    }
-
 
     #region Timing
-    public static float RestingStateDuration
-    {
-        get => Container.RestingStateDuration;
-        set => UpdateValue(ref Container.RestingStateDuration, value);
-    }
+    public static FloatProxy RestingStateDuration = new(180);
 
-    public static float OffBlockDuration
-    {
-        get => Container.OffBlockDuration;
-        set => UpdateValue(ref Container.OffBlockDuration, value);
-    }
-    public static int OnBlockCycleCount
-    {
-        get => Container.OnBlockCycleCount;
-        set => UpdateValue(ref Container.OnBlockCycleCount, value);
-    }
-    public static bool OnBlockEndedWithIdle
-    {
-        get => Container.EndOnBlockWithIdle;
-        set => UpdateValue(ref Container.EndOnBlockWithIdle, value);
-    }
-    public static float AnimationCycleDuration => Container.CharacterAnimationTiming.TotalCycleTime;
+    public static FloatProxy OffBlockDuration = new(20);
+    public static IntProxy OnBlockCycleCount = new(3);
+    public static BooleanProxy OnBlockEndedWithIdle = new(true);
+    public static float AnimationCycleDuration => CharacterActiveDuration + CharacterIdleDuration;
     public static float OnBlockDuration => OnBlockCycleCount * AnimationCycleDuration
-        - (OnBlockEndedWithIdle ? 0 : Container.CharacterAnimationTiming.Idle);
+        - (OnBlockEndedWithIdle ? 0 : CharacterIdleDuration);
 
 
-    public static float EpochLength
-    {
-        get => Container.EpochLength;
-        set => UpdateValue(ref Container.EpochLength, value);
-    }
-    public static float InputPollingPeriod
-    {
-        get => Container.InputPollingPeriod;
-        set => UpdateValue(ref Container.InputPollingPeriod, value);
-    }
+    public static FloatProxy EpochLength = new(1.5f);
+    public static FloatProxy InputPollingPeriod = new(0.5f);
     public static int OffBlockEpochCount => (int)(OffBlockDuration / EpochLength);
     public static int OnBlockEpochCount => OnBlockCycleCount
         * (int)(CharacterActiveDuration / EpochLength);
     public static int MinimumSharedEpochCount => Mathf.Min(OffBlockEpochCount, OnBlockEpochCount);
 
 
-    public static float CharacterActiveDuration
-    {
-        get => Container.CharacterAnimationTiming.Active;
-        set => UpdateValue(ref Container.CharacterAnimationTiming.Active, value);
-    }
-    public static float CharacterIdleDuration
-    {
-        get => Container.CharacterAnimationTiming.Idle;
-        set => UpdateValue(ref Container.CharacterAnimationTiming.Idle, value);
-    }
+    public static FloatProxy CharacterActiveDuration = new(2);
+    public static FloatProxy CharacterIdleDuration = new(2);
     #endregion
 
 
     #region Audio
-    public static float MasterVolume
-    {
-        get => Container.MasterVolume;
-        set => UpdateValue(ref Container.MasterVolume, value);
-    }
-    public static float MusicVolume
-    {
-        get => Container.MusicVolume;
-        set => UpdateValue(ref Container.MusicVolume, value);
-    }
-    public static float SfxVolume
-    {
-        get => Container.SfxVolume;
-        set => UpdateValue(ref Container.SfxVolume, value);
-    }
-    public static int MusicTrackIndex
-    {
-        get => Container.MusicTrackIndex;
-        set => UpdateValue(ref Container.MusicTrackIndex, value);
-    }
+    public static FloatProxy MasterVolume = new(0.5f);
+    public static FloatProxy MusicVolume = new(0.5f);
+    public static FloatProxy SfxVolume = new(0.5f);
+    public static IntProxy MusicTrackIndex = new(0);
     #endregion
 
 
     #region Presentation
-    public static bool AnimationSimplified
-    {
-        get => Container.SimplifyAnimation;
-        set => UpdateValue(ref Container.SimplifyAnimation, value);
-    }
-    public static bool MonsterAnimationEnabled
-    {
-        get => Container.EnableMonsterAnimation && !AnimationSimplified;
-        set => UpdateValue(ref Container.EnableMonsterAnimation, value);
-    }
-    public static bool SpriteDeformationEnabled
-    {
-        get => Container.EnableSpriteDeformation && !AnimationSimplified;
-        set => UpdateValue(ref Container.EnableSpriteDeformation, value);
-    }
-    public static bool OffBockMonsterDisplayEnabled
-    {
-        get => Container.EnableOffBlockMonsterDisplay;
-        set => UpdateValue(ref Container.EnableOffBlockMonsterDisplay, value);
-    }
+    public static BooleanProxy AnimationSimplified = new(false);
+    public static ExclusiveBooleanProxy MonsterAnimationEnabled = new(true, AnimationSimplified);
+    public static ExclusiveBooleanProxy SpriteDeformationEnabled = new(true, AnimationSimplified);
+    public static BooleanProxy OffBockMonsterDisplayEnabled = new(false);
 
-    #region Feedback Sequences
-    public static bool WakeupSequenceEnabled
-    {
-        get => Container.EnableWakeupSequence && WakeupSequenceDuration > 0;
-        set => UpdateValue(ref Container.EnableWakeupSequence, value);
-    }
-    public static float WakeupSequenceDuration
-    {
-        get => Container.WakeupSequenceDuration;
-        set => UpdateValue(ref Container.WakeupSequenceDuration, value);
-    }
+    public static BooleanProxy WakeupSequenceEnabled = new(true);
+    public static FloatProxy WakeupSequenceDuration = new(1);
 
-    public static bool CaptureSequenceEnabled
-    {
-        get => Container.EnableCaptureSequence && CaptureSequenceDuration > 0;
-        set => UpdateValue(ref Container.EnableCaptureSequence, value);
-    }
-    public static float CaptureSequenceDuration
-    {
-        get => Container.CaptureSequenceDuration;
-        set => UpdateValue(ref Container.CaptureSequenceDuration, value);
-    }
-    #endregion
+    public static BooleanProxy CaptureSequenceEnabled = new(true);
+    public static FloatProxy CaptureSequenceDuration = new(2);
     #endregion
 }

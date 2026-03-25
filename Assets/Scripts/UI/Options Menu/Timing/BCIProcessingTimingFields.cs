@@ -9,11 +9,8 @@ public class BCIProcessingTimingFields : MonoBehaviour
 
     private void Start()
     {
-        _epochLengthField.text = Settings.EpochLength.ToString();
-        _inputPollingPeriodField.text = Settings.InputPollingPeriod.ToString();
-
-        _epochLengthField.onValueChanged.AddListener(SetEpochLength);
-        _inputPollingPeriodField.onValueChanged.AddListener(SetInputPollingPeriod);
+        Settings.EpochLength.ConnectInputField(_epochLengthField);
+        Settings.InputPollingPeriod.ConnectInputField(_inputPollingPeriodField);
 
         Settings.AddAndInvokeModificationCallback(UpdateEpochCountDisplay);
     }
@@ -23,17 +20,4 @@ public class BCIProcessingTimingFields : MonoBehaviour
 
     public void UpdateEpochCountDisplay()
     => _epochCountLabel.text = Settings.MinimumSharedEpochCount.ToString();
-
-
-    private void SetEpochLength(string text)
-    {
-        if (float.TryParse(text, out float value))
-            Settings.EpochLength = value;
-    }
-
-    private void SetInputPollingPeriod(string text)
-    {
-        if (float.TryParse(text, out float value))
-            Settings.InputPollingPeriod = value;
-    }
 }

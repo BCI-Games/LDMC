@@ -15,54 +15,17 @@ public class OnBlockTimingFields : MonoBehaviour
 
     private void Start()
     {
+        Settings.OnBlockCycleCount.ConnectInputField(_onBlockCycleCountField);
+        Settings.OnBlockEndedWithIdle.ConnectToggle(_onBlockEndedWithIdleToggle);
 
-        _onBlockCycleCountField.text = Settings.OnBlockCycleCount.ToString();
-        _onBlockEndedWithIdleToggle.isOn = Settings.OnBlockEndedWithIdle;
+        Settings.CharacterActiveDuration.ConnectInputField(_activeDurationField);
+        Settings.CharacterIdleDuration.ConnectInputField(_idleDurationField);
 
-        _activeDurationField.text = Settings.CharacterActiveDuration.ToString();
-        _idleDurationField.text = Settings.CharacterIdleDuration.ToString();
-
-        _onBlockCycleCountField.onValueChanged.AddListener(SetOnBlockCycleCount);
-        _onBlockEndedWithIdleToggle.onValueChanged.AddListener(SetOnBlockEndedWithIdle);
-
-        _activeDurationField.onValueChanged.AddListener(SetActiveDuration);
-        _idleDurationField.onValueChanged.AddListener(SetIdleDuration);
-
-        UpdateOnBlockDurationDisplay();
+        Settings.AddAndInvokeModificationCallback(UpdateOnBlockDurationDisplay);
     }
+
+    private void OnDestroy() => Settings.Modified -= UpdateOnBlockDurationDisplay;
 
     private void UpdateOnBlockDurationDisplay()
     => _onBlockDurationLabel.text = Settings.OnBlockDuration.ToString();
-
-
-    private void SetOnBlockCycleCount(string text)
-    {
-        if (int.TryParse(text, out int value))
-        {
-            Settings.OnBlockCycleCount = value;
-            UpdateOnBlockDurationDisplay();
-        }
-    }
-    private void SetOnBlockEndedWithIdle(bool value)
-    {
-        Settings.OnBlockEndedWithIdle = value;
-        UpdateOnBlockDurationDisplay();
-    }
-
-    private void SetActiveDuration(string text)
-    {
-        if (float.TryParse(text, out float value))
-        {
-            Settings.CharacterActiveDuration = value;
-            UpdateOnBlockDurationDisplay();
-        }
-    }
-    private void SetIdleDuration(string text)
-    {
-        if (float.TryParse(text, out float value))
-        {
-            Settings.CharacterIdleDuration = value;
-            UpdateOnBlockDurationDisplay();
-        }
-    }
 }

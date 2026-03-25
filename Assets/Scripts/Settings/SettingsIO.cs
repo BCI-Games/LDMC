@@ -5,12 +5,12 @@ public static partial class Settings
 {
     const string FileName = "settings.json";
     private static string FilePath => Application.dataPath + "/../" + FileName;
-    
+    private static GameObject _audioManager;
+
 
     public static void LoadAndApplySettings()
     {
-        if (_container) return;
-        _container = LoadContainer();
+        LoadContainer().ApplyValues();
         Modified?.Invoke();
     }
 
@@ -27,6 +27,7 @@ public static partial class Settings
             JsonUtility.FromJsonOverwrite(fileContent, loadedSettings);
         }
         SaveContainer(loadedSettings);
+        ConnectModificationEvents();
         if (!_audioManager) InitializeAudioManager();
         return loadedSettings;
     }
@@ -37,6 +38,15 @@ public static partial class Settings
         _audioManager.AddComponent<VolumeManager>();
         _audioManager.AddComponent<MusicManager>();
         GameObject.DontDestroyOnLoad(_audioManager);
+    }
+
+    private static void ConnectModificationEvents()
+    {
+        ValueProxy.InstanceModified += () =>
+        {
+            SaveContainer(new());
+            Modified?.Invoke();
+        };
     }
 
 

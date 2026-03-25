@@ -9,15 +9,7 @@ public class FeedbackSequenceToggles: MonoBehaviour
 
     private void Start()
     {
-        _captureSequenceToggle.isOn = Settings.CaptureSequenceEnabled;
-        _wakeupSequenceToggle.isOn = Settings.WakeupSequenceEnabled;
-
-        _captureSequenceToggle.onValueChanged.AddListener(SetCaptureSequenceEnabled);
-        _wakeupSequenceToggle.onValueChanged.AddListener(SetWakeupSequenceEnabled);
+        Settings.CaptureSequenceEnabled.ConnectToggle(_captureSequenceToggle);
+        Settings.WakeupSequenceEnabled.ConnectToggle(_wakeupSequenceToggle);
     }
-
-    private void SetCaptureSequenceEnabled(bool value)
-        => Settings.CaptureSequenceEnabled = value;
-    private void SetWakeupSequenceEnabled(bool value)
-        => Settings.WakeupSequenceEnabled = value;
 }

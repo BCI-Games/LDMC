@@ -13,40 +13,10 @@ public class TimingInputFields : MonoBehaviour
 
     private void Start()
     {
-        _restingStateDurationField.text = Settings.RestingStateDuration.ToString();
-        _offBlockDurationField.text = Settings.OffBlockDuration.ToString();
+        Settings.RestingStateDuration.ConnectInputField(_restingStateDurationField);
+        Settings.OffBlockDuration.ConnectInputField(_offBlockDurationField);
 
-        _captureSequenceDurationField.text = Settings.CaptureSequenceDuration.ToString();
-        _wakeupSequenceDurationField.text = Settings.WakeupSequenceDuration.ToString();
-
-
-        _restingStateDurationField.onValueChanged.AddListener(SetRestingStateDuration);
-        _offBlockDurationField.onValueChanged.AddListener(SetOffBlockDuration);
-
-        _captureSequenceDurationField.onValueChanged.AddListener(SetCaptureSequenceDuration);
-        _wakeupSequenceDurationField.onValueChanged.AddListener(SetWakeupSequenceDuration);
-    }
-
-    private void SetRestingStateDuration(string text)
-    {
-        if (float.TryParse(text, out float value))
-            Settings.RestingStateDuration = value;
-    }
-
-    private void SetOffBlockDuration(string text)
-    {
-        if (float.TryParse(text, out float value))
-            Settings.OffBlockDuration = value;
-    }
-
-    private void SetCaptureSequenceDuration(string text)
-    {
-        if (float.TryParse(text, out float value))
-            Settings.CaptureSequenceDuration = value;
-    }
-    private void SetWakeupSequenceDuration(string text)
-    {
-        if (float.TryParse(text, out float value))
-            Settings.WakeupSequenceDuration = value;
+        Settings.CaptureSequenceDuration.ConnectInputField(_captureSequenceDurationField);
+        Settings.WakeupSequenceDuration.ConnectInputField(_wakeupSequenceDurationField);
     }
 }

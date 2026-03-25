@@ -3,41 +3,74 @@ using System;
 [Serializable]
 public class SettingsContainer
 {
-    public float RestingStateDuration = 180;
-    public float OffBlockDuration = 20;
-    public int OnBlockCycleCount = 3;
-    public bool EndOnBlockWithIdle = true;
+    public float RestingStateDuration = Settings.RestingStateDuration;
+    public float OffBlockDuration = Settings.OffBlockDuration;
+    public int OnBlockCycleCount = Settings.OnBlockCycleCount;
+    public bool EndOnBlockWithIdle = Settings.OnBlockEndedWithIdle;
 
-    public float EpochLength = 1.5f;
-    public float InputPollingPeriod = 0.5f;
+    public float EpochLength = Settings.EpochLength;
+    public float InputPollingPeriod = Settings.InputPollingPeriod;
 
     public CharacterAnimationTimings CharacterAnimationTiming = new();
 
-    public float MasterVolume = 0.5f;
-    public float MusicVolume = 0.5f;
-    public float SfxVolume = 0.5f;
-    public int MusicTrackIndex = 0;
+    public float MasterVolume = Settings.MasterVolume;
+    public float MusicVolume = Settings.MusicVolume;
+    public float SfxVolume = Settings.SfxVolume;
+    public int MusicTrackIndex = Settings.MusicTrackIndex;
 
-    public bool SimplifyAnimation = false;
-    public bool EnableMonsterAnimation = true;
-    public bool EnableSpriteDeformation = true;
-    public bool EnableOffBlockMonsterDisplay = false;
+    public bool SimplifyAnimation = Settings.AnimationSimplified;
+    public bool EnableMonsterAnimation = Settings.MonsterAnimationEnabled.GetRawValue();
+    public bool EnableSpriteDeformation = Settings.SpriteDeformationEnabled.GetRawValue();
+    public bool EnableOffBlockMonsterDisplay = Settings.OffBockMonsterDisplayEnabled;
 
-    public bool EnableWakeupSequence = true;
-    public float WakeupSequenceDuration = 1.0f;
+    public bool EnableWakeupSequence = Settings.WakeupSequenceEnabled;
+    public float WakeupSequenceDuration = Settings.WakeupSequenceDuration;
 
-    public bool EnableCaptureSequence = true;
-    public float CaptureSequenceDuration = 2.0f;
+    public bool EnableCaptureSequence = Settings.CaptureSequenceEnabled;
+    public float CaptureSequenceDuration = Settings.CaptureSequenceDuration;
 
-
-    public static implicit operator bool(SettingsContainer container) => container != null;
 
     [Serializable]
     public class CharacterAnimationTimings
     {
-        public float Active = 2.0f;
-        public float Idle = 2.0f;
+        public float Active = Settings.CharacterActiveDuration;
+        public float Idle = Settings.CharacterIdleDuration;
 
-        public float TotalCycleTime => Active + Idle;
+        public void ApplyValues()
+        {
+            Settings.CharacterActiveDuration = new(Active);
+            Settings.CharacterIdleDuration = new(Idle);
+        }
+    }
+
+
+    public void ApplyValues()
+    {
+        Settings.RestingStateDuration = new(RestingStateDuration);
+        Settings.OffBlockDuration = new(OffBlockDuration);
+        Settings.OnBlockCycleCount = new(OnBlockCycleCount);
+        Settings.OnBlockEndedWithIdle = new(EndOnBlockWithIdle);
+
+        Settings.EpochLength = new(EpochLength);
+        Settings.InputPollingPeriod = new(InputPollingPeriod);
+
+        CharacterAnimationTiming.ApplyValues();
+
+        Settings.MasterVolume = new(MasterVolume);
+        Settings.MusicVolume = new(MusicVolume);
+        Settings.SfxVolume = new(SfxVolume);
+        Settings.MusicTrackIndex = new(MusicTrackIndex);
+
+        BooleanProxy simpleAnimationProxy = new(SimplifyAnimation);
+        Settings.AnimationSimplified = simpleAnimationProxy;
+        Settings.MonsterAnimationEnabled = new(EnableMonsterAnimation, simpleAnimationProxy);
+        Settings.SpriteDeformationEnabled = new(EnableSpriteDeformation, simpleAnimationProxy);
+        Settings.OffBockMonsterDisplayEnabled = new(EnableOffBlockMonsterDisplay);
+
+        Settings.WakeupSequenceEnabled = new(EnableWakeupSequence);
+        Settings.WakeupSequenceDuration = new(WakeupSequenceDuration);
+
+        Settings.CaptureSequenceEnabled = new(EnableCaptureSequence);
+        Settings.CaptureSequenceDuration = new(CaptureSequenceDuration);
     }
 }
