@@ -26,6 +26,12 @@ public static partial class Settings
 
 
     #region Timing
+    public static float RestingStateDuration
+    {
+        get => Container.RestingStateDuration;
+        set => UpdateValue(ref Container.RestingStateDuration, value);
+    }
+
     public static float OffBlockDuration
     {
         get => Container.OffBlockDuration;

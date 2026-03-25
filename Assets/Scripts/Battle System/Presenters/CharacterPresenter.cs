@@ -17,6 +17,8 @@ public abstract class CharacterPresenter: MonoBehaviour
 
         BattleEventBus.RestPeriodStarted += StartRestCycle;
         BattleEventBus.RestPeriodEnded += EndRestCycle;
+
+        RestingStateConductor.CollectionStarted += StartRestCycle;
     }
 
     protected void UnsubscribeFromBattleEvents()
@@ -27,6 +29,8 @@ public abstract class CharacterPresenter: MonoBehaviour
 
         BattleEventBus.RestPeriodStarted -= StartRestCycle;
         BattleEventBus.RestPeriodEnded -= EndRestCycle;
+
+        RestingStateConductor.CollectionStarted -= StartRestCycle;
     }
 
     protected abstract void ShowWindupStarted();

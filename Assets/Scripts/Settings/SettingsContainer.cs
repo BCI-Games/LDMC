@@ -3,6 +3,7 @@ using System;
 [Serializable]
 public class SettingsContainer
 {
+    public float RestingStateDuration = 180;
     public float OffBlockDuration = 20;
     public int OnBlockCycleCount = 3;
     public bool EndOnBlockWithIdle = true;

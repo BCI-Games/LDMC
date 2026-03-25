@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class BlockTrainConductor: MonoBehaviour
 {
-    public static bool IsOnBlock = false;
     public static event Action OnBlockStarted;
     public static event Action OffBlockStarted;
 
+    private enum State { Inactive, OffBlock, OnBlock }
+    private State _state = State.Inactive;
     private float _timer = 0;
 
 
@@ -26,10 +27,12 @@ public class BlockTrainConductor: MonoBehaviour
 
     private void Update()
     {
+        if (_state == State.Inactive) return;
+
         _timer += Time.deltaTime;
-        if (IsOnBlock)
+        if (_state == State.OnBlock)
             CheckTimer(Settings.OnBlockDuration, StartOffBlock);
-        else    
+        else
             CheckTimer(Settings.OffBlockDuration, StartOnBlock);
     }
 
@@ -45,19 +48,22 @@ public class BlockTrainConductor: MonoBehaviour
 
     private void OnPauseToggled(bool isPaused)
     {
-        if (!isPaused) StartOffBlock();
-        BattleEventBus.PauseToggled -= OnPauseToggled;
+        if (!isPaused)
+        {
+            StartOffBlock();
+            BattleEventBus.PauseToggled -= OnPauseToggled;
+        }
     }
 
     private void StartOffBlock()
     {
-        IsOnBlock = false;
+        _state = State.OffBlock;
         OffBlockStarted?.Invoke();
     }
 
     private void StartOnBlock()
     {
-        IsOnBlock = true;
+        _state = State.OnBlock;
         OnBlockStarted?.Invoke();
     }
 }
