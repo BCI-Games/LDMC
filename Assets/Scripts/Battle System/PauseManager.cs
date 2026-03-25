@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PauseManager : MonoBehaviour
 {
@@ -9,12 +8,6 @@ public class PauseManager : MonoBehaviour
 
     private void Start() => Pause();
     private void OnDestroy() => Unpause();
-
-    private void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            SetPaused(!_isPaused);
-    }
 
 
     public void Pause() => SetPaused(true);
