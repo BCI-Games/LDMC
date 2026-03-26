@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Reflection;
 
 public static class ReflectionExtensions
@@ -7,69 +6,73 @@ public static class ReflectionExtensions
     const BindingFlags StaticBindingFlags = BindingFlags.Public | BindingFlags.Static;
     const BindingFlags InstanceBindingFlags = BindingFlags.Public | BindingFlags.Instance;
 
-    public static bool GetStaticFieldValue<T>
+    public static bool TryGetStaticFieldValue<T>
     (
         this Type caller,
         string name, out T output
-    ) where T : class
+    )
     {
-        FieldInfo[] fields = caller.GetFields(StaticBindingFlags);
-        return fields.GetNamedMemberValue(name, out output);
+        FieldInfo field = caller.GetField(name, StaticBindingFlags);
+        return field.TryGetValue(out output);
     }
 
-    public static bool GetInstanceFieldValue<TCaller, TValue>
+    public static bool TryGetInstanceFieldValue<TCaller, TValue>
     (
         this TCaller caller,
         string name, out TValue output
-    ) where TCaller : class where TValue : class
+    ) where TCaller : class
     {
-        FieldInfo[] fields = typeof(TCaller).GetFields(InstanceBindingFlags);
-        return fields.GetNamedMemberValue(name, out output, caller);
+        FieldInfo field = typeof(TCaller).GetField(name, InstanceBindingFlags);
+        return field.TryGetValue(out output, caller);
     }
 
 
-    public static bool GetStaticPropertyValue<T>
+    public static bool TryGetStaticPropertyValue<T>
     (
         this Type caller,
         string name, out T output
-    ) where T : class
-    {
-        PropertyInfo[] properties = caller.GetProperties(StaticBindingFlags);
-        return properties.GetNamedMemberValue(name, out output);
-    }
-    public static bool GetInstancePropertyValue<T>
-    (
-        this Type caller,
-        string name, out T output
-    ) where T : class
-    {
-        PropertyInfo[] properties = caller.GetProperties(InstanceBindingFlags);
-        return properties.GetNamedMemberValue(name, out output);
-    }
-
-
-    private static bool GetNamedMemberValue<T>
-    (
-        this MemberInfo[] infos, string name, out T output
-    ) where T : class
-    => infos.GetNamedMemberValue<Type, T>(name, out output);
-    private static bool GetNamedMemberValue<TCaller, TValue>
-    (
-        this MemberInfo[] infos,
-        string name, out TValue output,
-        TCaller instance = null
     )
-    where TValue : class where TCaller : class
     {
-        MemberInfo match = infos.FindNamedMember(name);
-        output = match switch
-        {
-            FieldInfo field => field?.GetValue(instance),
-            PropertyInfo property => property?.GetValue(instance),
-            _ => null
-        } as TValue;
+        PropertyInfo property = caller.GetProperty(name, StaticBindingFlags);
+        return property.TryGetValue(out output);
+    }
+    public static bool TryGetInstancePropertyValue<TCaller, TValue>
+    (
+        this TCaller caller,
+        string name, out TValue output
+    ) where TCaller : class
+    {
+        PropertyInfo property = typeof(TCaller).GetProperty(name, InstanceBindingFlags);
+        return property.TryGetValue(out output, caller);
+    }
+
+
+    private static bool TryGetValue<T>
+    (
+        this MemberInfo info, out T output
+    )
+    => info.TryGetValue<Type, T>(out output);
+    private static bool TryGetValue<TCaller, TValue>
+    (
+        this MemberInfo info,
+        out TValue output,
+        TCaller instance = null
+    ) where TCaller : class
+    {
+        output = (TValue)info?.GetValue(instance);
         return output != null;
     }
+    private static object GetValue<TCaller>
+    (
+        this MemberInfo info,
+        TCaller instance = null
+    ) where TCaller : class
+    => info switch
+    {
+        FieldInfo field => field?.GetValue(instance),
+        PropertyInfo property => property?.GetValue(instance, null),
+        _ => null
+    };
 
 
     public static bool HasStaticField(this Type caller, string name)
@@ -82,9 +85,9 @@ public static class ReflectionExtensions
         this Type caller, string name,
         BindingFlags bindingFlags
     )
-    => caller.GetFields(bindingFlags).HasNamedMember(name);
+    => caller.GetField(name, bindingFlags) != null;
     public static bool HasField(this Type caller, string name)
-    => caller.GetFields().HasNamedMember(name);
+    => caller.GetField(name) != null;
 
 
     public static bool HasStaticProperty(this Type caller, string name)
@@ -97,15 +100,7 @@ public static class ReflectionExtensions
         this Type caller, string name,
         BindingFlags bindingFlags
     )
-    => caller.GetProperties(bindingFlags).HasNamedMember(name);
+    => caller.GetProperty(name, bindingFlags) != null;
     public static bool HasProperty(this Type caller, string name)
-    => caller.GetProperties().HasNamedMember(name);
-
-
-    private static T FindNamedMember<T>(this T[] infos, string name) where T : MemberInfo
-    => infos.FirstOrDefault(BindNamePredicate<T>(name));
-    private static bool HasNamedMember<T>(this T[] infos, string name) where T : MemberInfo
-    => infos.Any(BindNamePredicate<T>(name));
-    private static Func<T, bool> BindNamePredicate<T>(string name) where T : MemberInfo
-    => info => info.Name == name;
+    => caller.GetProperty(name) != null;
 }

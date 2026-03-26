@@ -10,13 +10,13 @@ public static partial class Settings
         Modified += callback;
     }
 
-    public static bool HasSetting(string name) => typeof(Settings).HasStaticField(name);
-    public static bool GetSetting<T>(string name, out T output) where T : ValueProxy
-    => typeof(Settings).GetStaticFieldValue(name, out output);
+    public static bool HasValue(string name) => typeof(Settings).HasStaticField(name);
+    public static bool TryGetValue<T>(string name, out T output) where T : ValueProxy
+    => typeof(Settings).TryGetStaticFieldValue(name, out output);
 
     public static bool HasProperty(string name) => typeof(Settings).HasStaticProperty(name);
-    public static bool GetPropertyValue<T>(string name, out T output) where T : class
-    => typeof(Settings).GetStaticPropertyValue(name, out output);
+    public static bool TryGetPropertyValue<T>(string name, out T output)
+    => typeof(Settings).TryGetStaticPropertyValue(name, out output);
 
 
     #region Timing
