@@ -542,6 +542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48703314}
   - component: {fileID: 48703315}
+  - component: {fileID: 48703316}
   m_Layer: 5
   m_Name: Capture
   m_TagString: Untagged
@@ -590,6 +591,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &48703316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48703313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: CaptureSequenceEnabled
 --- !u!1 &85656738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,6 +2485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 254695935}
   - component: {fileID: 254695936}
+  - component: {fileID: 254695937}
   m_Layer: 5
   m_Name: Epoch Length
   m_TagString: Untagged
@@ -2519,6 +2534,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &254695937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254695934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: EpochLength
 --- !u!1 &277146561
 GameObject:
   m_ObjectHideFlags: 0
@@ -3955,7 +3983,6 @@ GameObject:
   - component: {fileID: 492703405}
   - component: {fileID: 492703406}
   - component: {fileID: 492703407}
-  - component: {fileID: 492703408}
   m_Layer: 5
   m_Name: On Block Timing
   m_TagString: Untagged
@@ -3977,13 +4004,15 @@ RectTransform:
   m_Children:
   - {fileID: 1235121737}
   - {fileID: 1539661264}
+  - {fileID: 1622687355}
+  - {fileID: 1780345837}
   - {fileID: 1687367401}
   m_Father: {fileID: 1059731188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.000008, y: -45}
-  m_SizeDelta: {x: 104.000015, y: 34}
+  m_AnchoredPosition: {x: 56.000008, y: -33}
+  m_SizeDelta: {x: 104.000015, y: 58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &492703406
 MonoBehaviour:
@@ -4025,23 +4054,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &492703408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492703404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a51d6ad0b7c5f41bab1816966357c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OnBlockTimingFields
-  _onBlockDurationLabel: {fileID: 1464894075}
-  _onBlockCycleCountField: {fileID: 668721219}
-  _onBlockEndedWithIdleToggle: {fileID: 1426697853}
-  _activeDurationField: {fileID: 91956336}
-  _idleDurationField: {fileID: 848090078}
 --- !u!1 &502192536
 GameObject:
   m_ObjectHideFlags: 0
@@ -4572,7 +4584,6 @@ GameObject:
   - component: {fileID: 576087189}
   - component: {fileID: 576087188}
   - component: {fileID: 576087187}
-  - component: {fileID: 576087186}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -4600,18 +4611,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &576087186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576087184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d49a75c0fcef08478f15f35891703a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &576087187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4927,7 +4926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
-  TargetFieldName: Sfx Volume
+  _targetFieldName: SfxVolume
 --- !u!1 &641711471
 GameObject:
   m_ObjectHideFlags: 0
@@ -6167,7 +6166,6 @@ GameObject:
   - component: {fileID: 759662707}
   - component: {fileID: 759662710}
   - component: {fileID: 759662709}
-  - component: {fileID: 759662708}
   m_Layer: 5
   m_Name: BCI Processing Timing
   m_TagString: Untagged
@@ -6197,21 +6195,6 @@ RectTransform:
   m_AnchoredPosition: {x: 56.000008, y: -115}
   m_SizeDelta: {x: 104.000015, y: 34}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &759662708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759662706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48fc204d7cdecf648b3876227f9d55f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BCIProcessingTimingFields
-  _epochCountLabel: {fileID: 1556636910}
-  _epochLengthField: {fileID: 1394128529}
-  _inputPollingPeriodField: {fileID: 698581348}
 --- !u!114 &759662709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7077,7 +7060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
-  TargetFieldName: Master Volume
+  _targetFieldName: MasterVolume
 --- !u!1 &928144330
 GameObject:
   m_ObjectHideFlags: 0
@@ -7828,6 +7811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1019946158}
   - component: {fileID: 1019946159}
+  - component: {fileID: 1019946160}
   m_Layer: 5
   m_Name: Wakeup
   m_TagString: Untagged
@@ -7876,6 +7860,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1019946160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019946157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: WakeupSequenceEnabled
 --- !u!1 &1030518119
 GameObject:
   m_ObjectHideFlags: 0
@@ -8089,7 +8086,6 @@ GameObject:
   - component: {fileID: 1059731188}
   - component: {fileID: 1059731190}
   - component: {fileID: 1059731189}
-  - component: {fileID: 1059731191}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -8114,7 +8110,6 @@ RectTransform:
   - {fileID: 1660309759}
   - {fileID: 1652264451}
   - {fileID: 492703405}
-  - {fileID: 1657536220}
   - {fileID: 759662707}
   - {fileID: 1646630177}
   - {fileID: 8504229}
@@ -8167,22 +8162,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1059731191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059731187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 200104c947417354cab8daead1652a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _restingStateDurationField: {fileID: 310159596}
-  _offBlockDurationField: {fileID: 1248429299}
-  _captureSequenceDurationField: {fileID: 1555310971}
-  _wakeupSequenceDurationField: {fileID: 1857692287}
 --- !u!1 &1099828153
 GameObject:
   m_ObjectHideFlags: 0
@@ -8230,7 +8209,6 @@ GameObject:
   - component: {fileID: 1123542924}
   - component: {fileID: 1123542925}
   - component: {fileID: 1123542927}
-  - component: {fileID: 1123542926}
   - component: {fileID: 1123542928}
   m_Layer: 5
   m_Name: Transition Timings
@@ -8287,20 +8265,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1123542926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1123542923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 414c0fb7f1dcbf041a2b92e23aec50fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _captureOptionObject: {fileID: 1123887703}
-  _wakeupOptionObject: {fileID: 1352697552}
 --- !u!114 &1123542927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8337,6 +8301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1123887704}
   - component: {fileID: 1123887705}
+  - component: {fileID: 1123887706}
   m_Layer: 5
   m_Name: Capture Sequence Duration
   m_TagString: Untagged
@@ -8385,6 +8350,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1123887706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123887703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: CaptureSequenceDuration
 --- !u!1 &1130997355
 GameObject:
   m_ObjectHideFlags: 0
@@ -8883,7 +8861,6 @@ GameObject:
   - component: {fileID: 1175721591}
   - component: {fileID: 1175721592}
   - component: {fileID: 1175721593}
-  - component: {fileID: 1175721594}
   m_Layer: 5
   m_Name: Volumes
   m_TagString: Untagged
@@ -8954,21 +8931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &1175721594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175721590}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b77d2fe9a6e3fa44793713ede34863c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _masterVolumeSlider: {fileID: 356299899}
-  _musicVolumeSlider: {fileID: 769833143}
-  _sfxVolumeSlider: {fileID: 433270546}
 --- !u!1 &1235121736
 GameObject:
   m_ObjectHideFlags: 0
@@ -9943,7 +9905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
-  TargetFieldName: Music Volume
+  _targetFieldName: MusicVolume
 --- !u!1 &1348196910
 GameObject:
   m_ObjectHideFlags: 0
@@ -10012,6 +9974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1352697553}
   - component: {fileID: 1352697554}
+  - component: {fileID: 1352697555}
   m_Layer: 5
   m_Name: Wakeup Sequence Duration
   m_TagString: Untagged
@@ -10060,6 +10023,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1352697555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352697552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: WakeupSequenceDuration
 --- !u!1 &1381518841
 GameObject:
   m_ObjectHideFlags: 0
@@ -10770,6 +10746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1464894074}
+  - component: {fileID: 1464894077}
   - component: {fileID: 1464894076}
   - component: {fileID: 1464894075}
   m_Layer: 0
@@ -10898,6 +10875,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464894073}
   m_CullTransparentMesh: 1
+--- !u!114 &1464894077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464894073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c8189fe1da19d4bbbf2a951a2873fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsPropertyLabel
+  _targetPropertyName: OnBlockDuration
 --- !u!1 &1492882996
 GameObject:
   m_ObjectHideFlags: 0
@@ -11160,6 +11150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1539661264}
   - component: {fileID: 1539661265}
+  - component: {fileID: 1539661266}
   m_Layer: 5
   m_Name: Cycle Count
   m_TagString: Untagged
@@ -11208,6 +11199,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1539661266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539661263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: OnBlockCycleCount
 --- !u!1 &1542541141
 GameObject:
   m_ObjectHideFlags: 0
@@ -11690,6 +11694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1556636909}
+  - component: {fileID: 1556636912}
   - component: {fileID: 1556636911}
   - component: {fileID: 1556636910}
   m_Layer: 0
@@ -11818,6 +11823,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556636908}
   m_CullTransparentMesh: 1
+--- !u!114 &1556636912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556636908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c8189fe1da19d4bbbf2a951a2873fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsPropertyLabel
+  _targetPropertyName: MinimumSharedEpochCount
 --- !u!1 &1596563587
 GameObject:
   m_ObjectHideFlags: 0
@@ -12040,6 +12058,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1622687355}
   - component: {fileID: 1622687356}
+  - component: {fileID: 1622687357}
   m_Layer: 5
   m_Name: Active Duration
   m_TagString: Untagged
@@ -12061,11 +12080,11 @@ RectTransform:
   m_Children:
   - {fileID: 1148396046}
   - {fileID: 91956335}
-  m_Father: {fileID: 1657536220}
+  m_Father: {fileID: 492703405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 52.000008, y: -15}
+  m_AnchoredPosition: {x: 52.000008, y: -29}
   m_SizeDelta: {x: 104.000015, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1622687356
@@ -12088,6 +12107,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1622687357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622687354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: OnBlockActiveDuration
 --- !u!1 &1646630176
 GameObject:
   m_ObjectHideFlags: 0
@@ -12098,8 +12130,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1646630177}
   - component: {fileID: 1646630178}
+  - component: {fileID: 1646630179}
   m_Layer: 5
-  m_Name: Display Monster IDuring Rest
+  m_Name: Display Monster In Off Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12146,6 +12179,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1646630179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646630176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: MonsterDisplayedInOffBlock
 --- !u!1 &1652264450
 GameObject:
   m_ObjectHideFlags: 0
@@ -12156,6 +12202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1652264451}
   - component: {fileID: 1652264452}
+  - component: {fileID: 1652264453}
   m_Layer: 5
   m_Name: Off Block Duration
   m_TagString: Untagged
@@ -12204,6 +12251,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1652264453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652264450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: OffBlockDuration
 --- !u!1 &1652779890
 GameObject:
   m_ObjectHideFlags: 0
@@ -12489,90 +12549,9 @@ MonoBehaviour:
   - {fileID: 1660309758}
   - {fileID: 1652264450}
   - {fileID: 492703404}
-  - {fileID: 1657536219}
   - {fileID: 759662706}
   - {fileID: 1123542923}
   _tabContentParent: {fileID: 1059731188}
---- !u!1 &1657536219
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1657536220}
-  - component: {fileID: 1657536222}
-  - component: {fileID: 1657536221}
-  m_Layer: 5
-  m_Name: Feedback Cycle Timings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1657536220
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657536219}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1857157650}
-  - {fileID: 1622687355}
-  - {fileID: 1780345837}
-  m_Father: {fileID: 1059731188}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.000008, y: -80}
-  m_SizeDelta: {x: 104.000015, y: 32}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1657536221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657536219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
---- !u!114 &1657536222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657536219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 2
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1 &1660309758
 GameObject:
   m_ObjectHideFlags: 0
@@ -12583,6 +12562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1660309759}
   - component: {fileID: 1660309760}
+  - component: {fileID: 1660309761}
   m_Layer: 5
   m_Name: Resting State Duration
   m_TagString: Untagged
@@ -12631,6 +12611,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1660309761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660309758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: RestingStateDuration
 --- !u!1 &1675528647
 GameObject:
   m_ObjectHideFlags: 0
@@ -12778,6 +12771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687367401}
   - component: {fileID: 1687367402}
+  - component: {fileID: 1687367403}
   m_Layer: 5
   m_Name: End With Idle
   m_TagString: Untagged
@@ -12794,7 +12788,7 @@ RectTransform:
   m_GameObject: {fileID: 1687367400}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000356, y: 1.0000356, z: 1.0000356}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 169540831}
@@ -12803,7 +12797,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 52.000008, y: -29}
+  m_AnchoredPosition: {x: 52.000008, y: -53}
   m_SizeDelta: {x: 104.000015, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1687367402
@@ -12826,6 +12820,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1687367403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687367400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: OnBlockEndsWithIdle
 --- !u!1 &1709055355
 GameObject:
   m_ObjectHideFlags: 0
@@ -13698,6 +13705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1780345837}
   - component: {fileID: 1780345838}
+  - component: {fileID: 1780345839}
   m_Layer: 5
   m_Name: Idle Duration
   m_TagString: Untagged
@@ -13719,11 +13727,11 @@ RectTransform:
   m_Children:
   - {fileID: 1834667488}
   - {fileID: 848090077}
-  m_Father: {fileID: 1657536220}
+  m_Father: {fileID: 492703405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 52.000008, y: -27}
+  m_AnchoredPosition: {x: 52.000008, y: -41}
   m_SizeDelta: {x: 104.000015, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1780345838
@@ -13746,6 +13754,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1780345839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780345836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: OnBlockIdleDuration
 --- !u!1 &1830340117
 GameObject:
   m_ObjectHideFlags: 0
@@ -14288,143 +14309,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854433079}
-  m_CullTransparentMesh: 1
---- !u!1 &1857157649
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1857157650}
-  - component: {fileID: 1857157652}
-  - component: {fileID: 1857157651}
-  m_Layer: 0
-  m_Name: Header
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1857157650
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857157649}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1657536220}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 104.000015, y: 8}
-  m_Pivot: {x: 0, y: 1}
---- !u!114 &1857157651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857157649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Feedback Cycle
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 52713b8ef303b68459fb4506da2855d5, type: 2}
-  m_sharedMaterial: {fileID: 2100655977171967481, guid: 52713b8ef303b68459fb4506da2855d5, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_characterHorizontalScale: 1
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1857157652
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857157649}
   m_CullTransparentMesh: 1
 --- !u!1 &1857692285
 GameObject:
@@ -15036,7 +14920,6 @@ GameObject:
   - component: {fileID: 1916479274}
   - component: {fileID: 1916479277}
   - component: {fileID: 1916479276}
-  - component: {fileID: 1916479275}
   - component: {fileID: 1916479278}
   m_Layer: 5
   m_Name: Feedback Sequences
@@ -15067,20 +14950,6 @@ RectTransform:
   m_AnchoredPosition: {x: 56.000008, y: -20}
   m_SizeDelta: {x: 104.000015, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1916479275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916479273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bb1b66bc01eaf49a161c18f6758d75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _captureSequenceToggle: {fileID: 1752595569}
-  _wakeupSequenceToggle: {fileID: 1652779892}
 --- !u!114 &1916479276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16271,6 +16140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2084957825}
   - component: {fileID: 2084957826}
+  - component: {fileID: 2084957827}
   m_Layer: 5
   m_Name: Input Polling Duration
   m_TagString: Untagged
@@ -16319,6 +16189,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &2084957827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084957824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  _targetFieldName: InputPollingPeriod
 --- !u!1 &2114661906
 GameObject:
   m_ObjectHideFlags: 0
