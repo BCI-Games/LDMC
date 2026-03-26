@@ -4866,6 +4866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 632553001}
   - component: {fileID: 632553002}
+  - component: {fileID: 632553003}
   m_Layer: 0
   m_Name: Sfx Volume
   m_TagString: Untagged
@@ -4914,6 +4915,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &632553003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632553000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  TargetFieldName: Sfx Volume
 --- !u!1 &641711471
 GameObject:
   m_ObjectHideFlags: 0
@@ -7002,6 +7016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 888738940}
   - component: {fileID: 888738941}
+  - component: {fileID: 888738942}
   m_Layer: 0
   m_Name: Master Volume
   m_TagString: Untagged
@@ -7050,6 +7065,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &888738942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888738939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  TargetFieldName: Master Volume
 --- !u!1 &928144330
 GameObject:
   m_ObjectHideFlags: 0
@@ -8933,7 +8961,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175721590}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b77d2fe9a6e3fa44793713ede34863c6, type: 3}
   m_Name: 
@@ -9854,6 +9882,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1347183682}
   - component: {fileID: 1347183683}
+  - component: {fileID: 1347183684}
   m_Layer: 0
   m_Name: Music Volume
   m_TagString: Untagged
@@ -9902,6 +9931,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1347183684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347183681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00437eaadf306d64c8c396cd2994624f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsFieldInputLink
+  TargetFieldName: Music Volume
 --- !u!1 &1348196910
 GameObject:
   m_ObjectHideFlags: 0

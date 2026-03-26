@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Selectable))]
 public class SettingsFieldInputLink : MonoBehaviour
 {
     [SerializeField] private string TargetFieldName;
@@ -17,7 +16,7 @@ public class SettingsFieldInputLink : MonoBehaviour
             return;
         }
 
-        switch (GetComponent<Selectable>())
+        switch (GetComponentInChildren<Selectable>())
         {
             case TMP_InputField inputField:
                 Settings.GetField(TargetFieldName, out ValueProxy inputTarget);
