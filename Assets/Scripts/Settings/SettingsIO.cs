@@ -29,7 +29,7 @@ public static partial class Settings
             string[] parts = fieldString.Split(':');
             string fieldName = parts[0].Trim().Trim('"');
 
-            if (GetField(fieldName, out ValueProxy field))
+            if (GetSetting(fieldName, out ValueProxy field))
             {
                 field.SetValue(parts[1]);
             }

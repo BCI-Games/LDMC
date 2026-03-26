@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 public static partial class Settings
@@ -12,20 +10,13 @@ public static partial class Settings
         Modified += callback;
     }
 
-    public static bool GetField<T>(string name, out T output)
-    where T : class
-    {
-        FieldInfo[] fields = typeof(Settings).GetFields();
-        FieldInfo match = fields.FirstOrDefault(field => field.Name == name);
-        output = match?.GetValue(null) as T;
-        return output != null;
-    }
+    public static bool HasSetting(string name) => typeof(Settings).HasStaticField(name);
+    public static bool GetSetting<T>(string name, out T output) where T : ValueProxy
+    => typeof(Settings).GetStaticFieldValue(name, out output);
 
-    public static bool HasField(string name)
-    {
-        FieldInfo[] fields = typeof(Settings).GetFields();
-        return fields.Any(field => field.Name == name);
-    }
+    public static bool HasProperty(string name) => typeof(Settings).HasStaticProperty(name);
+    public static bool GetPropertyValue<T>(string name, out T output) where T : class
+    => typeof(Settings).GetStaticPropertyValue(name, out output);
 
 
     #region Timing

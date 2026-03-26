@@ -10,7 +10,7 @@ public class SettingsFieldInputLink : MonoBehaviour
     public void Start()
     {
         TargetFieldName = TargetFieldName.Replace(" ", "");
-        if(!Settings.HasField(TargetFieldName))
+        if (!Settings.HasSetting(TargetFieldName))
         {
             Debug.LogWarning($"Target setting \"{TargetFieldName}\" not found.");
             return;
@@ -18,20 +18,23 @@ public class SettingsFieldInputLink : MonoBehaviour
 
         switch (GetComponentInChildren<Selectable>())
         {
+            case null:
+                Debug.LogError("Missing input element");
+                break;
             case TMP_InputField inputField:
-                Settings.GetField(TargetFieldName, out ValueProxy inputTarget);
+                Settings.GetSetting(TargetFieldName, out ValueProxy inputTarget);
                 inputTarget.ConnectInputField(inputField);
                 break;
             case TMP_Dropdown dropdown:
-                Settings.GetField(TargetFieldName, out IntProxy dropdownTarget);
+                Settings.GetSetting(TargetFieldName, out IntProxy dropdownTarget);
                 dropdownTarget.ConnectDropdown(dropdown);
                 break;
             case Slider slider:
-                Settings.GetField(TargetFieldName, out FloatProxy sliderTarget);
+                Settings.GetSetting(TargetFieldName, out FloatProxy sliderTarget);
                 sliderTarget.ConnectSlider(slider);
                 break;
             case Toggle toggle:
-                Settings.GetField(TargetFieldName, out BooleanProxy toggleTarget);
+                Settings.GetSetting(TargetFieldName, out BooleanProxy toggleTarget);
                 toggleTarget.ConnectToggle(toggle);
                 break;
             default:
