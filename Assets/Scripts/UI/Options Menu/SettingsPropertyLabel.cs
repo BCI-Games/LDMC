@@ -4,16 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(TMP_Text))]
 public class SettingsPropertyLabel : MonoBehaviour
 {
-    [SerializeField] private string TargetPropertyName;
+    [SerializeField, SettingsPropertyName]
+    private string _targetPropertyName;
     private TMP_Text _label;
 
 
     private void Start()
     {
-        TargetPropertyName = TargetPropertyName.Replace(" ", "");
-        if (!Settings.HasProperty(TargetPropertyName))
+        _targetPropertyName = _targetPropertyName.Replace(" ", "");
+        if (!Settings.HasProperty(_targetPropertyName))
         {
-            Debug.LogWarning($"Target property \"{TargetPropertyName}\" not found.");
+            Debug.LogWarning($"Target property \"{_targetPropertyName}\" not found.");
             return;
         }
 
@@ -26,7 +27,9 @@ public class SettingsPropertyLabel : MonoBehaviour
 
     private void UpdateLabel()
     {
-        Settings.TryGetPropertyValue(TargetPropertyName, out object value);
+        Settings.TryGetPropertyValue(_targetPropertyName, out object value);
         _label.text = value.ToString();
     }
 }
+
+public class SettingsPropertyNameAttribute : PropertyAttribute { }

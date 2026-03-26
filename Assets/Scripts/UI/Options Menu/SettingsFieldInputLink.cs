@@ -4,15 +4,16 @@ using UnityEngine.UI;
 
 public class SettingsFieldInputLink : MonoBehaviour
 {
-    [SerializeField] private string TargetFieldName;
+    [SerializeField, SettingsFieldName]
+    private string _targetFieldName;
 
 
     public void Start()
     {
-        TargetFieldName = TargetFieldName.Replace(" ", "");
-        if (!Settings.HasValue(TargetFieldName))
+        _targetFieldName = _targetFieldName.Replace(" ", "");
+        if (!Settings.HasValue(_targetFieldName))
         {
-            Debug.LogWarning($"Target setting \"{TargetFieldName}\" not found.");
+            Debug.LogWarning($"Target setting \"{_targetFieldName}\" not found.");
             return;
         }
 
@@ -22,19 +23,19 @@ public class SettingsFieldInputLink : MonoBehaviour
                 Debug.LogError("Missing input element");
                 break;
             case TMP_InputField inputField:
-                Settings.TryGetValue(TargetFieldName, out ValueProxy inputTarget);
+                Settings.TryGetValue(_targetFieldName, out ValueProxy inputTarget);
                 inputTarget.ConnectInputField(inputField);
                 break;
             case TMP_Dropdown dropdown:
-                Settings.TryGetValue(TargetFieldName, out IntProxy dropdownTarget);
+                Settings.TryGetValue(_targetFieldName, out IntProxy dropdownTarget);
                 dropdownTarget.ConnectDropdown(dropdown);
                 break;
             case Slider slider:
-                Settings.TryGetValue(TargetFieldName, out FloatProxy sliderTarget);
+                Settings.TryGetValue(_targetFieldName, out FloatProxy sliderTarget);
                 sliderTarget.ConnectSlider(slider);
                 break;
             case Toggle toggle:
-                Settings.TryGetValue(TargetFieldName, out BooleanProxy toggleTarget);
+                Settings.TryGetValue(_targetFieldName, out BooleanProxy toggleTarget);
                 toggleTarget.ConnectToggle(toggle);
                 break;
             default:
@@ -43,3 +44,5 @@ public class SettingsFieldInputLink : MonoBehaviour
         }
     }
 }
+
+public class SettingsFieldNameAttribute : PropertyAttribute { }
