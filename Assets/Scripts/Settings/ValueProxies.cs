@@ -7,9 +7,9 @@ public class FloatProxy : ValueProxy<float>
     public override AttemptedParsingMethod TryParse => float.TryParse;
 }
 
-public class IntProxy : ValueProxy<int>
+public class IntegerProxy : ValueProxy<int>
 {
-    public IntProxy(int defaultValue) => _value = defaultValue;
+    public IntegerProxy(int defaultValue) => _value = defaultValue;
     public override ParsingMethod Parse => int.Parse;
     public override AttemptedParsingMethod TryParse => int.TryParse;
 }

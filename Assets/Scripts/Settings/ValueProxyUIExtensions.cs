@@ -15,7 +15,7 @@ public static class ValueProxyUIExtensions
 
     public static void ConnectDropdown
     (
-        this IntProxy caller,
+        this IntegerProxy caller,
         TMP_Dropdown dropdown
     )
     {

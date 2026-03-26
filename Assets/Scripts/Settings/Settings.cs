@@ -26,7 +26,7 @@ public static partial class Settings
     public static FloatProxy OffBlockDuration = new(20);
 
     [Space]
-    public static IntProxy OnBlockCycleCount = new(3);
+    public static IntegerProxy OnBlockCycleCount = new(3);
     public static FloatProxy OnBlockActiveDuration = new(2);
     public static FloatProxy OnBlockIdleDuration = new(2);
     public static BooleanProxy OnBlockEndsWithIdle = new(true);
@@ -50,7 +50,7 @@ public static partial class Settings
     public static FloatProxy MasterVolume = new(0.5f);
     public static FloatProxy MusicVolume = new(0.5f);
     public static FloatProxy SfxVolume = new(0.5f);
-    public static IntProxy MusicTrackIndex = new(0);
+    public static IntegerProxy MusicTrackIndex = new(0);
     #endregion
 
 

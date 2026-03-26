@@ -27,7 +27,7 @@ public class SettingsFieldInputLink : MonoBehaviour
                 inputTarget.ConnectInputField(inputField);
                 break;
             case TMP_Dropdown dropdown:
-                Settings.TryGetValue(_targetFieldName, out IntProxy dropdownTarget);
+                Settings.TryGetValue(_targetFieldName, out IntegerProxy dropdownTarget);
                 dropdownTarget.ConnectDropdown(dropdown);
                 break;
             case Slider slider:
