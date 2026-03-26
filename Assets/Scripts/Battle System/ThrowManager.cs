@@ -56,7 +56,7 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
 
     protected virtual void UpdateParametersFromSettings()
     {
-        ChargePeriod = Settings.CharacterActiveDuration;
+        ChargePeriod = Settings.OnBlockActiveDuration;
         _sphereCount = Settings.OnBlockCycleCount;
     }
 

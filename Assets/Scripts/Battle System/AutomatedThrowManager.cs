@@ -24,7 +24,7 @@ public class AutomatedThrowManager: ThrowManager
     protected override void UpdateParametersFromSettings()
     {
         base.UpdateParametersFromSettings();
-        _throwDelay = Settings.CharacterIdleDuration;
+        _throwDelay = Settings.OnBlockIdleDuration;
     }
 
 

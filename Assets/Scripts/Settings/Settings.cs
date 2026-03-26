@@ -22,12 +22,17 @@ public static partial class Settings
     #region Timing
     public static FloatProxy RestingStateDuration = new(180);
 
+    [Space]
     public static FloatProxy OffBlockDuration = new(20);
+
+    [Space]
     public static IntProxy OnBlockCycleCount = new(3);
-    public static BooleanProxy OnBlockEndedWithIdle = new(true);
-    public static float AnimationCycleDuration => CharacterActiveDuration + CharacterIdleDuration;
+    public static FloatProxy OnBlockActiveDuration = new(2);
+    public static FloatProxy OnBlockIdleDuration = new(2);
+    public static BooleanProxy OnBlockEndsWithIdle = new(true);
+    public static float AnimationCycleDuration => OnBlockActiveDuration + OnBlockIdleDuration;
     public static float OnBlockDuration => OnBlockCycleCount * AnimationCycleDuration
-        - (OnBlockEndedWithIdle ? 0 : CharacterIdleDuration);
+        - (OnBlockEndsWithIdle ? 0 : OnBlockIdleDuration);
 
 
     [Space]
@@ -35,12 +40,8 @@ public static partial class Settings
     public static FloatProxy InputPollingPeriod = new(0.5f);
     public static int OffBlockEpochCount => (int)(OffBlockDuration / EpochLength);
     public static int OnBlockEpochCount => OnBlockCycleCount
-        * (int)(CharacterActiveDuration / EpochLength);
+        * (int)(OnBlockActiveDuration / EpochLength);
     public static int MinimumSharedEpochCount => Mathf.Min(OffBlockEpochCount, OnBlockEpochCount);
-
-    [Space]
-    public static FloatProxy CharacterActiveDuration = new(2);
-    public static FloatProxy CharacterIdleDuration = new(2);
     #endregion
 
 
@@ -58,13 +59,13 @@ public static partial class Settings
     public static BooleanProxy AnimationSimplified = new(false);
     public static ExclusiveBooleanProxy MonsterAnimationEnabled = new(true, AnimationSimplified);
     public static ExclusiveBooleanProxy SpriteDeformationEnabled = new(true, AnimationSimplified);
-    public static BooleanProxy OffBockMonsterDisplayEnabled = new(false);
+    public static BooleanProxy MonsterDisplayedInOffBlock = new(false);
 
     [Space]
-    public static BooleanProxy WakeupSequenceEnabled = new(true);
-    public static FloatProxy WakeupSequenceDuration = new(1);
-
     public static BooleanProxy CaptureSequenceEnabled = new(true);
     public static FloatProxy CaptureSequenceDuration = new(2);
+
+    public static BooleanProxy WakeupSequenceEnabled = new(true);
+    public static FloatProxy WakeupSequenceDuration = new(1);
     #endregion
 }

@@ -63,9 +63,9 @@ public class StaticCharacterPresenter : CharacterPresenter
     protected override IEnumerator RunRestCycle()
     {
         _sleepyZObject.SetActive(true);
-        yield return new WaitForSeconds(Settings.CharacterActiveDuration);
+        yield return new WaitForSeconds(Settings.OnBlockActiveDuration);
         _sleepyZObject.SetActive(false);
-        yield return new WaitForSeconds(Settings.CharacterIdleDuration);
+        yield return new WaitForSeconds(Settings.OnBlockIdleDuration);
     }
 
     [System.Serializable]
