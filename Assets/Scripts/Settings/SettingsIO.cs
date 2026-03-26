@@ -19,6 +19,8 @@ public static partial class Settings
 
     private static void LoadSettings()
     {
+        if (!File.Exists(FilePath)) return;
+
         StreamReader reader = new(FilePath);
         string fileContent = reader.ReadToEnd();
         reader.Close();
