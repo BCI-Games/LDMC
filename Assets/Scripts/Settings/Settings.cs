@@ -35,7 +35,7 @@ public static partial class Settings
 
     [Space]
     public static FloatProxy EpochLength = new(1.5f);
-    public static FloatProxy InputPollingPeriod = new(0.5f);
+    public static FloatProxy InputPollingPeriod = new(1.5f);
     public static float MinimumBlockDuration => Mathf.Min(OffBlockDuration, OnBlockDuration);
     public static int MinimumSharedEpochCount => (int)(MinimumBlockDuration / EpochLength);
     #endregion
