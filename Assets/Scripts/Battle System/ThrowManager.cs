@@ -15,9 +15,7 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
     [SerializeField] private GameObject _spherePrefab;
     [SerializeField] private ChargeDisplay _chargeDisplay;
 
-    protected bool SpheresRemain => _numberOfSpheresRemaining > 0;
-    private int _sphereCount;
-    private int _numberOfSpheresRemaining;
+    protected bool CanThrow;
 
     protected float ChargePeriod;
 
@@ -45,24 +43,25 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
     protected virtual void Start()
     {
         Settings.AddAndInvokeModificationCallback(UpdateParametersFromSettings);
-        BattleEventBus.RestPeriodEnded += ResetInventory;
+        BattleEventBus.CaptureThresholdMet += DisableThrowing;
+        BattleEventBus.RestPeriodEnded += EnableThrowing;
         ResetChargeLevel();
     }
     protected virtual void OnDestroy()
     {
         Settings.Modified -= UpdateParametersFromSettings;
-        BattleEventBus.RestPeriodEnded -= ResetInventory;
+        BattleEventBus.CaptureThresholdMet -= DisableThrowing;
+        BattleEventBus.RestPeriodEnded -= EnableThrowing;
     }
 
     protected virtual void UpdateParametersFromSettings()
     {
         ChargePeriod = Settings.CharacterActivePeriod;
-        _sphereCount = Settings.OnBlockCycleCount;
     }
 
     private void Update()
     {
-        if (ShouldCharge && SpheresRemain)
+        if (ShouldCharge && CanThrow)
         {
             if (!IsCharging)
                 BattleEventBus.NotifyWindupStarted();
@@ -86,22 +85,17 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
 
     public void ThrowSphere()
     {
-        _numberOfSpheresRemaining--;
         GameObject sphere = Instantiate(_spherePrefab, transform);
         sphere.GetComponent<Rigidbody2D>().AddForce(_throwForce, ForceMode2D.Impulse);
 
         BattleEventBus.NotifySphereThrown();
-        if (!SpheresRemain)
-            BattleEventBus.NotifyLastSphereThrown();
     }
-
-    private void ResetInventory() => _numberOfSpheresRemaining = _sphereCount;
 
     protected virtual void AddFrameTimeToChargeLevel()
     => ChargeLevel += Time.deltaTime / ChargePeriod;
     private void DrainCharge()
     {
-        switch(_drainMode)
+        switch (_drainMode)
         {
             case DrainMode.Immediate:
                 ResetChargeLevel();
@@ -114,6 +108,9 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
                 break;
         }
     }
+
+    protected void EnableThrowing() => CanThrow = true;
+    protected void DisableThrowing() => CanThrow = false;
     
     protected void ResetChargeLevel() => ChargeLevel = 0;
     protected virtual bool GetShouldCharge() => Keyboard.current.spaceKey.isPressed;

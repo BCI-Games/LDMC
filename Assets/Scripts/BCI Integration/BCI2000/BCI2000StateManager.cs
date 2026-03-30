@@ -36,7 +36,7 @@ public class BCI2000StateManager: MonoBehaviour
         BattleEventBus.WindupStarted += OnWindupStarted;
         BattleEventBus.WindupCancelled += OnWindupCancelled;
         BattleEventBus.SphereThrown += OnSphereThrow;
-        BattleEventBus.MonsterCaptured += OnMonsterCaught;
+        BattleEventBus.CaptureThresholdMet += OnCaptureThresholdMet;
     }
 
     void OnDestroy()
@@ -49,7 +49,7 @@ public class BCI2000StateManager: MonoBehaviour
         BattleEventBus.WindupStarted -= OnWindupStarted;
         BattleEventBus.WindupCancelled -= OnWindupCancelled;
         BattleEventBus.SphereThrown -= OnSphereThrow;
-        BattleEventBus.MonsterCaptured -= OnMonsterCaught;
+        BattleEventBus.CaptureThresholdMet -= OnCaptureThresholdMet;
     }
 
 
@@ -60,7 +60,7 @@ public class BCI2000StateManager: MonoBehaviour
     void OnWindupCancelled() => SetCode(StateValue.Active);
     void OnSphereThrow() => SetCode(StateValue.Active);
     
-    void OnMonsterCaught(MonsterData monsterData)
+    void OnCaptureThresholdMet()
     => SetCodeAndCondition(StateValue.Iti);
     
 

@@ -84,6 +84,7 @@ public class MonsterPresenter : MonoBehaviour
         _health -= damage;
         if(Catchable)
         {
+            BattleEventBus.NotifyCaptureThresholdMet();
             if (Settings.MonsterAnimationEnabled)
             {
                 _animator.SetTrigger("Capture");

@@ -48,7 +48,7 @@ public class AutomatedThrowManager: ThrowManager
     private IEnumerator RunAutoThrow()
     {
         _isThrowing = true;
-        while(SpheresRemain)
+        for (int i = 0; i < Settings.OnBlockCycleCount; i++)
         {
             _shouldCharge = true;
             yield return new WaitForSeconds(ChargePeriod);

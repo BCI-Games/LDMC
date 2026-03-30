@@ -15,14 +15,14 @@ public class BlockTrainBCIEssentialsTrainer : MonoBehaviour, IMarkerSource
     {
         BlockTrainConductor.OffBlockStarted += SendOffBlockMarkers;
         BlockTrainConductor.OnBlockStarted += SendActiveMarkers;
-        BattleEventBus.MonsterCaptured += OnMonsterCaptured;
+        BattleEventBus.CaptureThresholdMet += OnCaptureThresholdMet;
     }
 
     void OnDestroy()
     {
         BlockTrainConductor.OffBlockStarted -= SendOffBlockMarkers;
         BlockTrainConductor.OnBlockStarted -= SendActiveMarkers;
-        BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
+        BattleEventBus.CaptureThresholdMet -= OnCaptureThresholdMet;
 
         if (_isInTrial) MarkerWriter.PushTrialEndsMarker();
         if (_markerRoutine != null) StopCoroutine(_markerRoutine);
@@ -45,7 +45,7 @@ public class BlockTrainBCIEssentialsTrainer : MonoBehaviour, IMarkerSource
         SendMarkers(1, Settings.MinimumSharedEpochCount);
     }
 
-    void OnMonsterCaptured(MonsterData _)
+    void OnCaptureThresholdMet()
     {
         MarkerWriter.PushTrialEndsMarker();
         MarkerWriter.PushUpdateClassifierMarker();
