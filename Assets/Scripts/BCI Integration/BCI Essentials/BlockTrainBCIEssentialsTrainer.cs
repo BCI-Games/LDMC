@@ -14,14 +14,14 @@ public class BlockTrainBCIEssentialsTrainer : MonoBehaviour, IMarkerSource
     void Start()
     {
         BlockTrainConductor.OffBlockStarted += SendOffBlockMarkers;
-        BattleEventBus.WindupStarted += SendActiveMarkers;
+        BlockTrainConductor.OnBlockStarted += SendActiveMarkers;
         BattleEventBus.MonsterCaptured += OnMonsterCaptured;
     }
 
     void OnDestroy()
     {
         BlockTrainConductor.OffBlockStarted -= SendOffBlockMarkers;
-        BattleEventBus.WindupStarted -= SendActiveMarkers;
+        BlockTrainConductor.OnBlockStarted -= SendActiveMarkers;
         BattleEventBus.MonsterCaptured -= OnMonsterCaptured;
 
         if (_isInTrial) MarkerWriter.PushTrialEndsMarker();
