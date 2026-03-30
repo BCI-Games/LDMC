@@ -27,8 +27,8 @@ public static partial class Settings
     public static FloatProxy OnBlockDuration = new(12);
 
     [Space]
-    public static FloatProxy CharacterActivePeriod = new(2);
-    public static FloatProxy CharacterIdlePeriod = new(1);
+    public static FloatProxy CharacterActivePeriod = new(1);
+    public static FloatProxy CharacterIdlePeriod = new(0.5f);
     public static float AnimationCycleDuration => CharacterActivePeriod + CharacterIdlePeriod;
     public static int OnBlockCycleCount => (int)(OnBlockDuration / AnimationCycleDuration);
 
