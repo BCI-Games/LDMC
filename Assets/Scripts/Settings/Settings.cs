@@ -31,9 +31,11 @@ public static partial class Settings
     public static FloatProxy CharacterIdlePeriod = new(0.5f);
     public static float AnimationCycleDuration => CharacterActivePeriod + CharacterIdlePeriod;
     public static int OnBlockCycleCount => (int)(OnBlockDuration / AnimationCycleDuration);
+    #endregion
 
-
+    #region BCI
     [Space]
+    public static BooleanProxy BinaryInputModeEnabled = new(false);
     public static FloatProxy EpochLength = new(1.5f);
     public static FloatProxy InputPollingPeriod = new(1.5f);
     public static float MinimumBlockDuration => Mathf.Min(OffBlockDuration, OnBlockDuration);

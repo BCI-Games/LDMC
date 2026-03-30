@@ -10,7 +10,10 @@ public class BCIEssentialsInputProvider : CoroutineBehaviour, IMarkerSource, IPr
 
     public float InputThreshold = 0.5f;
 
-    public float InputValue => Mathf.InverseLerp(InputThreshold, 1, _lastConfidenceRatio);
+    public float InputValue => Settings.BinaryInputModeEnabled
+        ? (_lastConfidenceRatio > InputThreshold ? 1 : 0)
+        : Mathf.InverseLerp(InputThreshold, 1, _lastConfidenceRatio);
+
     private float PollingPeriod => Settings.InputPollingPeriod;
     private float EpochLength => Settings.EpochLength;
 
