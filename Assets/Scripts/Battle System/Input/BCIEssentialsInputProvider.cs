@@ -1,8 +1,10 @@
+using System.Collections;
 using BCIEssentials;
+using BCIEssentials.Behaviours;
 using BCIEssentials.LSLFramework;
 using UnityEngine;
 
-public class BCIEssentialsInputProvider: MonoBehaviour, IMarkerSource, IPredictionSink, IInputProvider
+public class BCIEssentialsInputProvider : CoroutineBehaviour, IMarkerSource, IPredictionSink, IInputProvider
 {
     public MarkerWriter MarkerWriter { get; set; }
 
@@ -13,20 +15,28 @@ public class BCIEssentialsInputProvider: MonoBehaviour, IMarkerSource, IPredicti
     private float EpochLength => Settings.EpochLength;
 
     private float _lastConfidenceRatio;
-    private float _pollingTimer = 0;
 
 
-    private void Start() => MarkerWriter.PushTrialStartedMarker();
-    private void OnDestroy() => MarkerWriter.PushTrialEndsMarker();
-
-
-    private void Update()
+    private void Start()
     {
-        _pollingTimer += Time.deltaTime;
-        if (_pollingTimer > PollingPeriod)
+        MarkerWriter.PushTrialStartedMarker();
+        BattleEventBus.RestPeriodStarted += Interrupt;
+        BattleEventBus.RestPeriodEnded += Begin;
+    }
+    private void OnDestroy()
+    {
+        MarkerWriter.PushTrialEndsMarker();
+        BattleEventBus.RestPeriodStarted -= Interrupt;
+        BattleEventBus.RestPeriodEnded -= Begin;
+    }
+
+
+    protected override IEnumerator Run()
+    {
+        while (true)
         {
-            _pollingTimer -= PollingPeriod;
             MarkerWriter.PushMIClassificationMarker(2, EpochLength);
+            yield return new WaitForSeconds(PollingPeriod);
         }
     }
 
