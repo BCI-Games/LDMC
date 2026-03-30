@@ -23,13 +23,13 @@ public class BCIEssentialsInputProvider : CoroutineBehaviour, IMarkerSource, IPr
     private void Start()
     {
         MarkerWriter.PushTrialStartedMarker();
-        BattleEventBus.RestPeriodStarted += Interrupt;
+        BattleEventBus.RestPeriodStarted += InterruptIfRunning;
         BattleEventBus.RestPeriodEnded += Begin;
     }
     private void OnDestroy()
     {
         MarkerWriter.PushTrialEndsMarker();
-        BattleEventBus.RestPeriodStarted -= Interrupt;
+        BattleEventBus.RestPeriodStarted -= InterruptIfRunning;
         BattleEventBus.RestPeriodEnded -= Begin;
     }
 
@@ -41,6 +41,11 @@ public class BCIEssentialsInputProvider : CoroutineBehaviour, IMarkerSource, IPr
             MarkerWriter.PushMIClassificationMarker(2, EpochLength);
             yield return new WaitForSeconds(PollingPeriod);
         }
+    }
+
+    private void InterruptIfRunning()
+    {
+        if (IsRunning) Interrupt();
     }
 
 
