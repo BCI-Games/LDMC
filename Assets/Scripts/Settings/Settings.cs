@@ -24,24 +24,20 @@ public static partial class Settings
 
     [Space]
     public static FloatProxy OffBlockDuration = new(20);
+    public static FloatProxy OnBlockDuration = new(12);
 
     [Space]
-    public static IntegerProxy OnBlockCycleCount = new(3);
-    public static FloatProxy OnBlockActiveDuration = new(2);
-    public static FloatProxy OnBlockIdleDuration = new(2);
-    public static BooleanProxy OnBlockEndsWithIdle = new(true);
-    public static float AnimationCycleDuration => OnBlockActiveDuration + OnBlockIdleDuration;
-    public static float OnBlockDuration => OnBlockCycleCount * AnimationCycleDuration
-        - (OnBlockEndsWithIdle ? 0 : OnBlockIdleDuration);
+    public static FloatProxy CharacterActivePeriod = new(2);
+    public static FloatProxy CharacterIdlePeriod = new(1);
+    public static float AnimationCycleDuration => CharacterActivePeriod + CharacterIdlePeriod;
+    public static int OnBlockCycleCount => (int)(OnBlockDuration / AnimationCycleDuration);
 
 
     [Space]
     public static FloatProxy EpochLength = new(1.5f);
     public static FloatProxy InputPollingPeriod = new(0.5f);
-    public static int OffBlockEpochCount => (int)(OffBlockDuration / EpochLength);
-    public static int OnBlockEpochCount => OnBlockCycleCount
-        * (int)(OnBlockActiveDuration / EpochLength);
-    public static int MinimumSharedEpochCount => Mathf.Min(OffBlockEpochCount, OnBlockEpochCount);
+    public static float MinimumBlockDuration => Mathf.Min(OffBlockDuration, OnBlockDuration);
+    public static int MinimumSharedEpochCount => (int)(MinimumBlockDuration / EpochLength);
     #endregion
 
 

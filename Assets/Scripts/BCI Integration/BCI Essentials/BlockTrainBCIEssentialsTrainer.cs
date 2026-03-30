@@ -42,13 +42,12 @@ public class BlockTrainBCIEssentialsTrainer : MonoBehaviour, IMarkerSource
     }
     void SendActiveMarkers()
     {
-        int totalEpochCount = Settings.MinimumSharedEpochCount;
-        int cycleCount = Settings.OnBlockCycleCount;
-        SendMarkers(1, totalEpochCount / cycleCount);
+        SendMarkers(1, Settings.MinimumSharedEpochCount);
     }
 
     void OnMonsterCaptured(MonsterData _)
     {
+        MarkerWriter.PushTrialEndsMarker();
         MarkerWriter.PushUpdateClassifierMarker();
     }
 
