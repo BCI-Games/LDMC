@@ -13,7 +13,9 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
     [SerializeField] private GameObject _spherePrefab;
     [SerializeField] private ChargeDisplay _chargeDisplay;
 
-    protected bool CanThrow;
+    protected bool CanThrow => !(_isResting || _isAwaitingContact);
+    private bool _isResting;
+    private bool _isAwaitingContact;
 
     protected float ChargePeriod;
 
@@ -41,15 +43,17 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
     protected virtual void Start()
     {
         Settings.AddAndInvokeModificationCallback(UpdateParametersFromSettings);
-        BattleEventBus.CaptureThresholdMet += DisableThrowing;
-        BattleEventBus.RestPeriodEnded += EnableThrowing;
+        BattleEventBus.CaptureThresholdMet += SetRestingFlag;
+        BattleEventBus.RestPeriodEnded += ClearRestingFlag;
+        BattleEventBus.MonsterHit += ClearContactFlag;
         ResetChargeLevel();
     }
     protected virtual void OnDestroy()
     {
         Settings.Modified -= UpdateParametersFromSettings;
-        BattleEventBus.CaptureThresholdMet -= DisableThrowing;
-        BattleEventBus.RestPeriodEnded -= EnableThrowing;
+        BattleEventBus.CaptureThresholdMet -= SetRestingFlag;
+        BattleEventBus.RestPeriodEnded -= ClearRestingFlag;
+        BattleEventBus.MonsterHit -= ClearContactFlag;
     }
 
     protected virtual void UpdateParametersFromSettings()
@@ -87,6 +91,7 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
         sphere.GetComponent<Rigidbody2D>().AddForce(_throwForce, ForceMode2D.Impulse);
 
         BattleEventBus.NotifySphereThrown();
+        _isAwaitingContact = true;
     }
 
     protected virtual void AddFrameTimeToChargeLevel()
@@ -107,8 +112,9 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
         }
     }
 
-    protected void EnableThrowing() => CanThrow = true;
-    protected void DisableThrowing() => CanThrow = false;
+    protected void SetRestingFlag() => _isResting = true;
+    protected void ClearRestingFlag() => _isResting = false;
+    protected void ClearContactFlag() => _isAwaitingContact = false;
     
     protected void ResetChargeLevel() => ChargeLevel = 0;
     protected virtual bool GetShouldCharge() => Keyboard.current.spaceKey.isPressed;
