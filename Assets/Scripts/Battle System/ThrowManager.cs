@@ -1,19 +1,19 @@
+using BCIEssentials;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class ThrowManager : MonoBehaviour
+public class ThrowManager : MonoBehaviourUsingExtendedAttributes
 {
     public enum DrainMode {Immediate, Gradual, None}
 
     [SerializeField] private Vector2 _throwForce = new(15, 20);
-    [SerializeField] private DrainMode _drainMode;
+    [SerializeField] private DrainMode _drainMode = DrainMode.Gradual;
 
     [Header("References")]
     [SerializeField] private GameObject _spherePrefab;
     [SerializeField] private ChargeDisplay _chargeDisplay;
 
-    protected bool SpheresRemain => _numberOfSpheresRemaining > 0;
-    private int _sphereCount;
-    private int _numberOfSpheresRemaining;
+    protected bool CanThrow;
 
     protected float ChargePeriod;
 
@@ -41,24 +41,25 @@ public class ThrowManager : MonoBehaviour
     protected virtual void Start()
     {
         Settings.AddAndInvokeModificationCallback(UpdateParametersFromSettings);
-        BattleEventBus.RestPeriodEnded += ResetInventory;
+        BattleEventBus.CaptureThresholdMet += DisableThrowing;
+        BattleEventBus.RestPeriodEnded += EnableThrowing;
         ResetChargeLevel();
     }
     protected virtual void OnDestroy()
     {
         Settings.Modified -= UpdateParametersFromSettings;
-        BattleEventBus.RestPeriodEnded -= ResetInventory;
+        BattleEventBus.CaptureThresholdMet -= DisableThrowing;
+        BattleEventBus.RestPeriodEnded -= EnableThrowing;
     }
 
     protected virtual void UpdateParametersFromSettings()
     {
-        ChargePeriod = Settings.CharacterActiveDuration;
-        _sphereCount = Settings.OnBlockCycleCount;
+        ChargePeriod = Settings.CharacterActivePeriod;
     }
 
     private void Update()
     {
-        if (ShouldCharge && SpheresRemain)
+        if (ShouldCharge && CanThrow)
         {
             if (!IsCharging)
                 BattleEventBus.NotifyWindupStarted();
@@ -82,35 +83,33 @@ public class ThrowManager : MonoBehaviour
 
     public void ThrowSphere()
     {
-        _numberOfSpheresRemaining--;
         GameObject sphere = Instantiate(_spherePrefab, transform);
         sphere.GetComponent<Rigidbody2D>().AddForce(_throwForce, ForceMode2D.Impulse);
 
         BattleEventBus.NotifySphereThrown();
-        if (!SpheresRemain)
-            BattleEventBus.NotifyLastSphereThrown();
     }
-
-    private void ResetInventory() => _numberOfSpheresRemaining = _sphereCount;
 
     protected virtual void AddFrameTimeToChargeLevel()
     => ChargeLevel += Time.deltaTime / ChargePeriod;
     private void DrainCharge()
     {
-        switch(_drainMode)
+        switch (_drainMode)
         {
             case DrainMode.Immediate:
                 ResetChargeLevel();
                 break;
             case DrainMode.Gradual:
-                ChargeLevel -= Time.deltaTime / ChargePeriod;
+                ChargeLevel -= Settings.InputDrainRate * Time.deltaTime / ChargePeriod;
                 break;
             case DrainMode.None:
                 ChargeLevel = ChargeLevel;
                 break;
         }
     }
+
+    protected void EnableThrowing() => CanThrow = true;
+    protected void DisableThrowing() => CanThrow = false;
     
     protected void ResetChargeLevel() => ChargeLevel = 0;
-    protected virtual bool GetShouldCharge() => Input.GetKey(KeyCode.Space);
+    protected virtual bool GetShouldCharge() => Keyboard.current.spaceKey.isPressed;
 }

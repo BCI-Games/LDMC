@@ -9,12 +9,8 @@ public class MusicTrackDropdown: MonoBehaviour
         TMP_Dropdown dropdown = GetComponentInChildren<TMP_Dropdown>();
 
         dropdown.options = MusicManager.Tracks.Names.Select
-            ((string name) => new TMP_Dropdown.OptionData(name)).ToList();
+            (name => new TMP_Dropdown.OptionData(name)).ToList();
 
-        dropdown.value = Settings.MusicTrackIndex;
-
-        dropdown.onValueChanged.AddListener(SelectMusicTrack);
+        Settings.MusicTrackIndex.ConnectDropdown(dropdown);
     }
-
-    private void SelectMusicTrack(int index) => Settings.MusicTrackIndex = index;
 }

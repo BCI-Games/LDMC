@@ -18,13 +18,13 @@ public static class BattleEventBus
     public static void NotifySphereThrown()
         => SphereThrown?.Invoke();
 
-    public static event Action LastSphereThrown;
-    public static void NotifyLastSphereThrown()
-        => LastSphereThrown?.Invoke();
-
     public static event Action MonsterHit;
     public static void NotifyMonsterHit()
         => MonsterHit?.Invoke();
+
+    public static event Action CaptureThresholdMet;
+    public static void NotifyCaptureThresholdMet()
+        => CaptureThresholdMet?.Invoke();
 
     public static event Action<MonsterData> MonsterCaptured;
     public static void NotifyMonsterCaptured(MonsterData monsterData)

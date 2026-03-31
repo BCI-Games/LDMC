@@ -17,7 +17,7 @@ public class MonsterSpawnController : MonoBehaviour
         BattleEventBus.RestPeriodEnded += SpawnNewMonsterIfPending;
         _monsterPresenter = GetComponentInChildren<MonsterPresenter>();
 
-        if (Settings.OffBockMonsterDisplayEnabled)
+        if (Settings.MonsterDisplayedInOffBlock)
             SpawnMonster(Monsters.PickRandom());
         else
             QueueMonsterSpawn();
@@ -32,7 +32,7 @@ public class MonsterSpawnController : MonoBehaviour
 
     private void OnMonsterCaptured(MonsterData capturedMonsterData)
     {
-        if (Settings.OffBockMonsterDisplayEnabled)
+        if (Settings.MonsterDisplayedInOffBlock)
             SpawnNewMonster(capturedMonsterData);
         else
             QueueMonsterSpawn(capturedMonsterData);

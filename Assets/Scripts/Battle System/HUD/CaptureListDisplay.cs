@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -139,7 +138,7 @@ public class CaptureListDisplay : MonoBehaviour
             overlayRect.anchoredPosition = Vector2.zero;
             overlayRect.sizeDelta = Vector2.zero;
 
-            _canvasGroup = _monsterImage.AddComponent<CanvasGroup>();
+            _canvasGroup = _monsterImage.gameObject.AddComponent<CanvasGroup>();
         }
 
         private static Image CreateImageObject(

@@ -17,13 +17,11 @@ public class AnimationFlagToggles: DynamicLayoutBlock
         _spriteDeformationToggle = _spriteDeformationInputElement.GetComponentInChildren<Toggle>();
         SetAdvancedOptionsVisibility(!Settings.AnimationSimplified);
 
-        _simplifiedAnimationToggle.isOn = Settings.AnimationSimplified;
-        _monsterAnimationToggle.isOn = Settings.MonsterAnimationEnabled;
-        _spriteDeformationToggle.isOn = Settings.SpriteDeformationEnabled;
+        Settings.AnimationSimplified.ConnectToggle(_simplifiedAnimationToggle);
+        Settings.MonsterAnimationEnabled.ConnectToggle(_monsterAnimationToggle);
+        Settings.SpriteDeformationEnabled.ConnectToggle(_spriteDeformationToggle);
 
-        _simplifiedAnimationToggle.onValueChanged.AddListener(SetAnimationSimplified);
-        _monsterAnimationToggle.onValueChanged.AddListener(SetMonsterAnimationEnabled);
-        _spriteDeformationToggle.onValueChanged.AddListener(SetSpriteDeformationEnabled);
+        _simplifiedAnimationToggle.onValueChanged.AddListener(UpdateAdvancedOptions);
     }
 
 
@@ -34,9 +32,8 @@ public class AnimationFlagToggles: DynamicLayoutBlock
         RefreshLayout();
     }
 
-    private void SetAnimationSimplified(bool value)
+    private void UpdateAdvancedOptions(bool value)
     {
-        Settings.AnimationSimplified = value;
         SetAdvancedOptionsVisibility(!value);
         if (!value)
         {
@@ -44,8 +41,4 @@ public class AnimationFlagToggles: DynamicLayoutBlock
             _spriteDeformationToggle.isOn = Settings.SpriteDeformationEnabled;
         }
     }
-    private void SetMonsterAnimationEnabled(bool value)
-        => Settings.MonsterAnimationEnabled = value;
-    private void SetSpriteDeformationEnabled(bool value)
-        => Settings.SpriteDeformationEnabled = value;
 }

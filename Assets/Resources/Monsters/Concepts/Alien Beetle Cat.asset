@@ -18,7 +18,7 @@ MonoBehaviour:
   UndiscoveredIconSprite: {fileID: 3779487523408130732, guid: 1b57d9ee2885c1e41a34620fda9f0792, type: 3}
   PrimaryType: 0
   SecondaryType: 0
-  BaseHP: 5
+  BaseHP: 3
   Rarity: 2
   Bounciness: 1.5
   AppearSounds: []

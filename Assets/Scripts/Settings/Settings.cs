@@ -1,17 +1,8 @@
-using UnityEngine;
-using System.IO;
 using System;
+using UnityEngine;
 
-public static class Settings
+public static partial class Settings
 {
-    const string FileName = "settings.json";
-    private static string FilePath => Application.dataPath + "/../" + FileName;
-
-    private static SettingsContainer Container => _container??= LoadContainer();
-    private static SettingsContainer _container;
-    private static GameObject _audioManager;
-
-
     public static event Action Modified;
     public static void AddAndInvokeModificationCallback(Action callback)
     {
@@ -19,133 +10,61 @@ public static class Settings
         Modified += callback;
     }
 
+    public static bool HasValue(string name) => typeof(Settings).HasStaticField(name);
+    public static bool TryGetValue<T>(string name, out T output) where T : ValueProxy
+    => typeof(Settings).TryGetStaticFieldValue(name, out output);
 
-    public static float OffBlockDuration {
-        get => Container.OffBlockDuration;
-        set { Container.OffBlockDuration = value; ApplyModifiedValue(); }
-    }
-    public static int OnBlockCycleCount {
-        get => Container.OnBlockCycleCount;
-        set { Container.OnBlockCycleCount = value; ApplyModifiedValue(); }
-    }
-    public static bool OnBlockEndedWithIdle {
-        get => Container.EndOnBlockWithIdle;
-        set { Container.EndOnBlockWithIdle = value; ApplyModifiedValue(); }
-    }
-    public static float AnimationCycleDuration => Container.CharacterAnimationTiming.TotalCycleTime;
-    public static float OnBlockDuration => OnBlockCycleCount * AnimationCycleDuration
-        - (OnBlockEndedWithIdle? 0: Container.CharacterAnimationTiming.Idle);
-
-    public static float MasterVolume {
-        get => Container.MasterVolume;
-        set { Container.MasterVolume = value; ApplyModifiedValue(); }
-    }
-    public static float MusicVolume {
-        get => Container.MusicVolume;
-        set { Container.MusicVolume = value; ApplyModifiedValue(); }
-    }
-    public static float SfxVolume {
-        get => Container.SfxVolume;
-        set { Container.SfxVolume = value; ApplyModifiedValue(); }
-    }
-    public static int MusicTrackIndex {
-        get => Container.MusicTrackIndex;
-        set { Container.MusicTrackIndex = value; ApplyModifiedValue(); }
-    }
-    
-    public static float CharacterActiveDuration {
-        get => Container.CharacterAnimationTiming.Active;
-        set { Container.CharacterAnimationTiming.Active = value; ApplyModifiedValue(); }
-    }
-    public static float CharacterIdleDuration {
-        get => Container.CharacterAnimationTiming.Idle;
-        set { Container.CharacterAnimationTiming.Idle = value; ApplyModifiedValue(); }
-    }
-
-    public static bool AnimationSimplified {
-        get => Container.SimplifyAnimation;
-        set { Container.SimplifyAnimation = value; ApplyModifiedValue(); }
-    }
-    public static bool MonsterAnimationEnabled {
-        get => Container.EnableMonsterAnimation && !AnimationSimplified;
-        set { Container.EnableMonsterAnimation = value; ApplyModifiedValue(); }
-    }
-    public static bool SpriteDeformationEnabled {
-        get => Container.EnableSpriteDeformation && !AnimationSimplified;
-        set { Container.EnableSpriteDeformation = value; ApplyModifiedValue(); }
-    }
-
-    public static bool PixelPerfectCameraEnabled {
-        get => Container.EnablePixelPerfectCamera;
-        set { Container.EnablePixelPerfectCamera = value; ApplyModifiedValue(); }
-    }
-    public static bool OffBockMonsterDisplayEnabled {
-        get => Container.EnableOffBlockMonsterDisplay;
-        set { Container.EnableOffBlockMonsterDisplay = value; ApplyModifiedValue(); }
-    }
-
-    public static bool WakeupSequenceEnabled {
-        get => Container.EnableWakeupSequence && WakeupSequenceDuration > 0;
-        set { Container.EnableWakeupSequence = value; ApplyModifiedValue(); }
-    }
-    public static float WakeupSequenceDuration {
-        get => Container.WakeupSequenceDuration;
-        set { Container.WakeupSequenceDuration = value; ApplyModifiedValue(); }
-    }
-
-    public static bool CaptureSequenceEnabled {
-        get => Container.EnableCaptureSequence && CaptureSequenceDuration > 0;
-        set { Container.EnableCaptureSequence = value; ApplyModifiedValue(); }
-    }
-    public static float CaptureSequenceDuration {
-        get => Container.CaptureSequenceDuration;
-        set { Container.CaptureSequenceDuration = value; ApplyModifiedValue(); }
-    }
+    public static bool HasProperty(string name) => typeof(Settings).HasStaticProperty(name);
+    public static bool TryGetPropertyValue<T>(string name, out T output)
+    => typeof(Settings).TryGetStaticPropertyValue(name, out output);
 
 
-    public static void LoadAndApplySettings()
-    {
-        if (_container) return;
-        _container = LoadContainer();
-        ApplyModifiedValue();
-    }
+    #region Timing
+    public static FloatProxy RestingStateDuration = new(180);
+
+    [Space]
+    public static FloatProxy OffBlockDuration = new(20);
+    public static FloatProxy OnBlockDuration = new(12);
+
+    [Space]
+    public static FloatProxy CharacterActivePeriod = new(1);
+    public static FloatProxy CharacterIdlePeriod = new(0.5f);
+    public static float AnimationCycleDuration => CharacterActivePeriod + CharacterIdlePeriod;
+    public static int OnBlockCycleCount => (int)(OnBlockDuration / AnimationCycleDuration);
+    #endregion
+
+    #region BCI
+    [Space]
+    public static BooleanProxy BinaryInputModeEnabled = new(false);
+    public static FloatProxy InputDrainRate = new(0.5f);
+    public static FloatProxy EpochLength = new(1.5f);
+    public static FloatProxy InputPollingPeriod = new(1.5f);
+    public static float MinimumBlockDuration => Mathf.Min(OffBlockDuration, OnBlockDuration);
+    public static int MinimumSharedEpochCount => (int)(MinimumBlockDuration / EpochLength);
+    #endregion
 
 
-    private static SettingsContainer LoadContainer()
-    {
-        SettingsContainer loadedSettings = new();
-        if (File.Exists(FilePath))
-        {
-            StreamReader reader = new(FilePath);
-            string fileContent = reader.ReadToEnd();
-            reader.Close();
+    #region Audio
+    [Space]
+    public static FloatProxy MasterVolume = new(0.5f);
+    public static FloatProxy MusicVolume = new(0.5f);
+    public static FloatProxy SfxVolume = new(0.5f);
+    public static IntegerProxy MusicTrackIndex = new(0);
+    #endregion
 
-            JsonUtility.FromJsonOverwrite(fileContent, loadedSettings);
-        }
-        SaveContainer(loadedSettings);
-        if (!_audioManager) InitializeAudioManager();
-        return loadedSettings;
-    }
 
-    private static void InitializeAudioManager()
-    {
-        _audioManager = new("Audio Manager");
-        _audioManager.AddComponent<VolumeManager>();
-        _audioManager.AddComponent<MusicManager>();
-        GameObject.DontDestroyOnLoad(_audioManager);
-    }
+    #region Presentation
+    [Space]
+    public static BooleanProxy AnimationSimplified = new(false);
+    public static ExclusiveBooleanProxy MonsterAnimationEnabled = new(true, AnimationSimplified);
+    public static ExclusiveBooleanProxy SpriteDeformationEnabled = new(true, AnimationSimplified);
+    public static BooleanProxy MonsterDisplayedInOffBlock = new(false);
 
-    private static void ApplyModifiedValue()
-    {
-        SaveContainer(Container);
-        Modified?.Invoke();
-    }
+    [Space]
+    public static BooleanProxy CaptureSequenceEnabled = new(true);
+    public static FloatProxy CaptureSequenceDuration = new(2);
 
-    private static void SaveContainer(SettingsContainer container)
-    {
-        string fileContent = JsonUtility.ToJson(container, true);
-        StreamWriter writer = new(FilePath);
-        writer.Write(fileContent);
-        writer.Close();
-    }
+    public static BooleanProxy WakeupSequenceEnabled = new(true);
+    public static FloatProxy WakeupSequenceDuration = new(1);
+    #endregion
 }
