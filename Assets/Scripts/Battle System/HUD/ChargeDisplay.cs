@@ -13,13 +13,14 @@ public abstract class ChargeDisplay: MonoBehaviour
 
     protected virtual void Start()
     {
-        BattleEventBus.RestPeriodStarted += Hide;
+        Hide();
+        BattleEventBus.CaptureThresholdMet += Hide;
         BattleEventBus.RestPeriodEnded += Show;
     }
 
     protected virtual void OnDestroy()
     {
-        BattleEventBus.RestPeriodStarted -= Hide;
+        BattleEventBus.CaptureThresholdMet -= Hide;
         BattleEventBus.RestPeriodEnded -= Show;
     }
 
