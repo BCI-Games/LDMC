@@ -7,9 +7,7 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
     public enum DrainMode {Immediate, Gradual, None}
 
     [SerializeField] private Vector2 _throwForce = new(15, 20);
-    [SerializeField] private DrainMode _drainMode;
-    [ShowIf(nameof(_drainMode), (int)DrainMode.Gradual)]
-    [SerializeField] private float _gradualDrainRate = 0.5f;
+    [SerializeField] private DrainMode _drainMode = DrainMode.Gradual;
 
     [Header("References")]
     [SerializeField] private GameObject _spherePrefab;
@@ -101,7 +99,7 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
                 ResetChargeLevel();
                 break;
             case DrainMode.Gradual:
-                ChargeLevel -= _gradualDrainRate * Time.deltaTime / ChargePeriod;
+                ChargeLevel -= Settings.InputDrainRate * Time.deltaTime / ChargePeriod;
                 break;
             case DrainMode.None:
                 ChargeLevel = ChargeLevel;

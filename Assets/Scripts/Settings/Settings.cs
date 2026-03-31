@@ -36,6 +36,7 @@ public static partial class Settings
     #region BCI
     [Space]
     public static BooleanProxy BinaryInputModeEnabled = new(false);
+    public static FloatProxy InputDrainRate = new(0.5f);
     public static FloatProxy EpochLength = new(1.5f);
     public static FloatProxy InputPollingPeriod = new(1.5f);
     public static float MinimumBlockDuration => Mathf.Min(OffBlockDuration, OnBlockDuration);
