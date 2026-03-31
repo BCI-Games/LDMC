@@ -14,7 +14,7 @@ public class ThrowManager : MonoBehaviourUsingExtendedAttributes
     [SerializeField] private ChargeDisplay _chargeDisplay;
 
     protected bool CanThrow => !(_isResting || _isAwaitingContact);
-    private bool _isResting;
+    private bool _isResting = true;
     private bool _isAwaitingContact;
 
     protected float ChargePeriod;
