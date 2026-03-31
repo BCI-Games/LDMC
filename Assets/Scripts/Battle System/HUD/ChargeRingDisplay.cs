@@ -1,39 +1,19 @@
 using UnityEngine;
-
 using static Easings;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class ChargeRingDisplay: ChargeDisplay
 {
     [SerializeField] private AnimationCurve _fillCurve;
-    [SerializeField] private float _chargingScale = 0.75f;
-    [SerializeField] private float _drainingScale = 0.85f;
-    [SerializeField] private float _fullyChargedScale = 0.5f;
 
-    [Header("Start Charging Tween")]
-    [SerializeField] private float _startedChargingPeriod = 0.2f;
-    [SerializeField] private TransitionType _startedChargingTransition = TransitionType.Back;
-    [SerializeField] private EaseType _startedChargingEasing = EaseType.EaseOut;
+    [SerializeField] private ScaleTweenParameters _startedChargingTween = new(0.75f);
+    [SerializeField] private ScaleTweenParameters _fullyChargedTween = new(0.5f);
+    [SerializeField] private ScaleTweenParameters _throwTween = new(1, 0.6f, TransitionType.Elastic);
+    [SerializeField] private ScaleTweenParameters _startedDrainingTween = new(0.85f);
+    [SerializeField] private ScaleTweenParameters _cancelTween = new(1, 0.3f);
 
-    [Header("Finish Charging Tween")]
-    [SerializeField] private float _fullyChargedTweenPeriod = 0.2f;
-    [SerializeField] private TransitionType _fullyChargedTweenTransition = TransitionType.Back;
-    [SerializeField] private EaseType _fullyChargedTweenEasing = EaseType.EaseOut;
-
-    [Header("Throw Tween")]
-    [SerializeField] private float _throwTweenPeriod = 0.6f;
-    [SerializeField] private TransitionType _throwTweenTransition = TransitionType.Elastic;
-    [SerializeField] private EaseType _throwTweenEasing = EaseType.EaseOut;
-
-    [Header("Start Draining Tween")]
-    [SerializeField] private float _startedDrainingTweenPeriod = 0.2f;
-    [SerializeField] private TransitionType _startedDrainingTweenTransition = TransitionType.Back;
-    [SerializeField] private EaseType _startedDrainingTweenEasing = EaseType.EaseOut;
-
-    [Header("Cancel Tween")]
-    [SerializeField] private float _cancelTweenPeriod = 0.3f;
-    [SerializeField] private TransitionType _cancelTweenTransition = TransitionType.Back;
-    [SerializeField] private EaseType _cancelTweenEasing = EaseType.EaseOut;
+    [SerializeField] private ScaleTweenParameters _showTween = new(1, 0.5f);
+    [SerializeField] private ScaleTweenParameters _hideTween = new(0, 0.4f, TransitionType.Cubic);
 
     private Coroutine _activeTween;
     private bool _isCharging = false;
@@ -48,32 +28,27 @@ public class ChargeRingDisplay: ChargeDisplay
     private SpriteRenderer _renderer;
 
 
+    protected override void Show() => RestartScaleTween(_showTween);
+    protected override void Hide() => RestartScaleTween(_hideTween);
+
+
     protected override void SetChargeLevel(float value)
     {
-        if (value >= 1 && _chargeLevel < 1)
-        {
-            RestartScaleTween(_fullyChargedScale, _fullyChargedTweenPeriod, _fullyChargedTweenTransition, _fullyChargedTweenEasing);
-        }
+        if (value >= 1 && _chargeLevel < 1) RestartScaleTween(_fullyChargedTween);
         else if (value <= 0)
         {
-            if (_chargeLevel >= 1)
-            {
-                RestartScaleTween(1, _throwTweenPeriod, _throwTweenTransition, _throwTweenEasing);
-            }
-            else if (_chargeLevel > 0)
-            {
-                RestartScaleTween(1, _cancelTweenPeriod, _cancelTweenTransition, _cancelTweenEasing);
-            }
+            if (_chargeLevel >= 1) RestartScaleTween(_throwTween);
+            else if (_chargeLevel > 0) RestartScaleTween(_cancelTween);
             _isCharging = false;
         }
         else if (value > _chargeLevel && !_isCharging)
         {
-            RestartScaleTween(_chargingScale, _startedChargingPeriod, _startedChargingTransition, _startedChargingEasing);
+            RestartScaleTween(_startedChargingTween);
             _isCharging = true;
         }
         else if (value <= _chargeLevel && _isCharging)
         {
-            RestartScaleTween(_drainingScale, _startedDrainingTweenPeriod, _startedDrainingTweenTransition, _startedDrainingTweenEasing);
+            RestartScaleTween(_startedDrainingTween);
             _isCharging = false;
         }
         
@@ -82,9 +57,36 @@ public class ChargeRingDisplay: ChargeDisplay
         Renderer.material.SetFloat("_FillAmount", fillAmount);
     }
 
+    private void RestartScaleTween(ScaleTweenParameters tweenParameters)
+    => RestartScaleTween(
+        tweenParameters.Scale, tweenParameters.Period,
+        tweenParameters.Transition, tweenParameters.Easing
+    );
     private void RestartScaleTween(float finalScale, float period, TransitionType transition, EaseType easing)
     {
         if (_activeTween != null) StopCoroutine(_activeTween);
         _activeTween = this.StartScaleTween(finalScale, period, transition, easing);
+    }
+
+
+    [System.Serializable]
+    public struct ScaleTweenParameters
+    {
+        public float Scale;
+        public float Period;
+        public TransitionType Transition;
+        public EaseType Easing;
+
+        public ScaleTweenParameters(
+            float scale = 1, float period = 0.2f,
+            TransitionType transition = TransitionType.Back,
+            EaseType easing = EaseType.EaseOut
+        )
+        {
+            Scale = scale;
+            Period = period;
+            Transition = transition;
+            Easing = easing;
+        }
     }
 }
