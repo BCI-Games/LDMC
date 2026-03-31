@@ -5,7 +5,7 @@ public class BCI2000InputProvider: MonoBehaviour, IInputProvider
 {
     public float InputValue => _eventValue;
 
-    public string EventName = "test";
+    public string EventName;
 
     private BCI2000RemoteProxy _bci2000Proxy;
     private float _eventValue = 0;
@@ -13,8 +13,7 @@ public class BCI2000InputProvider: MonoBehaviour, IInputProvider
 
     private void Start()
     {
-        _bci2000Proxy = GetComponent<BCI2000RemoteProxy>();
-        
+        _bci2000Proxy = FindAnyObjectByType<BCI2000RemoteProxy>();
     }
 
     private void Update()

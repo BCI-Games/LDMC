@@ -2429,12 +2429,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7629355657591272061}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f70a2f7b8b9ba34d812758d90c3d29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EventName: test
+  EventName: BalloonEvent
 --- !u!114 &7629355657591272063
 MonoBehaviour:
   m_ObjectHideFlags: 0
