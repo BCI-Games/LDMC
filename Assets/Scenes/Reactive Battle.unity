@@ -198,24 +198,41 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _chargingScale: 0.75
-  _drainingScale: 0.85
-  _fullyChargedScale: 0.5
-  _startedChargingPeriod: 0.2
-  _startedChargingTransition: 4
-  _startedChargingEasing: 0
-  _fullyChargedTweenPeriod: 0.2
-  _fullyChargedTweenTransition: 4
-  _fullyChargedTweenEasing: 0
-  _throwTweenPeriod: 0.6
-  _throwTweenTransition: 5
-  _throwTweenEasing: 0
-  _startedDrainingTweenPeriod: 0.2
-  _startedDrainingTweenTransition: 4
-  _startedDrainingTweenEasing: 0
-  _cancelTweenPeriod: 0.3
-  _cancelTweenTransition: 4
-  _cancelTweenEasing: 0
+  _startedChargingTween:
+    Scale: 0.75
+    Period: 0.2
+    Transition: 4
+    Easing: 0
+  _fullyChargedTween:
+    Scale: 0.5
+    Period: 0.2
+    Transition: 4
+    Easing: 0
+  _throwTween:
+    Scale: 1
+    Period: 0.6
+    Transition: 5
+    Easing: 0
+  _startedDrainingTween:
+    Scale: 0.85
+    Period: 0.2
+    Transition: 4
+    Easing: 0
+  _cancelTween:
+    Scale: 1
+    Period: 0.3
+    Transition: 4
+    Easing: 0
+  _showTween:
+    Scale: 1
+    Period: 0.5
+    Transition: 4
+    Easing: 0
+  _hideTween:
+    Scale: 0
+    Period: 0.4
+    Transition: 2
+    Easing: 0
 --- !u!212 &209494564
 SpriteRenderer:
   serializedVersion: 2
@@ -2458,7 +2475,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwForce: {x: 20, y: 10}
   _drainMode: 1
-  _gradualDrainRate: 0.5
   _spherePrefab: {fileID: 8854408415455498323, guid: 400d525a207dd88438e48d26699c48bc, type: 3}
   _chargeDisplay: {fileID: 209494563}
 --- !u!61 &8068385204599129686
