@@ -4,6 +4,10 @@ using UnityEngine.Audio;
 public class VolumeManager: MonoBehaviour
 {
     const string MixerPath = "Audio/Global Audio";
+    const string MasterGroupName = "Master";
+    const string MusicGroupName = "Music";
+    const string SfxGroupName = "Sfx";
+
     public static AudioMixer GlobalAudioMixer
         => _globalAudioMixer ??= GetGlobalAudioMixer();
     private static  AudioMixer _globalAudioMixer;
@@ -14,21 +18,21 @@ public class VolumeManager: MonoBehaviour
 
 
     public static void SetRelativeMusicVolume(float linearVolume)
-    => SetMixerGroupVolume("Music", Settings.MusicVolume * linearVolume);
-    public static void ResetMusicVolume() => SetMixerGroupVolume("Music", Settings.MusicVolume);
-    public static void MuteMusic() => SetMixerGroupVolume("Music", 0);
+    => SetMixerGroupVolume(MusicGroupName, Settings.MusicVolume * linearVolume);
+    public static void ResetMusicVolume() => SetMixerGroupVolume(MusicGroupName, Settings.MusicVolume);
+    public static void MuteMusic() => SetMixerGroupVolume(MusicGroupName, 0);
 
     public static void SetRelativeSfxVolume(float linearVolume)
-    => SetMixerGroupVolume("Sfx", Settings.MusicVolume * linearVolume);
-    public static void ResetSfxVolume() => SetMixerGroupVolume("Sfx", Settings.SfxVolume);
-    public static void MuteSfx() => SetMixerGroupVolume("Sfx", 0);
+    => SetMixerGroupVolume(SfxGroupName, Settings.MusicVolume * linearVolume);
+    public static void ResetSfxVolume() => SetMixerGroupVolume(SfxGroupName, Settings.SfxVolume);
+    public static void MuteSfx() => SetMixerGroupVolume(SfxGroupName, 0);
 
 
     private void ApplyVolumes()
     {
-        SetMixerGroupVolume("Master", Settings.MasterVolume);
-        SetMixerGroupVolume("Music", Settings.MusicVolume);
-        SetMixerGroupVolume("Sfx", Settings.SfxVolume);
+        SetMixerGroupVolume(MasterGroupName, Settings.MasterVolume);
+        SetMixerGroupVolume(MusicGroupName, Settings.MusicVolume);
+        SetMixerGroupVolume(SfxGroupName, Settings.SfxVolume);
     }
 
     private static void SetMixerGroupVolume(string groupName, float linearVolume)
