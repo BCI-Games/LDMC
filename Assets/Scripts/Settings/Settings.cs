@@ -50,6 +50,7 @@ public static partial class Settings
     public static FloatProxy MusicVolume = new(0.5f);
     public static FloatProxy SfxVolume = new(0.5f);
     public static IntegerProxy MusicTrackIndex = new(0);
+    public static BooleanProxy MusicPlayedInOffBlock = new(true);
     #endregion
 
 

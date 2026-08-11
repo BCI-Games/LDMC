@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6085828226942773419}
   - component: {fileID: 3990476238064407133}
+  - component: {fileID: 5581918766181995386}
   m_Layer: 0
   m_Name: BattleSoundsPlayer
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 3659661da5d53c44a87aca12c0118abe, type: 3}
     - {fileID: 8300000, guid: 7febc3fc12a608e46b09223c7c703875, type: 3}
     - {fileID: 8300000, guid: f6e5e8055f408be44bc071a79338dca8, type: 3}
+--- !u!114 &5581918766181995386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7245644950004932432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5117a60d87e8947a9d1358bdf8039c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleMusicManager
